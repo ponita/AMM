@@ -92,7 +92,7 @@
 
 
 		<div class="form-group">
-			{{Form::label('name', 'Fundering Source', array('class' => 'col-sm-2')) }}
+			{{Form::label('name', 'Funding Source', array('class' => 'col-sm-2')) }}
 			{{ Form::select('name', $funders, Input::get('name'),
 					['class' => 'form-control name col-sm-4']) }}
 

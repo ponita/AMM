@@ -8,7 +8,6 @@ margin-top: 1em;
 background-color: #e5e8e8;
 padding: .5em 0;
 border-radius: .3em;
-
 }
 .service {
 border-radius: .3em;

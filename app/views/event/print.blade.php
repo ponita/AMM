@@ -15,19 +15,24 @@
           <td colspan="1"><b>Date</b></td>
           <td colspan="3">{{$event->start_date}}</td>
         </tr>
+      </table>
+      <table  style="border-bottom: 1px solid #cecfd5;" >
         <tr>
           <td colspan="1"><b>Duration</b></td>
           <td colspan="3">{{ date('d M Y', strtotime($event->start_date)) }} 
           to {{ date('d M Y', strtotime($event->end_date)) }}</td>
           <td colspan="1"><b>Venue</b></td>
-          <td colspan="3">{{ $event->premise }}</td>
+          <td colspan="1">{{ $event->premise }}</td>
+          <td colspan="1"><b>District</b></td>
+          <td colspan="1">{{ $event->district->name }}</td>
         </tr>
         <tr>
         
           <td colspan="3"><b>Number of Participants</b></td>
           <td colspan="3">{{ $event->participants_no }}</td>
           </tr>
-          
+          </table>
+          <table  style="border-bottom: 1px solid #cecfd5;" >
           <tr>
           <td colspan="3" style="border-bottom: 1px solid #cecfd5;"><b>Objective</b></td>
           </tr>

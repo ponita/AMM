@@ -30,13 +30,6 @@
 		</div>
 		@endif
 
-		<!-- <div class="panel-btn">
-			<a class="btn btn-sm btn-info" href="{{ URL::route('event.eventfilter') }}">
-				<span class="glyphicon glyphicon-plus-sign"></span>
-				Search / Filter
-			</a>
-		</div> -->
-		
 	</div>
 	
 	<div class="panel-body">
@@ -69,28 +62,7 @@
            			@endif
            		</td>
 					
-					
-					<!-- <td>
-						 <div class="dropdown">
-  							<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Action
-  							<span class="caret"></span></button>
-  							<ul class="dropdown-menu">
-                                @if(Auth::user()->can('view_memo'))
-    							<li><a href="{{ URL::route('letters.showletter', array($appointment->id)) }}">
-    								View Details</a></li>
-                                
-                                @elseif(Auth::user()->can('edit_memo'))
-    							<li><a href="{{ URL::route('letters.editletter', array($appointment->id)) }}">
-    								Edit</a></li>
-    							
-                                @elseif(Auth::user()->can('approve_memo'))
-    							<li><a href="{{ URL::route('letters.editapproval', array($appointment->id)) }}">
-    								 Approve</a></li>
-    								 @endif
-    						</ul>
-						</div>
-
-					</td> -->
+				
 
 					<td align="center">
                                 @if(Auth::user()->can('view_memo'))

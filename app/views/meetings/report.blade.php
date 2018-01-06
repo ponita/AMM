@@ -48,6 +48,8 @@
 					<td>{{ $meetings->serial_no }}</td>
 					<td>{{ $meetings->name }}</td>
 					<td>{{$meetings->start_time }}</td>
+					
+       @if(Auth::user()->can('download_minutes'))
 					<td>
 					@if ($meetings->minutes)
           			<a href="{{ URL::to( 'attachment2/' . $meetings->minutes) }}"
@@ -55,7 +57,7 @@
           			@else Pending
           			@endif	
 					</td>
-					
+					@endif
 					
            			<td><a class="btn btn-sm btn-info" href="{{ URL::route('meetings.print', array($meetings->id)) }}" href="javascript:printSpecial('UGANDA NATIONAL HEALTH LABORATORY SERVICES - ACTIVITIES REPORTING <br> 
   ACTIVITY STATUS/DETAILS')" target="_blank">

@@ -19,7 +19,6 @@ class CreateUnhlsStaff extends Migration {
 			$table->string('firstName');		
 			$table->string('lastName');		
 
-		    $table->foreign('facility_id')->references('id')->on('unhls_facilities');
 		    $table->timestamps();
 		});
 	}

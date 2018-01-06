@@ -36,32 +36,32 @@
 		    {{ Form::button("<span class='glyphicon glyphicon-filter'></span> ".trans('messages.view'), 
 		        array('class' => 'btn btn-info', 'id' => 'filter', 'type' => 'submit')) }}
 	    </div>
-	</div>
+	</div> 
 	<div class='row spacer'>
 		<div class="col-sm-12">
 	    	<div class="row">
 				<div class="col-sm-3">
 				  	<label class="radio-inline">
-						{{ Form::radio('counts', trans('messages.ungrouped-test-counts'), true, array('data-toggle' => 'radio', 
-						  'id' => 'tests')) }} {{trans('messages.ungrouped-test-counts')}}
+						{{ Form::radio('counts', trans('messages.ungrouped-activity-counts'), true, array('data-toggle' => 'radio', 
+						  'id' => 'event')) }} {{trans('messages.ungrouped-activity-counts')}}
 					</label>
 				</div>
 				<div class="col-sm-3">
 				    <label class="radio-inline">
-						{{ Form::radio('counts', trans('messages.grouped-test-counts'), false, array('data-toggle' => 'radio',
-						  'id' => 'patients')) }} {{trans('messages.grouped-test-counts')}}
+						{{ Form::radio('counts', trans('messages.grouped-activity-counts'), false, array('data-toggle' => 'radio',
+						  'id' => 'event')) }} {{trans('messages.grouped-activity-counts')}}
 					</label>
 				</div>
 				<div class="col-sm-3">
 				    <label class="radio-inline">
-						{{ Form::radio('counts', trans('messages.ungrouped-specimen-counts'), false, array('data-toggle' => 'radio',
-						  'id' => 'specimens')) }} {{trans('messages.ungrouped-specimen-counts')}}
+						{{ Form::radio('counts', trans('messages.ungrouped-meeting-counts'), false, array('data-toggle' => 'radio',
+						  'id' => 'meetings')) }} {{trans('messages.ungrouped-meeting-counts')}}
 					</label>
 				</div>
 				<div class="col-sm-3">
 					<label class="radio-inline">
-			    		{{ Form::radio('counts', trans('messages.grouped-specimen-counts'), false, array('data-toggle' => 'radio',
-						  'id' => 'specimens')) }} {{trans('messages.grouped-specimen-counts')}}
+			    		{{ Form::radio('counts', trans('messages.grouped-meeting-counts'), false, array('data-toggle' => 'radio',
+						  'id' => 'meetings')) }} {{trans('messages.grouped-meeting-counts')}}
 					</label>
 				</div>
 		  	</div>
@@ -80,7 +80,7 @@
 		<div class="alert alert-info">{{ trans(Session::get('message')) }}</div>
 	@endif
 	<strong>
-		<p> {{ trans('messages.ungrouped-test-counts') }} - 
+		<p> {{ trans('messages.ungrouped-activity-counts') }} - 
 			<?php $from = isset($input['start'])?$input['start']:date('01-m-Y');?>
 			<?php $to = isset($input['end'])?$input['end']:date('d-m-Y');?>
 			@if($from!=$to)
@@ -98,10 +98,10 @@
 			    	<th>{{trans('messages.complete-tests')}}</th>
 			    	<th>{{trans('messages.pending-tests')}}</th>
 			    </tr>
-			    @forelse($ungroupedTests as $key => $value)
+			    @forelse($event as $key => $value)
 
 			    <tr>
-			    	<td>{{ TestType::find($key)->name }}</td>
+			    	<td>{{ UNHLSEvent::find($key)->name }}</td>
 			    	<td>{{ $value['complete'] }}</td>
 			    	<td>{{ $value['pending'] }}</td>
 			    </tr>

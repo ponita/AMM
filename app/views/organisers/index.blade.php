@@ -3,7 +3,7 @@
 <div>
 	<ol class="breadcrumb">
 	  <li><a href="{{{URL::route('user.home')}}}">{{ trans('messages.home') }}</a></li>
-	  <li class="active">{{ Lang::choice('messages.test-category',1) }}</li>
+	  <li class="active">Organisers</li>
 	</ol>
 </div>
 @if (Session::has('message'))
@@ -12,11 +12,11 @@
 <div class="panel panel-primary">
 	<div class="panel-heading ">
 		<span class="glyphicon glyphicon-adjust"></span>
-		{{ Lang::choice('messages.test-category',1) }}
+		Organisers
 		<div class="panel-btn">
 			<a class="btn btn-sm btn-info" href="{{ URL::to("organisers/create") }}" >
-				<span class="glyphicon glyphicon-plus-sign">Create New Organiser</span>
-				<!-- {{ trans('messages.create-test-category') }} -->
+				<span class="glyphicon glyphicon-plus-sign"></span>
+				Create New Organiser
 			</a>
 		</div>
 	</div>
@@ -54,12 +54,12 @@
 						</a>
 						
 					<!-- delete this test category (uses delete method found at GET /organisers/{id}/delete -->
-						<button class="btn btn-sm btn-danger delete-item-link"
+						<!-- <button class="btn btn-sm btn-danger delete-item-link"
 							data-toggle="modal" data-target=".confirm-delete-modal"	
 							data-id='{{ URL::to("organisers/" . $value->id . "/delete") }}'>
 							<span class="glyphicon glyphicon-trash"></span>
 							{{ trans('messages.delete') }}
-						</button>
+						</button> -->
 					</td>
 				</tr>
 			@endforeach

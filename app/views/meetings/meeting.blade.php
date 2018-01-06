@@ -47,9 +47,9 @@ else { el.hide();}
 		</div> 
 
 		<div class="form-group">
-			{{Form::label('name', 'Thematic Area', array('class' => 'col-sm-2'))}}
-			{{ Form::select('name', $thematicAreas, Input::get('name'),
-					['class' => 'form-control name col-sm-4']) }}
+			{{Form::label('thematicarea', 'Thematic Area', array('class' => 'col-sm-2'))}}
+			{{ Form::select('thematicarea', $thematicAreas, Input::get('thematicarea'),
+					['class' => 'form-control col-sm-4']) }}
 		</div>
 
 		<div class="form-group">
@@ -85,9 +85,9 @@ else { el.hide();}
 
 		<div class="form-group">
 			
-			{{Form::label('name', 'Organiser', array('class' => 'col-sm-2')) }}
-			{{ Form::select('name', $organisers, Input::get('name'),
-					['class' => 'form-control name']) }}		
+			{{Form::label('organiser', 'Organiser', array('class' => 'col-sm-2')) }}
+			{{ Form::select('organiser', $organisers, Input::get('organiser'),
+					['class' => 'form-control']) }}		
 		</div>
 
 		<div class="form-group">

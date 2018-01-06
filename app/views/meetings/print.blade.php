@@ -15,12 +15,16 @@
     ?>
 
     <body>
-    <table>
+  
+          <table  style="border-bottom: 1px solid #cecfd5;" >
 
         <tr>
           <td colspan="3" align="center"><b>{{$meetings->name}}</b></td>
         </tr>
-        
+        </table>
+          
+          <table  style="border-bottom: 1px solid #cecfd5;" >
+
         <tr>
           <td colspan="1"><b>Duration</b></td>
           <td colspan="2">{{$meetings->start_time }} 
@@ -35,7 +39,8 @@
           <td colspan="1"><b>Number of Participants</b></td>
           <td colspan="3">{{ $meetings->participants_no }}</td>
         </tr>
-          
+       
+
         <tr>
           <td colspan="3"><u>Objective</u></td>
         </tr>
@@ -53,9 +58,11 @@
           <li>{{$agenda->agenda}}</li>
           @endforeach</ol></td>
         </tr>
-        
+       </table>
+          <table >
+
         <tr>
-         <td colspan="3" style="border-bottom: 1px solid #cecfd5;">Compiled by</td>
+         <td colspan="3">Compiled by</td>
         </tr>
         
         <tr>

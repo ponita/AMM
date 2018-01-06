@@ -8,14 +8,14 @@
 	<div>
 		<ol class="breadcrumb">
 		  <li><a href="{{{URL::route('user.home')}}}">{{ trans('messages.home') }}</a></li>
-		  <li><a href="{{ URL::route('organisers.index') }}">{{ Lang::choice('messages.test-category',1) }}</a></li>
-		  <li class="active">{{ trans('messages.test-category-details') }}</li>
+		  <li><a href="{{ URL::route('organisers.index') }}">Organisers</a></li>
+		  <li class="active">Organiser details</li>
 		</ol>
 	</div>
 	<div class="panel panel-primary ">
 		<div class="panel-heading ">
 			<span class="glyphicon glyphicon-adjust"></span>
-			{{ trans('messages.test-category-details') }}
+			Details
 			<div class="panel-btn">
 				<a class="btn btn-sm btn-info" href="{{ URL::route('organisers.edit', array($organisers->id)) }}">
 					<span class="glyphicon glyphicon-edit"></span>

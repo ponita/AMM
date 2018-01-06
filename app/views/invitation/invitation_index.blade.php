@@ -47,7 +47,7 @@
 					<th>RE</th>
 					<th>Venue</th>
 					<th>Registered by</th>
-					<th>Approval Status</th>
+					<th>Status</th>
 					<th>Action</th>
 				</tr>
 			</thead>

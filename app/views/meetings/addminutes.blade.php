@@ -4,9 +4,13 @@
 		<ol class="breadcrumb">
 		  <li><a href="{{{URL::route('user.home')}}}">{{ trans('messages.home') }}</a></li>
 		  <li><a href="{{ URL::route('meetings.meetingindex') }}">Meeting</a></li>
-		  <li class="active">Meeting Minutes</li>
 		</ol>
 	</div>
+
+	@if (Session::has('message'))
+	<div class="alert alert-info">{{ trans(Session::get('message')) }}</div>
+	@endif
+
 	<div class="panel panel-primary">
 		<div class="panel-heading ">
 			<span class="glyphicon glyphicon-user"></span>
@@ -19,9 +23,9 @@
 				<div class="alert alert-danger">
 					{{ HTML::ul($errors->all()) }}
 				</div>
-			@endif 
+			@endif
 			
-{{ Form::model($meetings, array('files'=>true,'route' => array('meetings.addminutes', $meetings->id), 'method' => 'PUT',
+{{ Form::model($meetings, array('files'=>true,'route' => array('meetings.updateminutes', $meetings->id), 'method' => 'PUT',
 				'id' => 'form-edit-meetings')) }}
 
 			<div class="panel panel-info">

@@ -29,14 +29,14 @@
       {{ Form::select('approvalstatus', [
           'Not Updated' => 'Not Updated',
           'Approved' => 'Approved',
-          'Not Approved' => 'Not Approved'], 
+          'Cancelled' => 'Cancelled'], 
           Input::old('approvalstatus'), array('id' => 'approvalstatus', 'class' => 'form-control col-sm-4')) }}
 
      
 </div>
 <div class="form-group">
 			 {{ Form::label('comment', 'Comment/Reason', array('class' => 'col-sm-2')) }}
-      {{ Form::textarea('comment', Input::old('comment'), array('size' => '10x1','class' => 'form-control col-sm-10')) }}
+      {{ Form::textarea('comment', Input::old('comment'), array('size' => '10x3','class' => 'form-control col-sm-10')) }}
 
 			{{ Form::label('', '', array('class' => 'col-sm-4')) }}
 			{{ Form::button('<span class="glyphicon glyphicon-save"></span> '.'SAVE', 

@@ -60,9 +60,9 @@ else { el.hide();}
 		<div class="form-group">
 			
 
-			{{Form::label('name', 'Thematic Area', array('class' => 'col-sm-2'))}}
-			{{ Form::select('name', $thematicAreas, Input::get('name'),
-					['class' => 'form-control name col-sm-4']) }}
+			{{Form::label('thematicarea', 'Thematic Area', array('class' => 'col-sm-2'))}}
+			{{ Form::select('thematicarea', $thematicAreas, Input::get('thematicarea'),
+					['class' => 'form-control col-sm-4']) }}
  
 			
 			{{ Form::label('type', 'Type', array('class' => 'col-sm-2 col-sm-offset-1')) }}
@@ -100,9 +100,9 @@ else { el.hide();}
 
 		<div class="form-group" style="" id="field-location">
 			
-			{{Form::label('name', 'Health Region', array('class' => 'col-sm-2')) }}
-			{{ Form::select('name', $healthregion, Input::get('name'),
-					['class' => 'form-control name col-sm-4']) }}
+			{{Form::label('healthregion', 'Health Region', array('class' => 'col-sm-2')) }}
+			{{ Form::select('healthregion', $healthregion, Input::get('healthregion'),
+					['class' => 'form-control col-sm-4']) }}
 
 			{{ Form::label('district', 'District', array('class' => 'col-sm-2 col-sm-offset-1')) }}
 			{{ Form::select('district', $districts, Input::old('district'), array('class' => 'form-control col-sm-4')) }}
@@ -110,13 +110,13 @@ else { el.hide();}
 
 
 		<div class="form-group">
-			{{Form::label('name', 'Fundering Source', array('class' => 'col-sm-2')) }}
-			{{ Form::select('name', $funders, Input::get('name'),
-					['class' => 'form-control name col-sm-4']) }}
+			{{Form::label('funder', 'Funding Source', array('class' => 'col-sm-2')) }}
+			{{ Form::select('funder', $funders, Input::get('funder'),
+					['class' => 'form-control col-sm-4']) }}
 
-			{{Form::label('name', 'Organiser', array('class' => 'col-sm-2 col-sm-offset-1')) }}
-			{{ Form::select('name', $organisers, Input::get('name'),
-					['class' => 'form-control name']) }}	
+			{{Form::label('organiser', 'Organiser', array('class' => 'col-sm-2 col-sm-offset-1')) }}
+			{{ Form::select('organiser', $organisers, Input::get('organiser'),
+					['class' => 'form-control col-sm-4']) }}	
 		</div>
 
 		<div class="form-group">
@@ -127,6 +127,7 @@ else { el.hide();}
 			<div class="container-fluid">
 			<div class="form-group" list="audience">
 			<label>
+
 			<input type="checkbox" list="" name="audience[]" id="audience" value="IPs">
 			IPs
 			</label>
@@ -199,6 +200,8 @@ else { el.hide();}
 		</div>
 	</div>
 		</div>	
+
+		
 			<div class="form-group">
 			{{ Form::label('participants_no', 'No of Participants', array('class' => 'col-sm-2' )) }}
 			{{ Form::input('number','participants_no', Input::old('participants_no'), array('class' => 'form-control col-sm-4')) }}	

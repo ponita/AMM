@@ -46,21 +46,22 @@ class EventController extends \BaseController {
 		//$districts = District::orderBy('name')->get();
 		$districts = District::orderBy('name')->lists('name','id');
 
-		$healthregion = Healthregion::lists('name', 'id');
+		$healthregion =['Select Health region']+ Healthregion::orderBy('name')->lists('name', 'id');
 
-		$funders = Funder::lists('name', 'id');
+		$funders =['Select funder']+ Funder::orderBy('name')->lists('name', 'id');
 
-		$organisers = Organiser::lists('name','id');
+		$organisers =['Select organiser']+ Organiser::orderBy('name')->lists('name','id');
 
-		$thematicAreas = ThematicAreas::lists('name','id');
+		$thematicAreas =['Select department']+ ThematicAreas::orderBy('name')->lists('name','id');
 
-		// $audience = Audience::lists('name','id');
+	
 
-		
+
 		return View::make('event.create')->with('districts', $districts)
 										->with('healthregion', $healthregion)
 										->with('funders', $funders)
 										->with('organisers', $organisers)
+										
 										->with('thematicAreas', $thematicAreas);
 										
 	}
@@ -95,7 +96,7 @@ class EventController extends \BaseController {
 
 		$event->user_id = Input::get('user_id');
 		$event->name = Input::get('name');
-		$event->thematicArea_id = Input::get('thematicAreas');
+		$event->thematicArea_id = Input::get('thematicarea');
 		$event->type = Input::get('type');
 		$event->start_date = Input::get('start_date');
 		$event->end_date = Input::get('end_date');
@@ -103,7 +104,7 @@ class EventController extends \BaseController {
 		$event->premise = Input::get('premise');
 		$event->district_id = Input::get('district');
 		$event->healthregion_id = Input::get('healthregion');
-		$event->funders_id = Input::get('funders');
+		$event->funders_id = Input::get('funder');
 		$event->organiser_id = Input::get('organiser');
 		$event->audience_id = Input::get('audience_id');
 		$event->participants_no = Input::get('participants_no');
@@ -117,7 +118,7 @@ class EventController extends \BaseController {
 		$objective->objective= $ob;
 		$objective->save();
 		} 
-		
+		 
 		$audiences = Input::get('audience');
 		foreach ($audiences as $au) {
 			$audience = new Audience;
@@ -235,13 +236,13 @@ class EventController extends \BaseController {
 		$event = UNHLSEvent::find($id);
 		$districts = District::orderBy('name')->lists('name','id');
 
-		$healthregion = Healthregion::lists('name', 'id');
+		$healthregion = Healthregion::orderBy('name')->lists('name', 'id');
 
-		$funders = Funder::lists('name', 'id');
+		$funders = Funder::orderBy('name')->lists('name', 'id');
 
-		$organisers = Organiser::lists('name','id');
+		$organisers = Organiser::orderBy('name')->lists('name','id');
 
-		$thematicAreas = ThematicAreas::lists('name','id');
+		$thematicAreas = ThematicAreas::orderBy('name')->lists('name','id');
 
 		$audience = Audience::lists('audience','id');
 		
@@ -283,7 +284,7 @@ class EventController extends \BaseController {
 
 		$event->user_id = Input::get('user_id');
 		$event->name = Input::get('name');
-		$event->thematicArea_id = Input::get('thematicAreas');
+		$event->thematicArea_id = Input::get('thematicarea');
 		$event->type = Input::get('type');
 		$event->start_date = Input::get('start_date');
 		$event->end_date = Input::get('end_date');
@@ -298,11 +299,11 @@ class EventController extends \BaseController {
 		
 		$event->save();
 
-		$objective = new UNHLSEventObjective;
+		// $objective = new UNHLSEventObjective;
 
-		$objective->objective = Input::get('objective');
+		// $objective->objective = Input::get('objective');
 
-		$objective->save();
+		// $objective->save();
 
 		$audiences = Input::get('audience');
 		foreach ($audiences as $au) {
@@ -325,8 +326,8 @@ class EventController extends \BaseController {
         	$event->save();
     	}
 		return Redirect::to('event')->with('message', 'Successfully updated event information for ID No '.$event->id)
-									->with('message', 'Successfully updated event information for ID No '.$audience->event_id)
-									->with('message', 'Successfully updated objectives for for ID No '.$objective->event_id);
+									->with('message', 'Successfully updated event information for ID No '.$audience->event_id);
+									// ->with('message', 'Successfully updated objectives for for ID No '.$objective->event_id);
 	
 		}
 	}

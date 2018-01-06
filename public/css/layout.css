@@ -142,7 +142,7 @@ label, input {
 */
 
 .login-page {
-    background: #444444;
+    background: #ffffff;
     color: #F1F1F1;
     width: 100%;
     height: 100%;
@@ -151,17 +151,18 @@ label, input {
     bottom: 0;
     top:0;
     position: absolute;
-    background-image: linear-gradient(to bottom, #444444 0px, #000000 100%);
+    /* background-image: linear-gradient(to bottom, #444444 0px, #000000 100%);*/
 }
     .login-page .login-form {
-        background: #FFFFFF;
+        background: #EDEDED;
         color: #333333;
         width: 351px;
         margin: auto;
         margin-top:30px;
-        border: 1px solid #666666;
+        border: #666666;
         text-align: center;
         position:relative;
+        border-radius: 10px;
     }
 
         .login-page .login-form .form-head,
@@ -298,7 +299,7 @@ label, input {
   background-color: #222930;
 }
 .sidebar-nav ul ul a:hover, .sidebar-nav ul ul a:focus, .sidebar-nav ul ul a:active {
-  background-color: #34495e;
+  background-color: #DC3D24;
 }
 .sidebar-nav-item {
   padding-left: 5px;
@@ -396,6 +397,14 @@ label, input {
     .row.less-gutter .col-md-11 > span{
         line-height: 30px;
     }
+
+/*
+* Test list
+*/
+.test-list-row {
+  border-bottom: 1px solid #cecfd5;
+}
+
 
 /*
 * REPORTS PAGES
@@ -526,7 +535,7 @@ table.table.report-table-border > tbody > tr > td{
   padding: 0 8px;
   margin-right: 8px;
   line-height: 22px;
-  background: #34495e;
+  background: #185b88;
 }
 .navbar .top_links > li > a:hover,
 .navbar .top_links > li > a:focus {

@@ -73,7 +73,8 @@
       
       <div class="row  view-striped">
         <div class="col-sm-2"><strong>Department</strong></div>
-        <div class="col-sm-4">{{ $event->department }}</div>
+        <div class="col-sm-4">{{ $event->thematicarea->name }}
+          </div>
         
         <div class="col-sm-2"><strong>Type</strong></div>
         <div class="col-sm-4">{{ $event->type }}</div>
@@ -91,22 +92,22 @@
 
       <div class="row view-striped">
         <div class="col-sm-2"><strong>Health Region</strong></div>
-        <div class="col-sm-4" style="">{{ $event->region }}</div>
+        <div class="col-sm-4" style="">{{ $event->healthregion->name }}</div>
         
         <div class="col-sm-2"><strong>District</strong></div>
         <div class="col-sm-4">
-          @if ($event->district)
+         
           {{ $event->district->name }}
-          @endif
+         
         </div>
       </div>
 
       <div class="row view-striped">
         <div class="col-sm-2"><strong>Funding Source</strong></div>
-        <div class="col-sm-4" style="">{{ $event->sponsor }}</div>
+        <div class="col-sm-4" style="">{{ $event->funder->name}}</div>
         
         <div class="col-sm-2"><strong>Organiser</strong></div>
-        <div class="col-sm-4">{{ $event->organiser }}</div>
+        <div class="col-sm-4">{{ $event->organiser->name }}</div>
       </div>
 
       <div class="row view-striped">
@@ -214,6 +215,11 @@
         <div class="col-sm-4"></div>
       </div>
     
+    <div class="row view-striped">
+        <div class="col-sm-2"><strong>Comment</strong><br></div>
+          <div class="col-sm-4">{{ $event->comment }}</div>
+
+        </div>
     </div>
     </div>
 

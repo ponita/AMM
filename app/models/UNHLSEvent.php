@@ -43,6 +43,31 @@ class UNHLSEvent extends Eloquent
         return $this->hasMany('Audience','event_id','id');
 	}
 
+	// public function audiencedata()
+ //    {
+ //        return $this->hasMany('AudienceData','event_id','id');
+	// }
+
+	public function thematicarea()
+	{
+		return $this->belongsTo('ThematicAreas','thematicArea_id','id');
+	}
+
+	public function funder()
+	{
+		return $this->belongsTo('Funder','funders_id','id');
+	}
+
+	public function organiser()
+	{
+		return $this->belongsTo('Organiser','organiser_id','id');
+	}
+
+	public function healthregion()
+	{
+		return $this->belongsTo('Healthregion','healthregion_id','id');
+	}
+
 	public static function filtereventsbydate($datefrom,$dateto,$name)
 	{
 		return UNHLSEvent::Where(function ($query) use ($datefrom,$dateto,$name){

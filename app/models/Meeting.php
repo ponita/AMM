@@ -19,7 +19,14 @@ public function agenda()
     {
         return $this->hasMany('MeetingAgenda','meeting_id','id');
 	}
-
+public function thematicarea()
+	{
+		return $this->belongsTo('ThematicAreas','thematicArea_id','id');
+	}
+public function organiser()
+	{
+		return $this->belongsTo('Organiser','organiser_id','id');
+	}
 
 
 	/**

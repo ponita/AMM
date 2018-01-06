@@ -989,7 +989,5 @@ Route::any("/meetings/{id}/editapproval", array(
             "uses" => "FunderController@delete"
         ));
 
-        Route::get('meetings', 'SamplingController');
-Route::get('mail/{id}', array( 
-    'uses' => 'SamplingController@sendEmail'));
+      
 });

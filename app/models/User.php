@@ -212,9 +212,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	/**
 	 * Facility relationship
 	 */
-	public function facility()
-	{
-		return $this->belongsTo('UNHLSFacility', 'facility_id', 'id');
-	}
+	
 
 }

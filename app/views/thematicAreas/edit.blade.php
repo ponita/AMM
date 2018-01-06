@@ -8,15 +8,15 @@
 		<ol class="breadcrumb">
 		  <li><a href="{{{URL::route('user.home')}}}">{{ trans('messages.home') }}</a></li>
 		  <li>
-		  	<a href="{{ URL::route('thematicAreas.index') }}">{{ Lang::choice('messages.test-category',1) }}</a>
+		  	<a href="{{ URL::route('thematicAreas.index') }}">Thematic Areas</a>
 		  </li>
-		  <li class="active">{{ trans('messages.edit-test-category') }}</li>
+		  <li class="active">Edit Thematic Areas</li>
 		</ol>
 	</div>
 	<div class="panel panel-primary">
 		<div class="panel-heading ">
 			<span class="glyphicon glyphicon-edit"></span>
-			{{ trans('messages.edit-test-category') }}
+			Edit
 		</div>
 		<div class="panel-body">
 			@if($errors->all())

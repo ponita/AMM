@@ -62,6 +62,7 @@
 					<td>{{ date('d M Y', strtotime($event->start_date)) }}</td>
 					<td>{{ date('d M Y', strtotime($event->end_date)) }}</td>
 					
+       @if(Auth::user()->can('download_report'))
 					<td>
 					@if ($event->reports)
           			<a href="{{ URL::to( 'attachments/' . $event->reports) }}"
@@ -69,6 +70,7 @@
           			@else Pending
           			@endif	
 					</td>
+					@endif
 					<td><a class="btn btn-sm btn-info" href="{{ URL::route('event.print', array($event->id)) }}" href="javascript:printSpecial('UGANDA NATIONAL HEALTH LABORATORY SERVICES - ACTIVITIES REPORTING <br> 
   ACTIVITY STATUS/DETAILS')" target="_blank">
       <span class="glyphicon glyphicon-eye-open"></span>View Report

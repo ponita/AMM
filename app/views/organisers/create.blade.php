@@ -5,15 +5,15 @@
 		<ol class="breadcrumb">
 		  <li><a href="{{{URL::route('user.home')}}}">{{trans('messages.home')}}</a></li>
 		  <li>
-		  	<a href="{{ URL::route('organisers.index') }}">{{ Lang::choice('messages.test-category',1) }}</a>
+		  	<a href="{{ URL::route('organisers.index') }}">Organisers</a>
 		  </li>
-		  <li class="active">{{trans('messages.create-test-category')}}</li>
+		  <li class="active">Create Organiser</li>
 		</ol>
 	</div>
 	<div class="panel panel-primary">
 		<div class="panel-heading ">
 			<span class="glyphicon glyphicon-adjust"></span>
-			{{trans('messages.create-test-category')}}
+			Create Organiser
 		</div>
 		<div class="panel-body">
 		<!-- if there are creation errors, they will show here -->

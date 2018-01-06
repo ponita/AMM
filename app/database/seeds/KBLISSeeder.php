@@ -36,7 +36,9 @@ class KBLISSeeder extends DatabaseSeeder
         $roles = array(
             array("name" => "Superadmin"),
             array("name" => "Exec Dir"),
-            array("name" => "Manager")
+            array("name" => "Manager"),
+            array("name" => "Secretariat")
+            
         );
         foreach ($roles as $role) {
             Role::create($role);

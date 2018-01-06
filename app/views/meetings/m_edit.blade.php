@@ -40,9 +40,9 @@
 		</div>
 
 		<div class="form-group">
-			{{Form::label('name', 'Thematic Area', array('class' => 'col-sm-2'))}}
-			{{ Form::select('name', $thematicAreas, Input::get('name'),
-					['class' => 'form-control name col-sm-4']) }}
+			{{Form::label('thematicarea', 'Thematic Area', array('class' => 'col-sm-2'))}}
+			{{ Form::select('thematicarea', $thematicAreas, Input::get('thematicarea'),
+					['class' => 'form-control col-sm-4']) }}
 		</div>
 
 		<div class="form-group">
@@ -83,9 +83,9 @@
 
 		<div class="form-group">
 			
-			{{Form::label('name', 'Organiser', array('class' => 'col-sm-2')) }}
-			{{ Form::select('name', $organisers, Input::get('name'),
-					['class' => 'form-control name']) }}		
+			{{Form::label('organiser', 'Organiser', array('class' => 'col-sm-2')) }}
+			{{ Form::select('organiser', $organisers, Input::get('organiser'),
+					['class' => 'form-control']) }}		
 		</div>
 		<div class="form-group">
 			
@@ -166,7 +166,7 @@
 		</div>
 		</div>
 	</div>
-		</div>
+		</div>	
 		
 		<div class="form-group">	
 			{{ Form::label('participants_no', 'No of Participants', array('class' => 'col-sm-2')) }}
@@ -197,11 +197,7 @@
 				<div>
 				<a href="#" id="add-action"><i>Add More lists</i></a></div>	
 			
-	<!-- <div class="form-group">
-			{{ Form::label('minutes', 'Upload Minutes', array('class' => 'col-sm-2')) }}
-			{{ Form::file('minutes', Input::old('minutes'), array('class' => 'form-control col-sm-4')) }}
-
-		</div> -->
+	
 	</div>
 </div>
 

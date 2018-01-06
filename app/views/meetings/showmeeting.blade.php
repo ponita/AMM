@@ -72,10 +72,10 @@
       
       <div class="row  view-striped">
         <div class="col-sm-2"><strong>Organiser</strong></div>
-        <div class="col-sm-4">{{ $meetings->organiser }}</div>
+        <div class="col-sm-4">{{ $meetings->organiser->name }}</div>
 
         <div class="col-sm-2"><strong>Department</strong></div>
-        <div class="col-sm-4">{{ $meetings->department }}</div>
+        <div class="col-sm-4">{{ $meetings->thematicarea->name}}</div>
         
       </div>
 
@@ -122,7 +122,11 @@
         
       </div>
     
-   
+   <div class="row view-striped">
+        <div class="col-sm-2"><strong>Comment:</strong><br></div>
+          <div class="col-sm-4">{{ $meetings->comment }}</div>
+
+        </div>
  
 
   </div>

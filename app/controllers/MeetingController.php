@@ -38,9 +38,9 @@ public function report()
 	 */
 	public function create()
 	{
-		$organisers = Organiser::lists('name','id');
+		$organisers =['Select organiser']+ Organiser::lists('name','id');
 
-		$thematicAreas = ThematicAreas::lists('name','id');
+		$thematicAreas =['Select department']+ ThematicAreas::lists('name','id');
 
 		$agenda = MeetingAgenda::lists('agenda','id');
 		//
@@ -81,7 +81,7 @@ public function report()
 
 		$meetings->user_id = Input::get('user_id');
 		$meetings->name = Input::get('name');
-		$meetings->thematicArea_id = Input::get('thematicAreas');
+		$meetings->thematicArea_id = Input::get('thematicarea');
 		$meetings->organiser_id = Input::get('organiser');
 		$meetings->start_time = Input::get('start_time');
 		$meetings->end_time = Input::get('end_time');
@@ -109,17 +109,17 @@ public function report()
 		}
 
 	//	saving the attached report
-		if (Input::hasFile('minutes')) {
-        	$file = Input::file('minutes');
-        	$destinationPath = public_path().'\attachment2';
-        	//$filename = str_random(3) . '_' . $file->getClientOriginalName();
-        	$filename = 'Minutes'.$meetings->id . '_' . $file->getClientOriginalName();
-        	$uploadSuccess = $file->move($destinationPath, $filename);
+		// if (Input::hasFile('minutes')) {
+  //       	$file = Input::file('minutes');
+  //       	$destinationPath = public_path().'\attachment2';
+  //       	//$filename = str_random(3) . '_' . $file->getClientOriginalName();
+  //       	$filename = 'Minutes'.$meetings->id . '_' . $file->getClientOriginalName();
+  //       	$uploadSuccess = $file->move($destinationPath, $filename);
 
-        	//$meetings->report_path = $destinationPath .'\\'. $filename;
-        	$meetings->minutes = $filename;
-        	$meetings->save();
-    	}
+  //       	//$meetings->report_path = $destinationPath .'\\'. $filename;
+  //       	$meetings->minutes = $filename;
+  //       	$meetings->save();
+  //   	}
 
 
 
@@ -177,9 +177,9 @@ public function report()
 		//
 		$meetings = Meeting::find($id);
 		$districts = District::orderBy('name')->lists('name','id');
-		$organisers = Organiser::lists('name','id');
+		$organisers = Organiser::orderBy('name')->lists('name','id');
 
-		$thematicAreas = ThematicAreas::lists('name','id');
+		$thematicAreas = ThematicAreas::orderBy('name')->lists('name','id');
 		
 		return View::make('meetings.m_edit')->with('meetings', $meetings)->with('districts', $districts)
 										->with('organisers', $organisers)
@@ -215,7 +215,7 @@ public function report()
 
 		$meetings->user_id = Input::get('user_id');
 		$meetings->name = Input::get('name');
-		$meetings->thematicArea_id = Input::get('thematicAreas');
+		$meetings->thematicArea_id = Input::get('thematicarea');
 		$meetings->organiser_id = Input::get('organiser');
 		$meetings->start_time = Input::get('start_time');
 		$meetings->end_time = Input::get('end_time');
@@ -234,26 +234,26 @@ public function report()
 		$agenda->save();
 		}
 
-		$audiences = Input::get('targetAudience');
-		foreach ($audiences as $au) {
+	$audiences = Input::get('targetAudience');
+		foreach ($audiences as $aud) {
 			$targetAudience = new TargetAudience;
 			$targetAudience->meeting_id = $meetings->id;
-			$targetAudience->targetAudience=$au;
+			$targetAudience->targetAudience=$aud;
 			$targetAudience->save();			# code...
 		}
 
 		//saving the attached report
-		if (Input::hasFile('minutes')) {
-        	$file = Input::file('minutes');
-        	$destinationPath = public_path().'\attachment2';
-        	//$filename = str_random(3) . '_' . $file->getClientOriginalName();
-        	$filename = 'Minutes'.$meetings->id . '_' . $file->getClientOriginalName();
-        	$uploadSuccess = $file->move($destinationPath, $filename);
+		// if (Input::hasFile('minutes')) {
+  //       	$file = Input::file('minutes');
+  //       	$destinationPath = public_path().'\attachment2';
+  //       	//$filename = str_random(3) . '_' . $file->getClientOriginalName();
+  //       	$filename = 'Minutes'.$meetings->id . '_' . $file->getClientOriginalName();
+  //       	$uploadSuccess = $file->move($destinationPath, $filename);
 
-        	//$meetings->report_path = $destinationPath .'\\'. $filename;
-        	$meetings->minutes = $filename;
-        	$meetings->save();
-    	}
+  //       	//$meetings->report_path = $destinationPath .'\\'. $filename;
+  //       	$meetings->minutes = $filename;
+  //       	$meetings->save();
+  //   	}
 		return Redirect::to('meetings')->with('message', 'Successfully updated meetings information for ID No '.$meetings->id)
 								->with('message', 'Successfully registered an activity with ID No '.$agenda->meeting_id)
 								->with('message', 'Successfully registered an activity with ID No '.$targetAudience->meeting_id);
@@ -318,18 +318,6 @@ public function report()
 		
 		$meetings->save();
 
-		 // $user = User::find($id);
-
-		 // // $user = new User;
-   // //          $user->username = Input::get('username');
-   // //          $user->email = Input::get('email');
-
-   // //          $user->save();
-
- 
-   //  Mail::send('meetings.editapproval', array('name'=> $user->name), function($message){
-   //      $message->to($meetings->comment, $meetings->user->name)->subject('Welcome to the Laravel 4 Auth App!');
-   //  });
  
    
 		return Redirect::to('meetings')->with('message', 'Successfully updated meetings information for ID No '.$meetings->id);
@@ -361,7 +349,7 @@ public function updateminutes($id)
         	$meetings->minutes = $filename;
         	$meetings->save();
     	}
-		return Redirect::to('meetings')->with('message', 'Successfully updated event information for ID No '.$meetings->id);
+		return Redirect::to('meetings')->with('message', 'Successfully uploaded minutes information for ID No '.$meetings->id);
 	
 		}
 	public function meeting()

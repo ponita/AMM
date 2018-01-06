@@ -10,7 +10,7 @@
 			@if(Entrust::can('view_reports'))
 				<li class="nav_trigger">
 					<a href="#">
-						<span class="ion-nuclear"></span>
+					<span class="glyphicon glyphicon-signal"></span>
 						<span class="nav_title">REPORTS</span>
 					</a>
 					<div class="sub_panel" style="left: -220px;">
@@ -38,22 +38,26 @@
 
 				<li class="nav_trigger">
 					<a href="#">
-						<span class="ion-nuclear"></span>
+					<span class="glyphicon glyphicon-link"></span>
+					
 						<span class="nav_title">ACTIVITIES</span>
 					</a>
 					<div class="sub_panel" style="left: -220px;">
 						<div class="side_inner ps-ready ps-container" style="height: 620px;">
 							<h4 class="panel_heading panel_heading_first">ACTIVITIES REPORTING</h4>
 							<ul>
+							
 							<li>
 								<a href="{{ URL::route('event.index')}}">
 								<span class="glyphicon glyphicon-list"></span> List of all Activities</a>
 							</li>
 							<li>
+     				 @if(Auth::user()->can('manage_activities'))
+							
 							<a href="{{ URL::route('event.create')}}">
 								<span class="glyphicon glyphicon-plus-sign"></span> New Activity</a>
 							</li>
-
+					@endif
 							<li>
 								<a href="{{ URL::route('event.eventfilter')}}">
 								<span class="glyphicon glyphicon-list"></span> Search / Filter</a>
@@ -68,35 +72,26 @@
 			<li class="nav_trigger">
 					<a href="#">
 					<!--	<span class="ion-info"></span> -->
-					<span class="glyphicon glyphicon-eye-open"></span>
+					<span class="glyphicon glyphicon-book"></span>
 						<span class="nav_title">MEETINGS</span>
 					</a>
 					<div class="sub_panel" style="left: -220px;">
 						<div class="side_inner ps-ready ps-container" style="height: 800px;">
 							<h4 class="panel_heading panel_heading_first">MEETING REPORT</h4>
 							<ul>
+							
+       @if(Auth::user()->can('manage_meeting'))
 							<li>
 								<a href="{{ URL::route('meetings.meeting')}}">
-								<span class="glyphicon glyphicon-list"></span> Meeting Register</a>
+								<span class="glyphicon glyphicon-arrow-up"></span> Meeting Register</a>
 							</li>
+							@endif
 							<li>
 							    <a href="{{ URL::route('meetings.meetingindex')}}"> 
-								<span class="glyphicon glyphicon-circle-arrow-up"></span> List of meetings</a>
+								<span class="glyphicon glyphicon-list"></span> List of meetings</a>
 							</li>
 							
-							<!-- <li>
-							    <a href="{{ URL::route('event.create')}}"> 
-								<span class="glyphicon glyphicon-play"></span> Ongoing meeting</a>
-							</li>
 							
-							<li>
-							    <a href="{{ URL::route('event.create')}}"> 
-								<span class="glyphicon glyphicon-circle-arrow-down"></span> Previous meeting</a>
-							</li>
-							<li>
-								<a href="{{ URL::route('event.eventfilter')}}">
-								<span class="glyphicon glyphicon-search"></span> Search / Filter</a>
-							</li> -->
 							</ul>
 
 						<div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px; width: 215px; display: none;"><div class="ps-scrollbar-x" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; right: 3px; height: 620px; display: none;"><div class="ps-scrollbar-y" style="top: 0px; height: 0px;"></div></div></div>
@@ -106,7 +101,8 @@
 			
 			<li class="nav_trigger">
 					<a href="#">
-						<span class="ion-nuclear"></span>
+					<span class="glyphicon glyphicon-send"></span>
+						
 						<span class="nav_title">MEMO</span>
 					</a>
 					<div class="sub_panel" style="left: -220px;">
@@ -114,24 +110,26 @@
 							<h4 class="panel_heading panel_heading_first">MEMO REPORTING</h4>
 							<ul>
 							
+        @if(Auth::user()->can('manage_memo'))
 							<li>
 								<a href="{{ URL::route('letters.letter')}}">
 								<span class="glyphicon glyphicon-eye-open"></span>New Memo</a>
 							</li>
+							@endif
 							<li>
 								<a href="{{ URL::route('letters.letter_index')}}">
 								<span class="glyphicon glyphicon-list"></span> List of Memo</a>
 							</li>
+    @if(Auth::user()->can('manage_invitation'))
 							<li>
 								<a href="{{ URL::route('invitation.invitation')}}">
 								<span class="glyphicon glyphicon-eye-open"></span>New Invitation</a>
 							</li>
+							@endif
 							<li>
 								<a href="{{ URL::route('invitation.invitation_index')}}">
 								<span class="glyphicon glyphicon-list"></span> List of Invitations</a>
-							</li>
-								<a href="{{ URL::route('event.eventfilter')}}">
-								<span class="glyphicon glyphicon-list"></span> Search / Filter</a>
+							
 							</li>
 							</ul>
 
@@ -144,7 +142,8 @@
 			@if(Entrust::can('manage_configurations'))
 		<li class="nav_trigger">
 					<a href="#">
-						<span class="ion-nuclear"></span>
+					<span class="glyphicon glyphicon-paperclip"></span>
+						
 						<span class="nav_title">CONFIGURATIONS</span>
 					</a>
 					<div class="sub_panel" style="left: -220px;">
@@ -152,19 +151,19 @@
 							<ul>
 							<li>
 								<a href="{{ URL::route('thematicAreas.index')}}">
-								<span class="glyphicon glyphicon-list"></span> Thematic Areas</a>
+								<span class="glyphicon glyphicon-tag"></span> Thematic Areas</a>
 							</li>
 							<li>
 							<a href="{{ URL::route('healthregion.index')}}">
-								<span class="glyphicon glyphicon-plus-sign"></span> Health Region</a>
+								<span class="glyphicon glyphicon-tag"></span> Health Region</a>
 							</li>
 							<li>
 								<a href="{{ URL::route('organisers.index')}}">
-								<span class="glyphicon glyphicon-list"></span> Organiser</a>
+								<span class="glyphicon glyphicon-tag"></span> Organiser</a>
 							</li>
 							<li>
 								<a href="{{ URL::route('funders.index')}}">
-								<span class="glyphicon glyphicon-list"></span> Funder</a>
+								<span class="glyphicon glyphicon-tag"></span> Funder</a>
 							</li>
 							</ul>
 
@@ -173,6 +172,7 @@
 				</li>
 				@endif
 
+			@if(Entrust::can('manage_users'))
 				<li class="nav_trigger">
 					<a href="#">
 						<span class="ion-key"></span>
@@ -211,10 +211,12 @@
 						<div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px; width: 215px; display: none;"><div class="ps-scrollbar-x" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; right: 3px; height: 620px; display: none;"><div class="ps-scrollbar-y" style="top: 0px; height: 0px;"></div></div></div>
 					</div>
 				</li>
+				@endif
 				
 				<li class="nav_trigger">
 					<a href="#">
-						<span class="ion-key"></span>
+					<span class="glyphicon glyphicon-globe"></span>
+						
 						<span class="nav_title">OTHER SYSTEMS</span>
 					</a>
 					<div class="sub_panel" style="left: -220px;">

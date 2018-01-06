@@ -130,6 +130,11 @@
         <div class="col-sm-4"></div>
       </div>
     
+    <div class="row view-striped">
+        <div class="col-sm-2"><strong>ED's Recommendation</strong><br></div>
+          <div class="col-sm-4">{{ $appointment->comment }}</div>
+
+        </div>
     </div>
     </div>
 

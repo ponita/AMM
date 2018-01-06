@@ -36,7 +36,7 @@
 </div>
 <div class="form-group">
 			 {{ Form::label('comment', 'Comment/Reason', array('class' => 'col-sm-2')) }}
-      {{ Form::textarea('comment', Input::old('comment'), array('size' => '10x1','class' => 'form-control col-sm-10')) }}
+      {{ Form::textarea('comment', Input::old('comment'), array('size' => '10x3','class' => 'form-control col-sm-10')) }}
 
 			{{ Form::label('', '', array('class' => 'col-sm-4')) }}
 			{{ Form::button('<span class="glyphicon glyphicon-save"></span> '.'SAVE', 
@@ -57,8 +57,9 @@
       </div>
       
       <div class="row  view-striped">
-        <div class="col-sm-1"><strong>Department</strong></div>
-        <div class="col-sm-3">{{ $event->department }}</div>
+        <div class="col-sm-2"><strong>Department</strong></div>
+        <div class="col-sm-4">{{ $event->thematicarea->name }}
+          </div>
         
         <div class="col-sm-1"><strong>Type</strong></div>
         <div class="col-sm-3">{{ $event->type }}</div>
@@ -78,7 +79,7 @@
 
       <div class="row view-striped">
         <div class="col-sm-2"><strong>Health Region</strong></div>
-        <div class="col-sm-4" style="">{{ $event->region }}</div>
+        <div class="col-sm-4" style="">{{ $event->healthregion->name }}</div>
         
         <div class="col-sm-2"><strong>District</strong></div>
         <div class="col-sm-4">
@@ -90,10 +91,10 @@
 
       <div class="row view-striped">
         <div class="col-sm-2"><strong>Funding Source</strong></div>
-        <div class="col-sm-4" style="">{{ $event->sponsor }}</div>
+        <div class="col-sm-4" style="">{{ $event->funder->name }}</div>
         
         <div class="col-sm-2"><strong>Organiser</strong></div>
-        <div class="col-sm-4">{{ $event->organiser }}</div>
+        <div class="col-sm-4">{{ $event->organiser->name }}</div>
       </div>
 
       <div class="row view-striped">
