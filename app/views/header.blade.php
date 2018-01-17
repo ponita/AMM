@@ -1,7 +1,7 @@
 '@section ("header")
 
 
-        <header class="navbar navbar-fixed-top"  style="background-color: #34495e;" role="banner">
+        <header class="navbar navbar-fixed-top"  style="background-color: black;" role="banner">
             <div class="container-fluid">
                 <div style="float:left" ><h4 style="color: white;"> UGANDA NATIONAL HEALTH LABORATORY SERVICES - MANAGEMENT SUPPORT SYSTEM</h4>
                 </div>

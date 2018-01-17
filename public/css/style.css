@@ -1750,8 +1750,8 @@ a.list-group-item-danger:hover {
 }
 #side_nav,
 #side_nav > ul {
-  /*background: #363f44;*/
-  background: #34495a;
+  background: #363f44;
+  /*background: ;*/
   left: 0;
   width: 80px;
 }
