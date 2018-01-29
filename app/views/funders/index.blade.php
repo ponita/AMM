@@ -15,8 +15,8 @@
 		Funders
 		<div class="panel-btn">
 			<a class="btn btn-sm btn-info" href="{{ URL::to("funders/create") }}" >
-				<span class="glyphicon glyphicon-plus-sign">Create Funder</span>
-				<!-- {{ trans('messages.create-test-category') }} -->
+				<span class="glyphicon glyphicon-plus-sign"></span>
+				Create Funder
 			</a>
 		</div>
 	</div>

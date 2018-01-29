@@ -19,8 +19,7 @@
       <table  style="border-bottom: 1px solid #cecfd5;" >
         <tr>
           <td colspan="1"><b>Duration</b></td>
-          <td colspan="3">{{ date('d M Y', strtotime($event->start_date)) }} 
-          to {{ date('d M Y', strtotime($event->end_date)) }}</td>
+          <td colspan="1">{{ date('d', strtotime($event->start_date)) }}-{{ date('d M Y', strtotime($event->end_date)) }}</td>
           <td colspan="1"><b>Venue</b></td>
           <td colspan="1">{{ $event->premise }}</td>
           <td colspan="1"><b>District</b></td>

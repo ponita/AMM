@@ -9,8 +9,9 @@ class EventController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		
 		$events = UNHLSEvent::orderBy('start_date','DESC')->get();
+
 
 		$permissions = Permission::all();
 		$permissionsRolesData = array('permissions' => $permissions);
@@ -18,6 +19,7 @@ class EventController extends \BaseController {
 		
 		return View::make('event.index')->with('events', $events)
 										->with('permissions', $permissionsRolesData);
+										
 	}
 
 	
@@ -26,6 +28,8 @@ class EventController extends \BaseController {
         //return response()->download($path);
         return Response::download($path);
 }
+
+
 
  public function report()
 	{
@@ -160,6 +164,9 @@ class EventController extends \BaseController {
 	public function show($id)
 	{
 		$event = UNHLSEvent::find($id);
+		
+
+
 
 		$firstInsertedId = DB::table('unhls_events')->min('id');
 		$lastInsertedId = DB::table('unhls_events')->max('id');
@@ -244,13 +251,13 @@ class EventController extends \BaseController {
 
 		$thematicAreas = ThematicAreas::orderBy('name')->lists('name','id');
 
-		$audience = Audience::lists('audience','id');
+		// $audience = Audience::lists('audience','id');
 		
 		return View::make('event.edit')->with('event', $event)->with('districts', $districts)
 															->with('healthregion', $healthregion)
 															->with('funders', $funders)
 															->with('organisers', $organisers)
-															->with('audience', $audience)
+															// ->with('audience', $audience)
 															->with('thematicAreas', $thematicAreas);
 	}
 
@@ -263,7 +270,8 @@ class EventController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		// print_r(Input::all());
+		// exit();
 		//
 		$rules = array(
 		//	'patient_number' => 'required|unique:patients,patient_number',
@@ -305,13 +313,13 @@ class EventController extends \BaseController {
 
 		// $objective->save();
 
-		$audiences = Input::get('audience');
-		foreach ($audiences as $au) {
-			$audience = new Audience;
-			$audience->event_id = Input::get('event_id');
-			$audience->audience=$au;
-			$audience->save();			# code...
-		}
+		// $audiences = Input::get('audience');
+		// foreach ($audiences as $au) {
+		// 	$audience = new Audience;
+		// 	$audience->event_id = Input::get('event_id');
+		// 	$audience->audience=$au;
+		// 	$audience->save();			# code...
+		// }
 
 		// saving the attached report
 		if (Input::hasFile('report_path')) {
@@ -325,8 +333,8 @@ class EventController extends \BaseController {
         	$event->report_filename = $filename;
         	$event->save();
     	}
-		return Redirect::to('event')->with('message', 'Successfully updated event information for ID No '.$event->id)
-									->with('message', 'Successfully updated event information for ID No '.$audience->event_id);
+		return Redirect::to('event')->with('message', 'Successfully updated event information for ID No '.$event->id);
+									// ->with('message', 'Successfully updated event information for ID No '.$audience->event_id);
 									// ->with('message', 'Successfully updated objectives for for ID No '.$objective->event_id);
 	
 		}
@@ -362,7 +370,15 @@ class EventController extends \BaseController {
         	$event->reports = $filename;
         	$event->save();
     	}
+
+    	//Fire of entry saved/edited event
+		// Event::fire('test.saved', array($id));
+
+		// $input = Session::get('TESTS_FILTER_INPUT');
+		// Session::put('fromRedirect', 'true');
+
 		return Redirect::to('event')->with('message', 'Successfully updated event information for ID No '.$event->id);
+									// ->withInput($input);
 	
 		}
 	
@@ -386,6 +402,7 @@ public function team()
 		} else {
 		// update
 		$event = UNHLSEvent::find($id);
+		$event->approvedby = Auth::user()->id;
 
 		$event->approval_status = Input::get('approvalstatus');
 		$event->approvedby = Input::get('approvedby');
@@ -393,9 +410,17 @@ public function team()
 		$event->approvedon = \Carbon\Carbon::now()->toDateTimeString();
 		
 		$event->save();
-		return Redirect::to('event')->with('message', 'Successfully updated event information for ID No '.$event->id);
-	
 		}
+		//Fire of entry saved/edited event
+		Event::fire('test.verified', array($id));
+
+		$input = Session::get('TESTS_FILTER_INPUT');
+		Session::put('fromRedirect', 'true');
+
+		return Redirect::to('event')->with('message', 'Successfully updated event information for ID No '.$event->id)
+									->withInput($input);
+	
+		
 	}
 
 
@@ -410,7 +435,12 @@ public function team()
 
 	public function updateobjectives($id)
 	{
-		// store
+		
+		// $event = UNHLSEvent::find($id);
+		// $event->event_status_id = UNHLSEvent::COMPLETED;
+		// $event->created_by = Auth::user()->id;
+		// $event->time_completed = date('Y-m-d H:i:s');
+		// // store
 
 		$objectives = Input::get('objective');
 		foreach ($objectives as $ob) {
@@ -420,7 +450,14 @@ public function team()
 			$objective->save();			# code...
 		}
 		
+		//Fire of entry saved/edited event
+		// Event::fire('test.saved', array($id));
+
+		// $input = Session::get('TESTS_FILTER_INPUT');
+		// Session::put('fromRedirect', 'true');
+
 return Redirect::to('event')->with('message', 'Successfully updated objectives for for ID No '.$objective->event_id);
+							// ->withInput($input);
 		
 	}
 
@@ -436,7 +473,11 @@ return Redirect::to('event')->with('message', 'Successfully updated objectives f
 
 	public function updatelessons($id)
 	{
-		// store
+		// $event = UNHLSEvent::find($id);
+		// $event->event_status_id = UNHLSEvent::COMPLETED;
+		// $event->created_by = Auth::user()->id;
+		// $event->time_completed = date('Y-m-d H:i:s');
+		// // store
 
 		
 
@@ -448,9 +489,14 @@ return Redirect::to('event')->with('message', 'Successfully updated objectives f
 			$lesson->save();			# code...
 		}
 		
-    	
+    	//Fire of entry saved/edited event
+		// Event::fire('test.saved', array($id));
+
+		// $input = Session::get('TESTS_FILTER_INPUT');
+		// Session::put('fromRedirect', 'true');
 
 		return Redirect::to('event')->with('message', 'Successfully updated lessons for for ID No '.$lesson->event_id);
+									// ->withInput($input);
 	}
 
 
@@ -465,7 +511,11 @@ return Redirect::to('event')->with('message', 'Successfully updated objectives f
 
 	public function updaterecommendations($id)
 	{
-		// store
+		// $event = UNHLSEvent::find($id);
+		// $event->event_status_id = UNHLSEvent::COMPLETED;
+		// $event->created_by = Auth::user()->id;
+		// $event->time_completed = date('Y-m-d H:i:s');
+		// // store
 
 		
 
@@ -477,8 +527,14 @@ return Redirect::to('event')->with('message', 'Successfully updated objectives f
 			$recommendation->save();			# code...
 		}
     	
+//Fire of entry saved/edited event
+		// Event::fire('test.saved', array($id));
+
+		// $input = Session::get('TESTS_FILTER_INPUT');
+		// Session::put('fromRedirect', 'true');
 
 		return Redirect::to('event')->with('message', 'Successfully updated recommendations for for ID No '.$recommendation->event_id);
+									// ->withInput($input);
 	}
 
 
@@ -495,7 +551,11 @@ return Redirect::to('event')->with('message', 'Successfully updated objectives f
 
 	public function updateactions($id)
 	{
-		// store
+		// $event = UNHLSEvent::find($id);
+		// $event->event_status_id = UNHLSEvent::COMPLETED;
+		// $event->created_by = Auth::user()->id;
+		// $event->time_completed = date('Y-m-d H:i:s');
+		// // store
 
 		// $action = new UNHLSEventAction;
 
@@ -521,7 +581,14 @@ return Redirect::to('event')->with('message', 'Successfully updated objectives f
 			$action->save();			# code...
 		}
 
+//Fire of entry saved/edited event
+		// Event::fire('test.saved', array($id));
+
+		// $input = Session::get('TESTS_FILTER_INPUT');
+		// Session::put('fromRedirect', 'true');
+
 		return Redirect::to('event')->with('message', 'Successfully updated recommendations for for ID No '.$action->event_id);
+									// ->withInput($input);
 	}
 
 
@@ -531,6 +598,7 @@ return Redirect::to('event')->with('message', 'Successfully updated objectives f
 		$datefrom = Input::get('datefrom');
 		$dateto = Input::get('dateto');
 		$name = Input::get('name');
+
 
 		//$events = UNHLSEvent::get();
 		
@@ -545,27 +613,48 @@ return Redirect::to('event')->with('message', 'Successfully updated objectives f
 		return View::make('event.eventfilter')->with('events', $events);
 	}
 
+	/**
+	*	Function to return test types of a particular test category to fill test types dropdown
+	*/
+	public function reportsDropdown(){
+        $input = Input::get('option');
+        $department = ThematicAreas::find($input);
+        $types = $department->thematicarea();
+        return Response::make($types->get(['id','name']));
+    }
 
+   
 
-	// public function upcoming()
-	// {
-	// 	//
-	// 	$dateup = Input::get('dateup');
-	// 	$datedown = Input::get('datedown');
-	// 	$name = Input::get('name');
+public function department()
+	{
+		//
+		$datefrom = Input::get('datefrom');
+		$dateto = Input::get('dateto');
+		$name = Input::get('name');
+		// $department = Input::get('thematicArea_id');
+		// $type = Input::get('type');
 
-	// 	//$events = UNHLSEvent::get();
+		// //$events = UNHLSEvent::get();
+		// $this->model('UNHLSEvent');
+		// $getThematicarea = $this->UNHLSEvent->getThematicarea();
+		// $getType = $this->UNHLSEvent->getType();
+		// $this->view('reports.department',['getThematicarea'=>$getThematicarea, 'getType'=>$getType]);
+
 		
 		
-	// 	if($dateup != '' or $name){
-	// 		$events = UNHLSEvent::filtereventsbydate($dateup,$datedown,$name);
-	// 	}
-	// 	else{
-	// 	$events = '';
-	// 	}
+		if($datefrom != '' or $name){
+			$events = UNHLSEvent::reportfilter($datefrom,$dateto,$name);
+		}
+		else{
+		$events = '';
+		}
 
-	// 	return View::make('event.upcoming')->with('events', $events);
-	// }
+		return View::make('reports.department')->with('events', $events);
+	}
+
+	
+
+	
 
 
 	/**

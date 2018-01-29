@@ -27,7 +27,7 @@ color: #34495e;
 
 <div class="container" border: 1px solid grey;
     box-sizing: border-box;>
-<h2 class="section-title"><strong>ACTIVITY REPORTING</strong></h2>
+<h2 class="section-title"><strong>ATM</strong></h2>
 	
 	<div class="row">
 		<div class="col-md-3">
@@ -42,7 +42,7 @@ color: #34495e;
 		<div class="service">
 			<a href="{{ URL::route('event.index')}}">
 		<span style="color: limegreen" class="glyphicon glyphicon-list" aria-hidden="true"></span>
-		<h3><strong>Activity Log</strong></h3>
+		<h3><strong>Activities</strong></h3>
 
 		</div >
 		</div >
@@ -52,15 +52,15 @@ color: #34495e;
 		<div class="service">
 			<a href="{{ URL::route('meetings.meetingindex')}}">
 		<span style="color: mediumblue" class="glyphicon glyphicon-pushpin" aria-hidden="true"></span>
-		<h3><strong>Meeting Log</strong></h3>
+		<h3><strong>Meetings</strong></h3>
 
 		</div >
 		</div >
 		<div class="col-md-3">
 		<div class="service">
-			<a href="{{ URL::route('event.eventfilter')}}">
+			<a href="#">
 		<span style="color: darkred" class="glyphicon glyphicon-filter" aria-hidden="true"></span>
-		<h3><strong>Search/Filter</strong></h3>
+		<h3><strong>Dashboard</strong></h3>
 
 		</div >
 		</div >

@@ -7,7 +7,16 @@ class UNHLSEvent extends Eloquent
 {
 	protected $table = 'unhls_events';
 	
-	
+/**
+	 * Test status constants
+	 */
+	const NOT_RECEIVED = 1;
+	const PENDING = 2;
+	const STARTED = 3;
+	const COMPLETED = 4;
+	const VERIFIED = 5;
+
+
 	public function user()
 	{
 		return $this->belongsTo('User', 'user_id', 'id');
@@ -43,29 +52,61 @@ class UNHLSEvent extends Eloquent
         return $this->hasMany('Audience','event_id','id');
 	}
 
-	// public function audiencedata()
- //    {
- //        return $this->hasMany('AudienceData','event_id','id');
-	// }
+	public function audiencedata()
+    {
+        return $this->hasMany('AudienceData','event_id','id');
+	}
 
 	public function thematicarea()
 	{
-		return $this->belongsTo('ThematicAreas','thematicArea_id','id');
+		return $this->belongsTo('ThematicAreas','thematicArea_id');
 	}
 
 	public function funder()
 	{
-		return $this->belongsTo('Funder','funders_id','id');
+		return $this->belongsTo('Funder','funders_id');
 	}
 
 	public function organiser()
 	{
-		return $this->belongsTo('Organiser','organiser_id','id');
+		return $this->belongsTo('Organiser','organiser_id');
 	}
 
 	public function healthregion()
 	{
-		return $this->belongsTo('Healthregion','healthregion_id','id');
+		return $this->belongsTo('Healthregion','healthregion_id');
+	}
+	/**
+	 * User (created) relationship
+	 */
+	public function createdBy()
+	{
+		return $this->belongsTo('User', 'created_by', 'id');
+	}
+
+	/**
+	 * User (APPROVED) relationship
+	 */
+	public function approvedBy()
+	{
+		return $this->belongsTo('User', 'approvedby', 'id');
+	}
+
+	public function getThematicarea()
+	{
+		$query = $this->db->get('unhls_thematicareas');
+		if($query->num_rows() > 0){
+			return $query->result();
+		}
+	}
+
+
+	public function getType()
+	{
+		$query = $this->db->get('unhls_events');
+		if($query->num_rows() > 0){
+			return $query->result();
+		}
 	}
 
 	public static function filtereventsbydate($datefrom,$dateto,$name)
@@ -83,51 +124,82 @@ class UNHLSEvent extends Eloquent
 					->where('end_date','<=',$dateto);
 					
 		})
+
 		->get();
 	}
 
+	
+//Filters for reports
+
+	public static function reportfilter($datefrom,$dateto,$name)
+	{
+		return UNHLSEvent::Where(function ($query) use ($datefrom,$dateto,$name){
+			$query->orWhere('name','LIKE','%$name%');
+		})
+		->orWhere(function ($query) use ($datefrom,$dateto,$name){
+			$query->where('start_date','>=',$datefrom)
+					->where('start_date','<=',$dateto);
+					
+		})
+		->orWhere(function ($query) use ($datefrom,$dateto,$name){
+			$query->where('end_date','>=',$datefrom)
+					->where('end_date','<=',$dateto);
+					
+		})
+		// ->orWhere(function ($query) use ($department)
+		// 	{
+		// 	    $query->where('thematicArea_id', 'like', '%' . $department . '%');//Search by department
+		// 	})
+		// ->orWhere(function ($query) use ($type)
+		// 	{
+		// 	    $query->where('type', 'like', '%' . $type . '%');//Search by type
+		// 	})
+		->get();
+	}
+
+
 	// 	public function isNotReceived()
 	// {
-	// 	if($this->test_status_id == UnhlsTest::NOT_RECEIVED)
-	// 		return true;
-	// 	else 
-	// 		return false;
-	// }
-
-	/**
-	 * Helper function: check if the Test status is PENDING
-	 *
-	 * @return boolean
-	 */
-	// public function isPending()
-	// {
-	// 	if($this->test_status_id == UnhlsTest::PENDING)
-	// 		return true;
-	// 	else 
-	// 		return false;
-	// }
-
-	// *
-	//  * Helper function: check if the Test status is STARTED
-	//  *
-	//  * @return boolean
-	 
-	// public function isStarted()
-	// {
-	// 	if($this->test_status_id == UnhlsTest::STARTED)
+	// 	if($this->event_status_id == UNHLSEvent::NOT_RECEIVED)
 	// 		return true;
 	// 	else 
 	// 		return false;
 	// }
 
 	// /**
-	//  * Helper function: check if the Test status is COMPLETED
+	//  * Helper function: check if the event status is PENDING
+	//  *
+	//  * @return boolean
+	//  */
+	// public function isPending()
+	// {
+	// 	if($this->event_status_id == UNHLSEvent::PENDING)
+	// 		return true;
+	// 	else 
+	// 		return false;
+	// }
+
+	// *
+	//  * Helper function: check if the event status is STARTED
+	//  *
+	//  * @return boolean
+	 
+	// public function isStarted()
+	// {
+	// 	if($this->event_status_id == UNHLSEvent::STARTED)
+	// 		return true;
+	// 	else 
+	// 		return false;
+	// }
+
+	// /**
+	//  * Helper function: check if the event status is COMPLETED
 	//  *
 	//  * @return boolean
 	//  */
 	// public function isCompleted()
 	// {
-	// 	if($this->test_status_id == UnhlsTest::COMPLETED || $this->test_status_id == UnhlsTest::VERIFIED)
+	// 	if($this->event_status_id == UNHLSEvent::COMPLETED || $this->event_status_id == UNHLSEvent::VERIFIED)
 	// 		return true;
 	// 	else 
 	// 		return false;

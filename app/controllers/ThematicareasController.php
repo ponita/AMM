@@ -52,7 +52,7 @@ class ThematicareasController extends \BaseController {
 				$url = Session::get('SOURCE_URL');
             
             	return Redirect::to($url)
-					->with('message', trans('messages.success-creating-test-category')) ->with('activethematicAreas', $thematicAreas ->id);
+					->with('message', trans('messages.success-creating-department')) ->with('activethematicAreas', $thematicAreas ->id);
 			}catch(QueryException $e){
 				Log::error($e);
 			}
@@ -114,7 +114,7 @@ class ThematicareasController extends \BaseController {
 			$url = Session::get('SOURCE_URL');
             
             return Redirect::to($url)
-				->with('message', trans('messages.success-updating-test-category')) ->with('activethematicAreas', $thematicAreas ->id);
+				->with('message', trans('messages.success-updating-department')) ->with('activethematicAreas', $thematicAreas ->id);
 		}
 	}
 

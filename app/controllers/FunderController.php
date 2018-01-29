@@ -52,7 +52,7 @@ class FunderController extends \BaseController {
 				$url = Session::get('SOURCE_URL');
             
             	return Redirect::to($url)
-					->with('message', trans('messages.success-creating-test-category')) ->with('activefunders', $funders ->id);
+					->with('message', trans('messages.success-creating-funder')) ->with('activefunders', $funders ->id);
 			}catch(QueryException $e){
 				Log::error($e);
 			}
@@ -114,7 +114,7 @@ class FunderController extends \BaseController {
 			$url = Session::get('SOURCE_URL');
             
             return Redirect::to($url)
-				->with('message', trans('messages.success-updating-test-category')) ->with('activefunders', $funders ->id);
+				->with('message', trans('messages.success-updating-funder')) ->with('activefunders', $funders ->id);
 		}
 	}
 

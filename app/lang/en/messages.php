@@ -232,11 +232,15 @@ return array(
     /*Test Categories*/
 
     'create-test-category' => 'Create Lab Section',
-    'edit-test-category' => 'Edit Lab Section',
+    'edit-test-category' => 'Edit Section',
     'failure-test-category-in-use' => 'This category is a group of Test Types in use',
-    'success-creating-test-category' => 'Successfully created Lab Section.',
-    'success-deleting-test-category' => 'Successfully deleted the Lab Section.',
-    'success-updating-test-category' => 'The lab section was successfully updated!',
+    'success-creating-funder' => 'Successfully created Funder.',
+    'success-creating-organiser' => 'Successfully created Organiser.',
+    'success-creating-department' => 'Successfully created Department.',
+    'success-creating-health-region' => 'Successfully created Health region.',
+
+    'success-deleting-test-category' => 'Successfully deleted the Section.',
+    'success-updating-category' => 'The section was successfully updated!',
     'test-category' => 'Lab Section|Lab Sections',
     'test-category-details' => 'Lab Section Details',
     'list-test-categories' => 'List Lab Sections',

@@ -156,80 +156,262 @@ class TestDataSeeder extends DatabaseSeeder
 
 
 
-   //      /* Audience table */
-   //      $audienceData = array(
-   //          array("audience" => "Reported to administration for further action"),
-            // array("audience" => "Referred to mental department"),
-            // array("audience" => "Gave first aid (e.g. arrested bleeding)"),
-            // array("audience" => "Referred to clinician for further management"),
-   //          array("audience" => "Conducted risk assessment"),
-   //          array("audience" => "Intervened to interrupt/arrest progress of incident (e.g. Used neutralizing agent, stopping a fight)"),
-   //          array("audience" => "Disposed off broken container to designated waste bin/sharps"),
-   //          array("audience" => "Patient sample taken & referred to testing lab Isolated suspected patient"),
-   //          array("audience" => "Reported to or engaged national level BRM for intervention"),
-   //          array("audience" => "Victim counseled"),
-   //          array("audience" => "Contacted Police"),
-   //          array("audience" => "Used spill kit"),
-   //          array("audience" => "Administered PEP"),
-   //          array("audience" => "Referred to disciplinary committee"),
-   //          array("audience" => "Contained the spillage"),
-   //          array("audience" => "Disinfected the place"),
-   //          array("audience" => "Switched off the Electricity Mains"),
-   //          array("audience" => "Washed punctured area"),
-   //          array("audience" => "Others"),
-   //      );
+        // /* Audience table */
+        // $audiencedata = array(
+        //     array("audience" => "IPs"),
+        //     array("audience" => "Dev't Partners"),
+        //     array("audience" => "DHOs"),
+        //     array("audience" => "RRH Directors"),
+        //     array("audience" => "IP Lab Advisors"),
+        //     array("audience" => "Lab Incharges"),
+        //     array("audience" => "Medical Superintendents"),
+        //     array("audience" => "DLFPs"),
+        //     array("audience" => "Multi sectoral"),
+        //     array("audience" => "National stakeholders"),
+        //     array("audience" => "Regional Coordinators"),
+        //     array("audience" => "Hub Coordinators"),
+        //     array("audience" => "Top Management"),
+        //     array("audience" => "Senior Management"),
+        //     array("audience" => "M$E Focal Persons"),
+        //     array("audience" => "General Staff"),
+        //     array("audience" => "Departmental"),
+            
+        // );
 
-   //      foreach ($audienceData as $audience)
-   //      {
-   //          $audience[] = Audience::create($audience);
-   //      }
-   //      $this->command->info('Audience seeded');
+        // foreach ($audiencedata as $audience)
+        // {
+        //     $audience[] = Audience::create($audience);
+        // }
+        // $this->command->info('Audience seeded');
         
         
      
 
-        // /* Rejection Reasons table */
-        // $rejection_reasons_array = array(
-        //   array("reason" => "Poorly labelled"),
-        //   array("reason" => "Over saturation"),
-        //   array("reason" => "Insufficient Sample"),
-        //   array("reason" => "Scattered"),
-        //   array("reason" => "Clotted Blood"),
-        //   array("reason" => "Two layered spots"),
-        //   array("reason" => "Serum rings"),
-        //   array("reason" => "Scratched"),
-        //   array("reason" => "Haemolysis"),
-        //   array("reason" => "Spots that cannot elute"),
-        //   array("reason" => "Leaking"),
-        //   array("reason" => "Broken Sample Container"),
-        //   array("reason" => "Mismatched sample and form labelling"),
-        //   array("reason" => "Missing Labels on container and tracking form"),
-        //   array("reason" => "Empty Container"),
-        //   array("reason" => "Samples without tracking forms"),
-        //   array("reason" => "Poor transport"),
-        //   array("reason" => "Lipaemic"),
-        //   array("reason" => "Wrong container/Anticoagulant"),
-        //   array("reason" => "Request form without samples"),
-        //   array("reason" => "Missing collection date on specimen / request form."),
-        //   array("reason" => "Name and signature of requester missing"),
-        //   array("reason" => "Mismatched information on request form and specimen container."),
-        //   array("reason" => "Request form contaminated with specimen"),
-        //   array("reason" => "Duplicate specimen received"),
-        //   array("reason" => "Delay between specimen collection and arrival in the laboratory"),
-        //   array("reason" => "Inappropriate specimen packing"),
-        //   array("reason" => "Inappropriate specimen for the test"),
-        //   array("reason" => "Inappropriate test for the clinical condition"),
-        //   array("reason" => "No Label"),
-        //   array("reason" => "Leaking"),
-        //   array("reason" => "No Sample in the Container"),
-        //   array("reason" => "No Request Form"),
-        //   array("reason" => "Missing Information Required"),
+        //        /* Test table */
+        // UnhlsTest::create(
+        //     array(
+                
+        //         "event_status_id" => UnhlsTest::NOT_RECEIVED,
+        //         "requested_by" => "Dr. Abou Meyang",
+        //         "created_by" => $users[rand(0, count($users)-1)]->id,
+        //     )
         // );
-        // foreach ($rejection_reasons_array as $rejection_reason)
-        // {
-        //     $rejection_reasons[] = RejectionReason::create($rejection_reason);
-        // }
-        // $this->command->info('rejection_reasons seeded');
+
+        // UnhlsTest::create(
+        //     array(
+                
+        //         "event_status_id" => UnhlsTest::PENDING,
+        //         "requested_by" => "Dr. Abou Meyang",
+        //         "created_by" => $users[rand(0, count($users)-1)]->id,
+        //     )
+        // );
+
+       
+
+        // $test_gxm_accepted_completed = UnhlsTest::create(
+        //     array(
+        //         "visit_id" => $visits[rand(0,count($visits)-1)]->id,
+        //         "test_type_id" => $testTypeGXM->id,
+        //         "specimen_id" => $this->createSpecimen(
+        //                 UnhlsTest::COMPLETED, UnhlsSpecimen::ACCEPTED,
+        //                 SpecimenType::all()->last()->id,
+        //                 $users[rand(0, count($users)-1)]->id),
+        //         "interpretation" => "Perfect match.",
+        //         "event_status_id" => UnhlsTest::COMPLETED,
+        //         "created_by" => $users[rand(0, count($users)-1)]->id,
+        //         "tested_by" => $users[rand(0, count($users)-1)]->id,
+        //         "requested_by" => "Dr. Abou Meyang",
+        //         "time_started" => $now->format('Y-m-d H:i:s'),
+        //         "time_completed" => $now->add(new DateInterval('PT12M8S'))->format('Y-m-d H:i:s'),
+        //     )
+        // );
+
+        // $test_hb_accepted_completed = UnhlsTest::create(
+        //     array(
+        //         "visit_id" => $visits[rand(0,count($visits)-1)]->id,
+        //         "test_type_id" => $testTypeHB->id,
+        //         "specimen_id" => $this->createSpecimen(
+        //                 UnhlsTest::COMPLETED, UnhlsSpecimen::ACCEPTED,
+        //                 SpecimenType::all()->last()->id,
+        //                 $users[rand(0, count($users)-1)]->id),
+        //         "interpretation" => "Do nothing!",
+        //         "event_status_id" => UnhlsTest::COMPLETED,
+        //         "created_by" => $users[rand(0, count($users)-1)]->id,
+        //         "tested_by" => $users[rand(0, count($users)-1)]->id,
+        //         "requested_by" => "Genghiz Khan",
+        //         "time_started" => $now->format('Y-m-d H:i:s'),
+        //         "time_completed" => $now->add(new DateInterval('PT5M23S'))->format('Y-m-d H:i:s'),
+        //     )
+        // );
+
+        // $tests_accepted_started = UnhlsTest::create(
+        //     array(
+        //         "visit_id" => $visits[rand(0,count($visits)-1)]->id,
+        //         "test_type_id" => $testTypeGXM->id,
+        //         "specimen_id" => $this->createSpecimen(
+        //             UnhlsTest::STARTED, UnhlsSpecimen::ACCEPTED, SpecimenType::all()->last()->id,
+        //             $users[rand(0, count($users)-1)]->id),
+        //         "event_status_id" => UnhlsTest::STARTED,
+        //         "requested_by" => "Dr. Abou Meyang",
+        //         "created_by" => $users[rand(0, count($users)-1)]->id,
+        //         "time_started" => $now->format('Y-m-d H:i:s'),
+        //     )
+        // );
+
+        // $tests_accepted_completed = UnhlsTest::create(
+        //     array(
+        //         "visit_id" => $visits[rand(0,count($visits)-1)]->id,
+        //         "test_type_id" => $testTypeBS->id,//BS for MPS
+        //         "specimen_id" => $this->createSpecimen(
+        //                 UnhlsTest::COMPLETED, UnhlsSpecimen::ACCEPTED,
+        //                 SpecimenType::all()->last()->id,
+        //                 $users[rand(0, count($users)-1)]->id),
+        //         "interpretation" => "Positive",
+        //         "event_status_id" => UnhlsTest::COMPLETED,
+        //         "created_by" => $users[rand(0, count($users)-1)]->id,
+        //         "tested_by" => $users[rand(0, count($users)-1)]->id,
+        //         "requested_by" => "Ariel Smith",
+        //         "time_started" => $now->format('Y-m-d H:i:s'),
+        //         "time_completed" => $now->add(new DateInterval('PT7M34S'))->format('Y-m-d H:i:s'),
+        //     )
+        // );
+
+        // $tests_accepted_verified = UnhlsTest::create(
+        //     array(
+        //         "visit_id" => $visits[rand(0,count($visits)-1)]->id,
+        //         "test_type_id" => $testTypeBS->id,//BS for MPS
+        //         "specimen_id" => $this->createSpecimen(
+        //                 UnhlsTest::VERIFIED, UnhlsSpecimen::ACCEPTED,
+        //                 SpecimenType::all()->last()->id,
+        //                 $users[rand(0, count($users)-1)]->id),
+        //         "interpretation" => "Very high concentration of parasites.",
+        //         "event_status_id" => UnhlsTest::VERIFIED,
+        //         "created_by" => $users[rand(0, count($users)-1)]->id,
+        //         "tested_by" => $users[rand(0, count($users)-1)]->id,
+        //         "verified_by" => $users[rand(0, count($users)-1)]->id,
+        //         "requested_by" => "Genghiz Khan",
+        //         "time_started" => $now,
+        //         "time_completed" => $now->add(new DateInterval('PT5M17S'))->format('Y-m-d H:i:s'),
+        //         "time_verified" => $now->add(new DateInterval('PT112M33S'))->format('Y-m-d H:i:s'),
+        //     )
+        // );
+
+        // $tests_rejected_pending = UnhlsTest::create(
+        //     array(
+        //         "visit_id" => $visits[rand(0,count($visits)-1)]->id,
+        //         "test_type_id" => $testTypeBS->id,//BS for MPS
+        //         "specimen_id" => $this->createSpecimen(
+        //                 UnhlsTest::PENDING, UnhlsSpecimen::REJECTED,
+        //                 SpecimenType::all()->last()->id,
+        //                 $users[rand(0, count($users)-1)]->id,
+        //                 $users[rand(0, count($users)-1)]->id,
+        //                 $rejection_reasons[rand(0,count($rejection_reasons)-1)]->id),
+        //         "event_status_id" => UnhlsTest::PENDING,
+        //         "requested_by" => "Dr. Abou Meyang",
+        //         "created_by" => $users[rand(0, count($users)-1)]->id,
+        //         "time_started" => $now->format('Y-m-d H:i:s'),
+        //     )
+        // );
+
+        // //  WBC Started
+        // UnhlsTest::create(
+        //     array(
+        //         "visit_id" => $visits[rand(0,count($visits)-1)]->id,
+        //         "test_type_id" => $testTypeWBC->id,
+        //         "specimen_id" => $this->createSpecimen(
+        //                 UnhlsTest::STARTED, UnhlsSpecimen::ACCEPTED,
+        //                 SpecimenType::all()->last()->id,
+        //                 $users[rand(0, count($users)-1)]->id),
+        //         "event_status_id" => UnhlsTest::PENDING,
+        //         "requested_by" => "Fred Astaire",
+        //         "created_by" => $users[rand(0, count($users)-1)]->id,
+        //     )
+        // );
+
+        // $tests_rejected_started = UnhlsTest::create(
+        //     array(
+        //         "visit_id" => $visits[rand(0,count($visits)-1)]->id,
+        //         "test_type_id" => $testTypeBS->id,//BS for MPS
+        //         "specimen_id" => $this->createSpecimen(
+        //                 UnhlsTest::STARTED, UnhlsSpecimen::REJECTED,
+        //                 SpecimenType::all()->last()->id,
+        //                 $users[rand(0, count($users)-1)]->id,
+        //                 $users[rand(0, count($users)-1)]->id,
+        //                 $rejection_reasons[rand(0,count($rejection_reasons)-1)]->id),
+        //         "event_status_id" => UnhlsTest::STARTED,
+        //         "created_by" => $users[rand(0, count($users)-1)]->id,
+        //         "requested_by" => "Bony Em",
+        //         "time_started" => $now->format('Y-m-d H:i:s'),
+        //     )
+        // );
+
+        // $tests_rejected_completed = UnhlsTest::create(
+        //     array(
+        //         "visit_id" => $visits[rand(0,count($visits)-1)]->id,
+        //         "test_type_id" => $testTypeBS->id,//BS for MPS
+        //         "specimen_id" => $this->createSpecimen(
+        //                 UnhlsTest::COMPLETED, UnhlsSpecimen::REJECTED,
+        //                 SpecimenType::all()->last()->id,
+        //                 $users[rand(0, count($users)-1)]->id,
+        //                 $users[rand(0, count($users)-1)]->id,
+        //                 $rejection_reasons[rand(0,count($rejection_reasons)-1)]->id),
+        //         "interpretation" => "Budda Boss",
+        //         "event_status_id" => UnhlsTest::COMPLETED,
+        //         "created_by" => $users[rand(0, count($users)-1)]->id,
+        //         "tested_by" => $users[rand(0, count($users)-1)]->id,
+        //         "requested_by" => "Ed Buttler",
+        //         "time_started" => $now->format('Y-m-d H:i:s'),
+        //         "time_completed" => $now->add(new DateInterval('PT30M4S'))->format('Y-m-d H:i:s'),
+        //     )
+        // );
+
+        // UnhlsTest::create(
+        //     array(
+        //         "visit_id" => $visits[rand(0,count($visits)-1)]->id,
+        //         "test_type_id" => $testTypeUrinalysis->id,
+        //         "specimen_id" => $this->createSpecimen(
+        //                 UnhlsTest::PENDING, UnhlsSpecimen::NOT_COLLECTED,
+        //                 SpecimenType::all()->last()->id,
+        //                 $users[rand(0, count($users)-1)]->id),
+        //         "event_status_id" => UnhlsTest::PENDING,
+        //         "requested_by" => "Dr. Abou Meyang",
+        //         "created_by" => $users[rand(0, count($users)-1)]->id,
+        //     )
+        // );
+
+        // UnhlsTest::create(
+        //     array(
+        //         "visit_id" => $visits[rand(0,count($visits)-1)]->id,
+        //         "test_type_id" => $testTypeWBC->id,
+        //         "specimen_id" => $this->createSpecimen(
+        //                 UnhlsTest::PENDING, UnhlsSpecimen::NOT_COLLECTED,
+        //                 SpecimenType::all()->last()->id,
+        //                 $users[rand(0, count($users)-1)]->id),
+        //         "event_status_id" => UnhlsTest::PENDING,
+        //         "requested_by" => "Dr. Abou Meyang",
+        //         "created_by" => $users[rand(0, count($users)-1)]->id,
+        //     )
+        // );
+
+        // $test_urinalysis_accepted_completed = UnhlsTest::create(
+        //     array(
+        //         "visit_id" => $visits[rand(0,count($visits)-1)]->id,
+        //         "test_type_id" => $testTypeUrinalysis->id,
+        //         "specimen_id" => $this->createSpecimen(
+        //                 UnhlsTest::COMPLETED, UnhlsSpecimen::ACCEPTED,
+        //                 SpecimenType::all()->last()->id,
+        //                 $users[rand(0, count($users)-1)]->id),
+        //         "interpretation" => "Whats this !!!! ###%%% ^ *() /",
+        //         "event_status_id" => UnhlsTest::COMPLETED,
+        //         "created_by" => $users[rand(0, count($users)-1)]->id,
+        //         "tested_by" => $users[rand(0, count($users)-1)]->id,
+        //         "requested_by" => "Dr. Abou Meyang",
+        //         "time_started" => $now->format('Y-m-d H:i:s'),
+        //         "time_completed" => $now->add(new DateInterval('PT12M8S'))->format('Y-m-d H:i:s'),
+        //     )
+        // );
+
+        // $this->command->info('tests seeded');
 
         
 
@@ -241,9 +423,9 @@ class TestDataSeeder extends DatabaseSeeder
             array("name" => "edit_activity", "display_name" => "Can edit activity details"),
             array("name" => "approve_activity", "display_name" => "Can approve activity"),
             array("name" => "update_objective", "display_name" => "Can add objective"),
-            array("name" => "update_lessons", "display_name" => "Can enter lessons learnt"),
-            array("name" => "update_recommendations", "display_name" => "Can enter recommendations"),
-            array("name" => "update_actions", "display_name" => "Can enter actions taken"),
+            array("name" => "update_lessons", "display_name" => "Can add lessons learnt"),
+            array("name" => "update_recommendations", "display_name" => "Can add recommendations"),
+            array("name" => "update_actions", "display_name" => "Can add actions taken"),
             array("name" => "add_report", "display_name" => "Can attach report"),
             array("name" => "download_report", "display_name" => "Can download report"),
 

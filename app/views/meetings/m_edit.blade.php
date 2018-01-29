@@ -37,46 +37,46 @@
 			{{ Form::hidden('user_id', Auth::user()->id) }}
 			{{ Form::label('name', 'Meeting Name', array('class' => 'col-sm-2')) }}
 			{{ Form::textarea('name', Input::old('name'), array('size' => '10x1','class' => 'form-control col-sm-10')) }}
-		</div>
+		</div> 
 
 		<div class="form-group">
 			{{Form::label('thematicarea', 'Thematic Area', array('class' => 'col-sm-2'))}}
-			{{ Form::select('thematicarea', $thematicAreas, Input::get('thematicarea'),
+			{{ Form::select('thematicarea', $thematicAreas, $meetings->thematicArea_id,
 					['class' => 'form-control col-sm-4']) }}
 		</div>
 
 		<div class="form-group">
-		
-
-          
-
-			<!-- {{ Form::label('currentTime', 'Time', array('class' => 'col-sm-2')) }} 
-			{{ Form::text('start_date', Input::old('currentTime'), array('class' => 'form-control standard-timepicker col-sm-4')) }} -->
-
 		    {{ Form::label('start_time', 'Start Time', array('class' => 'col-sm-2')) }}
 			{{ Form::text('start_time', Input::old('start_time'), array('class' => 'form-control standard-datepicker col-sm-4')) }}
          </div>
 			
 
 			
-			<div class="form-group">
+		<div class="form-group">
 			{{ Form::label('end_time', 'End Time', array('class' => 'col-sm-2')) }}
 			{{ Form::text('end_time', Input::old('end_time'), array('class' => 'form-control standard-datepicker col-sm-4')) }}	
-
 		</div>
         
 
 		<div class="form-group">
 			{{ Form::label('venue', 'Venue', array('class' => 'col-sm-2')) }}
-			{{ Form::select('venue', [
+			<!-- {{ Form::select('venue', [
 					'Upper Board room' => 'Upper Board room',
 					'EDs Board room' => 'EDs Board room',
 					'Lower Board room' => 'Lower Board room',
 					'Quadrangle' => 'Quadrangle',
 					'NTRL' => 'NTRL',
 					'Tent' => 'Tent'], 
-					Input::old('venue'), array('id' => 'location', 'class' => 'form-control col-sm-4')) }}
-			
+					Input::old('venue'), array('id' => 'location', 'class' => 'form-control col-sm-4')) }} -->
+			<input list="venue" name="venue" value="<?php echo $meetings->venue; ?>" class="form-control col-sm-4" placeholder="Double click for options or write">
+					<datalist id="venue">
+						<option value="Upper Board room">
+						<option value="EDs Board room">
+						<option value="Lower Board room">
+						<option value="Quadrangle">
+						<option value="NTRL">
+							<option value="Tent">
+					</datalist>
 		</div>
 
 		
@@ -84,10 +84,10 @@
 		<div class="form-group">
 			
 			{{Form::label('organiser', 'Organiser', array('class' => 'col-sm-2')) }}
-			{{ Form::select('organiser', $organisers, Input::get('organiser'),
+			{{ Form::select('organiser', $organisers, $meetings->organiser_id,
 					['class' => 'form-control']) }}		
 		</div>
-		<div class="form-group">
+		<!-- <div class="form-group">
 			
 			{{ Form::label('targetAudience', 'Target Audience', array('class' => 'col-sm-2')) }}
 			
@@ -166,7 +166,7 @@
 		</div>
 		</div>
 	</div>
-		</div>	
+		</div>	 -->
 		
 		<div class="form-group">	
 			{{ Form::label('participants_no', 'No of Participants', array('class' => 'col-sm-2')) }}

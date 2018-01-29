@@ -44,10 +44,10 @@
 				<tr>
 					<th>ID</th>
 					<th>Name</th>
-					<th>Start Date</th>
-					<th>End Date</th>
-					<th>Report</th>
+					<th>Date</th>
 					<th>Actions</th>
+					<th>Report</th>
+
 				</tr>
 			</thead>
 			<tbody>
@@ -59,8 +59,12 @@
 					
 					<td>{{ $event->id }}</td>
 					<td>{{ $event->name }}</td>
-					<td>{{ date('d M Y', strtotime($event->start_date)) }}</td>
-					<td>{{ date('d M Y', strtotime($event->end_date)) }}</td>
+					<td>{{ date('d', strtotime($event->start_date)) }}-{{ date('d M Y', strtotime($event->end_date)) }}</td>
+					
+					<td><a class="btn btn-sm btn-info" href="{{ URL::route('event.print', array($event->id)) }}" href="javascript:printSpecial('UGANDA NATIONAL HEALTH LABORATORY SERVICES - ACTIVITIES REPORTING <br> 
+  ACTIVITY STATUS/DETAILS')" target="_blank">
+      <span class="glyphicon glyphicon-eye-open"></span>View Report
+    </a></td>
 					
        @if(Auth::user()->can('download_report'))
 					<td>
@@ -71,10 +75,7 @@
           			@endif	
 					</td>
 					@endif
-					<td><a class="btn btn-sm btn-info" href="{{ URL::route('event.print', array($event->id)) }}" href="javascript:printSpecial('UGANDA NATIONAL HEALTH LABORATORY SERVICES - ACTIVITIES REPORTING <br> 
-  ACTIVITY STATUS/DETAILS')" target="_blank">
-      <span class="glyphicon glyphicon-eye-open"></span>View Report
-    </a></td>
+					
 
 					
 				</tr>

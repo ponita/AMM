@@ -45,7 +45,7 @@
                 
       <div class="row view-striped">
         <div class="col-sm-1"><strong>ID #</strong></div>
-        <div class="col-sm-2" style="color:red;"><strong>{{ $event->serial_no }}</strong></div>
+        <div class="col-sm-2" style="color:red;"><strong>{{ $event->id }}</strong></div>
         
         <div class="col-sm-2"><strong>Activity</strong></div>
         <div class="col-sm-7">{{ $event->name }}</div>
@@ -63,12 +63,23 @@
       </div>
 
       <div class="row  view-striped">
-      <div class="col-sm-2"><strong>Time</strong></div>
-      <div class="col-sm-4">{{ $event->time }}</div>
+       <div class="col-sm-2"><strong>Date</strong></div>
+     <div class="col-sm-4">{{ date('d', strtotime($event->start_date)) }}-{{ date('d M Y', strtotime($event->end_date)) }}</div>
+      <div class="col-sm-2"><strong>Duration</strong></div>
+      <td colspan="1">
+            <?php
+            $date1 = date_create($event->start_date);
+            $date2 = date_create($event->end_date);
+
+            //difference between two dates
+            $diff = date_diff($date1,$date2);
+
+            //count days
+            echo ' '.$diff->format("%d days %h hrs");
+            ?>
+          </td>
 		
-       <div class="col-sm-2"><strong>Duration</strong></div>
-        <div class="col-sm-4">{{ date('d M Y', strtotime($event->start_date)) }} 
-          to {{ date('d M Y', strtotime($event->end_date)) }}</div>
+      
       </div>
       
       <div class="row  view-striped">

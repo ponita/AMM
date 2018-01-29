@@ -16,7 +16,7 @@
 		<div class="panel-btn">
 			<a class="btn btn-sm btn-info" href="{{ URL::to("thematicAreas/create") }}" >
 				<span class="glyphicon glyphicon-plus-sign"></span>
-				Thematic Areas
+				New Thematic Area
 			</a>
 		</div>
 	</div>

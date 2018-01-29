@@ -70,15 +70,23 @@ else { el.hide();}
 
 		<div class="form-group">
 			{{ Form::label('venue', 'Venue', array('class' => 'col-sm-2')) }}
-			{{ Form::select('venue', [
+			<!-- {{ Form::select('venue', [
 					'Upper Board room' => 'Upper Board room',
 					'EDs Board room' => 'EDs Board room',
 					'Lower Board room' => 'Lower Board room',
 					'Quadrangle' => 'Quadrangle',
 					'NTRL' => 'NTRL',
 					'Tent' => 'Tent'], 
-					Input::old('venue'), array('id' => 'venue', 'class' => 'form-control col-sm-4')) }}
-			
+					Input::old('venue'), array('id' => 'location', 'class' => 'form-control col-sm-4')) }} -->
+			<input list="venue" name="venue" class="form-control col-sm-4" placeholder="Double click for options or write">
+					<datalist id="venue">
+						<option value="Upper Board room">
+						<option value="EDs Board room">
+						<option value="Lower Board room">
+						<option value="Quadrangle">
+						<option value="NTRL">
+						<option value="Tent">
+					</datalist>
 		</div>
 
 		

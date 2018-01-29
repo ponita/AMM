@@ -12,7 +12,7 @@ class UnhlsAudiencedata extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('unhls_audienceData', function($table)
+		Schema::create('unhls_audiencedata', function($table)
 
 		{
 		    $table->increments('id');
@@ -29,7 +29,7 @@ class UnhlsAudiencedata extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('unhls_audienceData');
+		Schema::drop('unhls_audiencedata');
 	}
 
 }

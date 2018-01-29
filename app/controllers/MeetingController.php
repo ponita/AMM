@@ -234,13 +234,13 @@ public function report()
 		$agenda->save();
 		}
 
-	$audiences = Input::get('targetAudience');
-		foreach ($audiences as $aud) {
-			$targetAudience = new TargetAudience;
-			$targetAudience->meeting_id = $meetings->id;
-			$targetAudience->targetAudience=$aud;
-			$targetAudience->save();			# code...
-		}
+	// $audiences = Input::get('targetAudience');
+	// 	foreach ($audiences as $aud) {
+	// 		$targetAudience = new TargetAudience;
+	// 		$targetAudience->meeting_id = $meetings->id;
+	// 		$targetAudience->targetAudience=$aud;
+	// 		$targetAudience->save();			# code...
+	// 	}
 
 		//saving the attached report
 		// if (Input::hasFile('minutes')) {
@@ -255,8 +255,8 @@ public function report()
   //       	$meetings->save();
   //   	}
 		return Redirect::to('meetings')->with('message', 'Successfully updated meetings information for ID No '.$meetings->id)
-								->with('message', 'Successfully registered an activity with ID No '.$agenda->meeting_id)
-								->with('message', 'Successfully registered an activity with ID No '.$targetAudience->meeting_id);
+								->with('message', 'Successfully registered an activity with ID No '.$agenda->meeting_id);
+								// ->with('message', 'Successfully registered an activity with ID No '.$targetAudience->meeting_id);
 	
 		}
 	}
@@ -357,6 +357,28 @@ public function updateminutes($id)
 		// $meetings = Meeting::find($id);
 		
 		return View::make('meetings.meeting');
+	}
+
+	public function meetingreport()
+	{
+		//
+		$datefrom = Input::get('datefrom');
+		$dateto = Input::get('dateto');
+		$name = Input::get('name');
+		
+		
+
+		//$events = UNHLSEvent::get();
+		
+		
+		if($datefrom != '' or $name){
+			$meetings = Meeting::reportfilter($datefrom,$dateto,$name);
+		}
+		else{
+		$meetings = '';
+		}
+
+		return View::make('reports.meetingreport')->with('meetings', $meetings);
 	}
 
 	/**

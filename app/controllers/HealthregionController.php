@@ -52,7 +52,7 @@ class HealthregionController extends \BaseController {
 				$url = Session::get('SOURCE_URL');
             
             	return Redirect::to($url)
-					->with('message', trans('messages.success-creating-test-category')) ->with('activehealthregion', $healthregion ->id);
+					->with('message', trans('messages.success-creating-health-region')) ->with('activehealthregion', $healthregion ->id);
 			}catch(QueryException $e){
 				Log::error($e);
 			}
@@ -114,7 +114,7 @@ class HealthregionController extends \BaseController {
 			$url = Session::get('SOURCE_URL');
             
             return Redirect::to($url)
-				->with('message', trans('messages.success-updating-test-category')) ->with('activehealthregion', $healthregion ->id);
+				->with('message', trans('messages.success-updating-health-region')) ->with('activehealthregion', $healthregion ->id);
 		}
 	}
 

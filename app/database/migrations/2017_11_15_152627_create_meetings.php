@@ -28,6 +28,7 @@ class CreateMeetings extends Migration {
 			$table->integer('participants_no')->unsigned()->nullable();	
 			$table->integer('organiser_id')->unsigned()->nullable();		
 			$table->string('objective');
+            $table->integer('event_status_id')->unsigned()->default(0);
 			$table->string('email');
 			$table->string('minutes');		
 			$table->integer('user_id')->unsigned();

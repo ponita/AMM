@@ -40,12 +40,8 @@
 				<tr>
 					<th>Name</th>
 					<!-- <th>Serial No</th> -->
-					<th>Start Date</th>
-					<th>End Date</th>
-					<!-- <th>Activity Name</th> -->
-					<!-- <th>Department</th> -->
+					<th>Date</th>			
 					<th>Registered by</th>
-					<!-- <th>Type</th> -->
 					<th>No. of paticipants</th>
 					<th>Approval Status</th>
 					<th>Objective</th>
@@ -60,11 +56,7 @@
 				>
 					
 					<td>{{ $meetings->name }}</td>
-					<!-- <td>{{ $meetings->serial_no }}</td> -->
-					<td>{{$meetings->start_time }}</td>
-					<td>{{$meetings->end_time }}</td>
-					
-					<!-- <td>{{ $meetings->department }}</td> -->
+					<td>{{ date('d', strtotime($meetings->start_time)) }}-{{ date('d M Y', strtotime($meetings->end_time)) }}</td>
 					<td>{{ $meetings->user->name }}</td>
 					<td align="center">{{ $meetings->participants_no }}</td>
 					
@@ -87,26 +79,7 @@
 
 					<td>{{ $meetings->objective}}</td> 
 
-           			<!-- <td>
-						 <div class="dropdown">
-  							<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Action
-  							<span class="caret"></span></button>
-  							<ul class="dropdown-menu">
-       					@if(Auth::user()->can('view_meeting'))
-    							<li><a href="{{ URL::route('meetings.show', array($meetings->id)) }}">
-    								View Details</a></li>
-    					@elseif(Auth::user()->can('edit_meeting'))
-    							<li><a href="{{ URL::route('meetings.m_edit', array($meetings->id)) }}">
-    								Update Details</a></li>
-      					@elseif(Auth::user()->can('update_meeting'))
-    							<li><a href="{{ URL::route('meetings.editapproval', array($meetings->id)) }}">
-    							Update Approval</a></li>
-    							@endif
-
-    						</ul>
-						</div>
-
-					</td> -->
+           			
 
 					<td>
        					@if(Auth::user()->can('view_meeting'))

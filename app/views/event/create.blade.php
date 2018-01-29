@@ -61,7 +61,7 @@ else { el.hide();}
 			
 
 			{{Form::label('thematicarea', 'Thematic Area', array('class' => 'col-sm-2'))}}
-			{{ Form::select('thematicarea', $thematicAreas, Input::get('thematicarea'),
+			{{ Form::select('thematicarea', $thematicAreas, Input::old('thematicarea'),
 					['class' => 'form-control col-sm-4']) }}
  
 			
@@ -101,7 +101,7 @@ else { el.hide();}
 		<div class="form-group" style="" id="field-location">
 			
 			{{Form::label('healthregion', 'Health Region', array('class' => 'col-sm-2')) }}
-			{{ Form::select('healthregion', $healthregion, Input::get('healthregion'),
+			{{ Form::select('healthregion', $healthregion, Input::old('healthregion'),
 					['class' => 'form-control col-sm-4']) }}
 
 			{{ Form::label('district', 'District', array('class' => 'col-sm-2 col-sm-offset-1')) }}
@@ -111,11 +111,11 @@ else { el.hide();}
 
 		<div class="form-group">
 			{{Form::label('funder', 'Funding Source', array('class' => 'col-sm-2')) }}
-			{{ Form::select('funder', $funders, Input::get('funder'),
+			{{ Form::select('funder', $funders, Input::old('funder'),
 					['class' => 'form-control col-sm-4']) }}
 
 			{{Form::label('organiser', 'Organiser', array('class' => 'col-sm-2 col-sm-offset-1')) }}
-			{{ Form::select('organiser', $organisers, Input::get('organiser'),
+			{{ Form::select('organiser', $organisers, Input::old('organiser'),
 					['class' => 'form-control col-sm-4']) }}	
 		</div>
 
@@ -127,72 +127,72 @@ else { el.hide();}
 			<div class="container-fluid">
 			<div class="form-group" list="audience">
 			<label>
-
-			<input type="checkbox" list="" name="audience[]" id="audience" value="IPs">
+ 
+			<input type="checkbox" list="" name="audience[]" id="audience" value="IPs" @if(is_array(input::old('audience')) && in_array(1, old('audience'))) checked @endif>
 			IPs
 			</label>
 			<label>
-			<input type="checkbox"  name="audience[]" id="optionsRadios2" value="Dev't Partners">
+			<input type="checkbox"  name="audience[]" id="optionsRadios2" value="Dev't Partners"  @if(is_array(input::old('audience')) && in_array(1, old('audience'))) checked @endif>
 			Dev't Partners
 			</label>
 			<label>
-			<input type="checkbox"  name="audience[]" id="optionsRadios3" value="DHOs">
+			<input type="checkbox"  name="audience[]" id="optionsRadios3" value="DHOs"  @if(is_array(input::old('audience')) && in_array(1, old('audience'))) checked @endif>
 			DHOs
 			</label>
 			<label>
-			<input type="checkbox"  name="audience[]" id="optionsRadios4" value="RRH Directors">
+			<input type="checkbox"  name="audience[]" id="optionsRadios4" value="RRH Directors"  @if(is_array(input::old('audience')) && in_array(1, old('audience'))) checked @endif>
 			RRH Directors
 			</label>
 			<label>
-			<input type="checkbox" name="audience[]" id="optionsRadios5" value="IP Lab Advisors">
+			<input type="checkbox" name="audience[]" id="optionsRadios5" value="IP Lab Advisors"  @if(is_array(input::old('audience')) && in_array(1, old('audience'))) checked @endif>
 			IP Lab Advisors
 			</label>
 			<label>
-			<input type="checkbox" name="audience[]" id="optionsRadios6" value="Lab Incharges">
+			<input type="checkbox" name="audience[]" id="optionsRadios6" value="Lab Incharges"  @if(is_array(input::old('audience')) && in_array(1, old('audience'))) checked @endif>
 			Lab Incharges
 			</label>
 			<label>
-			<input type="checkbox" list="" name="audience[]" id="audience" value="Medical Superintendents">
+			<input type="checkbox" list="" name="audience[]" id="audience" value="Medical Superintendents"  @if(is_array(input::old('audience')) && in_array(1, old('audience'))) checked @endif>
 			Medical Superintendents
 			</label>
 			<label>
-			<input type="checkbox"  name="audience[]" id="optionsRadios2" value="DLFPs">
+			<input type="checkbox"  name="audience[]" id="optionsRadios2" value="DLFPs"  @if(is_array(input::old('audience')) && in_array(1, old('audience'))) checked @endif>
 			DLFPs
 			</label>
 			<label>
-			<input type="checkbox"  name="audience[]" id="optionsRadios3" value="Multi sectoral">
+			<input type="checkbox"  name="audience[]" id="optionsRadios3" value="Multi sectoral"  @if(is_array(input::old('audience')) && in_array(1, old('audience'))) checked @endif>
 			Multi sectoral
 			</label>
 			<label>
-			<input type="checkbox"  name="audience[]" id="optionsRadios4" value="National stakeholders">
+			<input type="checkbox"  name="audience[]" id="optionsRadios4" value="National stakeholders" @if(is_array(input::old('audience')) && in_array(1, old('audience'))) checked @endif>
 			National stakeholders
 			</label>
 			<label>
-			<input type="checkbox" name="audience[]" id="optionsRadios5" value="Regional Coordinators">
+			<input type="checkbox" name="audience[]" id="optionsRadios5" value="Regional Coordinators" @if(is_array(input::old('audience')) && in_array(1, old('audience'))) checked @endif>
 			Regional Coordinators
 			</label>
 			<label>
-			<input type="checkbox" name="audience[]" id="optionsRadios6" value="Hub Coordinators">
+			<input type="checkbox" name="audience[]" id="optionsRadios6" value="Hub Coordinators" @if(is_array(input::old('audience')) && in_array(1, old('audience'))) checked @endif>
 			Hub Coordinators
 			</label>
 			<label>
-			<input type="checkbox" list="" name="audience[]" id="audience" value="Top Management">
+			<input type="checkbox" list="" name="audience[]" id="audience" value="Top Management" @if(is_array(input::old('audience')) && in_array(1, old('audience'))) checked @endif>
 			Top Management
 			</label>
 			<label>
-			<input type="checkbox"  name="audience[]" id="optionsRadios2" value="Senior Management">
+			<input type="checkbox"  name="audience[]" id="optionsRadios2" value="Senior Management" @if(is_array(input::old('audience')) && in_array(1, old('audience'))) checked @endif>
 			Senior Management
 			</label>
 			<label>
-			<input type="checkbox"  name="audience[]" id="optionsRadios3" value="M$E Focal Persons">
+			<input type="checkbox"  name="audience[]" id="optionsRadios3" value="M$E Focal Persons" @if(is_array(input::old('audience')) && in_array(1, old('audience'))) checked @endif>
 			M$E Focal Persons
 			</label>
 			<label>
-			<input type="checkbox"  name="audience[]" id="optionsRadios4" value="General Staff">
+			<input type="checkbox"  name="audience[]" id="optionsRadios4" value="General Staff" @if(is_array(input::old('audience')) && in_array(1, old('audience'))) checked @endif>
 			General Staff
 			</label>
 			<label>
-			<input type="checkbox" name="audience[]" id="optionsRadios5" value="Departmental">
+			<input type="checkbox" name="audience[]" id="optionsRadios5" value="Departmental" @if(is_array(input::old('audience')) && in_array(1, old('audience'))) checked @endif>
 			Departmental
 			</label>
 			
@@ -200,7 +200,6 @@ else { el.hide();}
 		</div>
 	</div>
 		</div>	
-
 		
 			<div class="form-group">
 			{{ Form::label('participants_no', 'No of Participants', array('class' => 'col-sm-2' )) }}

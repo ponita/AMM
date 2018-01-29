@@ -50,7 +50,7 @@
 		
 		<div class="row view-striped">
         <div class="col-sm-1"><strong>ID #</strong></div>
-        <div class="col-sm-2" style="color:red;"><strong>{{ $event->serial_no }}</strong></div>
+        <div class="col-sm-2" style="color:red;"><strong>{{ $event->id }}</strong></div>
         
         <div class="col-sm-2"><strong>Activity</strong></div>
         <div class="col-sm-7">{{ $event->name }}</div>
@@ -65,8 +65,8 @@
         <div class="col-sm-3">{{ $event->type }}</div>
 
         <div class="col-sm-1"><strong>Duration</strong></div>
-        <div class="col-sm-3">{{ date('d M Y', strtotime($event->start_date)) }} 
-          to {{ date('d M Y', strtotime($event->end_date)) }}</div>
+        <div class="col-sm-3">{{ date('d', strtotime($event->start_date)) }}-{{ date('d M Y', strtotime($event->end_date)) }}
+        </div>
       </div>
 
       <div class="row view-striped">

@@ -60,8 +60,7 @@
 				<tr>
 					<th>#</th>
 					<th>Serial No</th>
-					<th>Start Date</th>
-					<th>End Date</th>
+					<th>Date</th>
 					<th>Event Name</th>
 					<th>Department</th>
 					<th>Type</th>
@@ -81,7 +80,7 @@
 				>
 					<td>{{ $event->id }}</td>
 					<td>{{ $event->serial_no }}</td>
-					<td>{{ date('d M Y', strtotime($event->start_date)) }}</td>
+					<td>{{ date('d M', strtotime($event->start_date)) }}-{{ date('d M Y', strtotime($event->end_date)) }}</td>
 					<td>{{ date('d M Y', strtotime($event->end_date)) }}</td>
 					<td>{{ $event->name }}</td>
 					<td>{{ $event->department }}</td>

@@ -26,9 +26,21 @@
           <table  style="border-bottom: 1px solid #cecfd5;" >
 
         <tr>
-          <td colspan="1"><b>Duration</b></td>
-          <td colspan="2">{{$meetings->start_time }} 
-          to {{$meetings->end_time }}</td>
+          <td colspan="1"><b>Date</b></td>
+          <td colspan="2">{{ date('d M Y', strtotime($meetings->start_time)) }}</td>
+          <td class="col-sm-1"><strong>Duration</strong></td>
+        <td class="col-sm-3">
+            <?php
+            $date1 = date_create($meetings->start_time);
+            $date2 = date_create($meetings->end_time);
+
+            //difference between two dates
+            $diff = date_diff($date1,$date2);
+
+            //count days
+            echo ' '.$diff->format("%h hr %i min");
+            ?>
+          </td>
         </tr>
         <tr>
           <td colspan="1"><b>Venue</b></td>

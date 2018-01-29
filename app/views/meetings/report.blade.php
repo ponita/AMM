@@ -34,8 +34,9 @@
 					<th>ID</th>
 					<th>Name</th>
 					<th>Start Date</th>
-					<th>Minutes</th>
 					<th>Actions</th>
+					<th>Minutes</th>
+
 				</tr> 
 			</thead>
 			<tbody>
@@ -48,6 +49,10 @@
 					<td>{{ $meetings->serial_no }}</td>
 					<td>{{ $meetings->name }}</td>
 					<td>{{$meetings->start_time }}</td>
+					<td><a class="btn btn-sm btn-info" href="{{ URL::route('meetings.print', array($meetings->id)) }}" href="javascript:printSpecial('UGANDA NATIONAL HEALTH LABORATORY SERVICES - ACTIVITIES REPORTING <br> 
+  ACTIVITY STATUS/DETAILS')" target="_blank">
+      <span class="glyphicon glyphicon-eye-open"></span> View Report
+    </a></td>
 					
        @if(Auth::user()->can('download_minutes'))
 					<td>
@@ -59,10 +64,7 @@
 					</td>
 					@endif
 					
-           			<td><a class="btn btn-sm btn-info" href="{{ URL::route('meetings.print', array($meetings->id)) }}" href="javascript:printSpecial('UGANDA NATIONAL HEALTH LABORATORY SERVICES - ACTIVITIES REPORTING <br> 
-  ACTIVITY STATUS/DETAILS')" target="_blank">
-      <span class="glyphicon glyphicon-eye-open"></span> View Report
-    </a></td>
+           			
 					
 				</tr>
 			@endforeach

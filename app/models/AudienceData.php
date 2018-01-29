@@ -2,6 +2,6 @@
 
 class AudienceData extends Eloquent
 {
-	protected $table = "unhls_audienceData";
+	protected $table = "unhls_audiencedata";
 	
 }

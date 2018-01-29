@@ -15,8 +15,8 @@
 		Health Regions
 		<div class="panel-btn">
 			<a class="btn btn-sm btn-info" href="{{ URL::to("healthregion/create") }}" >
-				<span class="glyphicon glyphicon-plus-sign">Create Healthregion</span>
-				<!-- {{ trans('messages.create-test-category') }} -->
+				<span class="glyphicon glyphicon-plus-sign"></span>
+				Create Healthregion
 			</a>
 		</div>
 	</div>

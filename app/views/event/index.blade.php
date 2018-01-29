@@ -46,15 +46,13 @@
 				<tr>
 					<th>Actions</th>
 					<th>SN</th>
-					<th>Start Date</th>
-					<th>End Date</th>
+					<th>Date</th>
 					<th>Activity Name</th>
-					<th>Department</th>
-					<!-- <th>Registered by</th> -->
 					<th>Type</th>
 					<th>Objectives</th>
-					<th>Approval Status</th>
-					<th>Participants List</th>
+					<th>Approval</th>
+
+					<!-- <th>Participants List</th> -->
 				</tr>
 			</thead>
 			<tbody>
@@ -72,14 +70,12 @@
     							<li><a href="{{ URL::route('event.show', array($event->id)) }}">
     								View Details</a></li>
                                 @endif
+                           
                                 @if(Auth::user()->can('edit_activity'))
     							<li><a href="{{ URL::route('event.edit', array($event->id)) }}">
     								Update Details</a></li>
                                @endif
-                                @if(Auth::user()->can('approve_activity'))
-    							<li><a href="{{ URL::route('event.editapproval', array($event->id)) }}">
-    								Update Approval</a></li>
-                                @endif
+                                
                                 @if(Auth::user()->can('update_objective'))
     							<li><a href="{{ URL::route('event.editobjectives', array($event->id)) }}">
     								Update Objectives</a></li>
@@ -100,15 +96,18 @@
     							<li><a href="{{ URL::route('event.addreport', array($event->id)) }}">
     								Add Report</a></li>
     								@endif
+                           	
+    							@if(Auth::user()->can('approve_activity'))
+    							<li><a href="{{ URL::route('event.editapproval', array($event->id)) }}">
+    								Update Approval</a></li>
+                                @endif
     						</ul>
 						</div>
 
 					</td>
 					<td>{{ $event->serial_no }}</td>
-					<td>{{ date('d M Y', strtotime($event->start_date)) }}</td>
-					<td>{{ date('d M Y', strtotime($event->end_date)) }}</td>
+					<td>{{ date('d', strtotime($event->start_date)) }}-{{ date('d M Y', strtotime($event->end_date)) }}</td>
 					<td>{{ $event->name }}</td>
-					<td>{{ $event->department }}</td>
 					<!-- <td>{{ $event->user->name }}</td> -->
 					<td>{{ $event->type }}</td>
 					<td title ="@foreach ($event->objective as $objective)
@@ -120,13 +119,7 @@
            			@else Pending
            			@endif
            		</td>
-					<td>
-					@if ($event->report_filename)
-          			<a href="{{ URL::to( 'attachments/' . $event->report_filename) }}"
-            			target="_blank">Download</a>
-          			@else Pending
-          			@endif	
-					</td>
+           		
 					
 				</tr>
 			@endforeach

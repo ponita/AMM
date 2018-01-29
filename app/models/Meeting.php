@@ -27,7 +27,33 @@ public function organiser()
 	{
 		return $this->belongsTo('Organiser','organiser_id','id');
 	}
+//Filters for reports
 
+	public static function reportfilter($datefrom,$dateto,$name)
+	{
+		return Meeting::Where(function ($query) use ($datefrom,$dateto,$name){
+			$query->orWhere('name','LIKE','%$name%');
+		})
+		->orWhere(function ($query) use ($datefrom,$dateto,$name){
+			$query->where('start_time','>=',$datefrom)
+					->where('start_time','<=',$dateto);
+					
+		})
+		->orWhere(function ($query) use ($datefrom,$dateto,$name){
+			$query->where('end_time','>=',$datefrom)
+					->where('end_time','<=',$dateto);
+					
+		})
+		// ->orWhere(function ($query) use ($department)
+		// 	{
+		// 	    $query->where('thematicArea_id', 'like', '%' . $department . '%');//Search by department
+		// 	})
+		// ->orWhere(function ($query) use ($type)
+		// 	{
+		// 	    $query->where('type', 'like', '%' . $type . '%');//Search by type
+		// 	})
+		->get();
+	}
 
 	/**
 	 * Helper function: check if the Test status is PENDING

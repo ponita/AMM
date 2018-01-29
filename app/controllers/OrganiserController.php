@@ -52,7 +52,7 @@ class OrganiserController extends \BaseController {
 				$url = Session::get('SOURCE_URL');
             
             	return Redirect::to($url)
-					->with('message', trans('messages.success-creating-test-category')) ->with('activeorganisers', $organisers ->id);
+					->with('message', trans('messages.success-creating-organiser')) ->with('activeorganisers', $organisers ->id);
 			}catch(QueryException $e){
 				Log::error($e);
 			}
@@ -114,7 +114,7 @@ class OrganiserController extends \BaseController {
 			$url = Session::get('SOURCE_URL');
             
             return Redirect::to($url)
-				->with('message', trans('messages.success-updating-test-category')) ->with('activeorganisers', $organisers ->id);
+				->with('message', trans('messages.success-updating-organiser')) ->with('activeorganisers', $organisers ->id);
 		}
 	}
 

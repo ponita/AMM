@@ -888,11 +888,11 @@ $(function(){
 			$.get("/reports/dropdown", 
 				{ option: $(this).val() }, 
 				function(data) {
-					var test_type = $('#test_type');
-					test_type.empty();
-					test_type.append("<option value=''>Select Test Type</option>");
+					var type = $('#type');
+					type.empty();
+					type.append("<option value=''>Select Test Type</option>");
 					$.each(data, function(index, element) {
-			            test_type.append("<option value='"+ element.id +"'>" + element.name + "</option>");
+			            type.append("<option value='"+ element.id +"'>" + element.name + "</option>");
 			        });
 				});
 		});

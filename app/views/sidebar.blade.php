@@ -15,17 +15,28 @@
 					</a>
 					<div class="sub_panel" style="left: -220px;">
 						<div class="side_inner ps-ready ps-container" style="height: 620px;">
-							<h4 class="panel_heading panel_heading_first">ALL REPORTS</h4>
+							<h4 class="panel_heading panel_heading_first">REPORTS</h4>
 							<ul>
 							<li>
 								<a href="{{ URL::route('event.report')}}">
-								<span class="glyphicon glyphicon-list"></span> Activity</a>
+								<span class="glyphicon glyphicon-tag"></span> Activity</a>
 							</li>
 							<li>
 							<a href="{{ URL::route('meetings.report')}}">
-								<span class="glyphicon glyphicon-plus-sign"></span> Meeting</a>
+								<span class="glyphicon glyphicon-tag"></span> Meeting</a>
 							</li>
-							
+						</ul>
+
+							<h4 class="panel_heading panel_heading_first">FILTERS</h4>
+							<ul>
+							<li>
+							<a href="{{ URL::route('reports.department')}}">
+								<span class="glyphicon glyphicon-tag"></span>Activities</a>
+							</li>
+							<li>
+							<a href="{{ URL::route('reports.meetingreport')}}">
+								<span class="glyphicon glyphicon-tag"></span>Meetings</a>
+							</li>
 							</ul>
 
 						<div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px; width: 215px; display: none;"><div class="ps-scrollbar-x" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; right: 3px; height: 620px; display: none;"><div class="ps-scrollbar-y" style="top: 0px; height: 0px;"></div></div></div>
@@ -49,7 +60,7 @@
 							
 							<li>
 								<a href="{{ URL::route('event.index')}}">
-								<span class="glyphicon glyphicon-list"></span> List of all Activities</a>
+								<span class="glyphicon glyphicon-list"></span> List of Activities</a>
 							</li>
 							<li>
      				 @if(Auth::user()->can('manage_activities'))
@@ -58,10 +69,7 @@
 								<span class="glyphicon glyphicon-plus-sign"></span> New Activity</a>
 							</li>
 					@endif
-							<li>
-								<a href="{{ URL::route('event.eventfilter')}}">
-								<span class="glyphicon glyphicon-list"></span> Search / Filter</a>
-							</li>
+							
 							</ul>
 
 						<div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px; width: 215px; display: none;"><div class="ps-scrollbar-x" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; right: 3px; height: 620px; display: none;"><div class="ps-scrollbar-y" style="top: 0px; height: 0px;"></div></div></div>
@@ -83,7 +91,7 @@
        @if(Auth::user()->can('manage_meeting'))
 							<li>
 								<a href="{{ URL::route('meetings.meeting')}}">
-								<span class="glyphicon glyphicon-arrow-up"></span> Meeting Register</a>
+								<span class="glyphicon glyphicon-plus-sign"></span>Register Meeting</a>
 							</li>
 							@endif
 							<li>
@@ -113,7 +121,7 @@
         @if(Auth::user()->can('manage_memo'))
 							<li>
 								<a href="{{ URL::route('letters.letter')}}">
-								<span class="glyphicon glyphicon-eye-open"></span>New Memo</a>
+								<span class="glyphicon glyphicon-plus-sign"></span>New Memo</a>
 							</li>
 							@endif
 							<li>
@@ -123,7 +131,7 @@
     @if(Auth::user()->can('manage_invitation'))
 							<li>
 								<a href="{{ URL::route('invitation.invitation')}}">
-								<span class="glyphicon glyphicon-eye-open"></span>New Invitation</a>
+								<span class="glyphicon glyphicon-plus-sign"></span>New Invitation</a>
 							</li>
 							@endif
 							<li>
@@ -235,7 +243,12 @@
 											<span class="glyphicon glyphicon-tag"></span> Viral Load</a>
 									</div>
 								</li>
-
+								<li>
+									<div>
+										<a href="http://www.cphl.go.ug/" target="blank">
+											<span class="glyphicon glyphicon-tag"></span>CPHL Website</a>
+									</div>
+								</li>
 							</ul>
 
 						<div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px; width: 215px; display: none;"><div class="ps-scrollbar-x" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; right: 3px; height: 620px; display: none;"><div class="ps-scrollbar-y" style="top: 0px; height: 0px;"></div></div></div>

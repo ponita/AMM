@@ -410,6 +410,14 @@ Route::group(array("before" => "auth"), function()
             "as"   => "reports.daily.log",
             "uses" => "ReportController@dailyLog"
         ));
+        Route::any("/reports/department/department", array(
+        "as"   => "reports.department",
+        "uses" => "EventController@department"
+        ));
+        Route::any("/reports/meetingreport/meetingreport", array(
+        "as"   => "reports.meetingreport",
+        "uses" => "MeetingController@meetingreport"
+         ));
         Route::get('reports/dropdown', array(
             "as"    =>  "reports.dropdown",
             "uses"  =>  "ReportController@reportsDropdown"
@@ -431,8 +439,8 @@ Route::group(array("before" => "auth"), function()
             "uses" => "ReportController@turnaroundTime"
         ));
         Route::any("/infection", array(
-            "as"   => "reports.aggregate.infection",
-            "uses" => "ReportController@infectionReport"
+            "as"   => "reports.aggregate.department",
+            "uses" => "ReportController@departmentReport"
         ));
         
         Route::any("/userstatistics", array(

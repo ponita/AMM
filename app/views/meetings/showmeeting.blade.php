@@ -62,12 +62,25 @@
 
       <div class="row  view-striped">
     
-       <div class="col-sm-2"><strong>Duration</strong></div>
-        <div class="col-sm-4">{{$meetings->start_time }} 
-          to {{$meetings->end_time }}</div>
+       <div class="col-sm-1"><strong>Date</strong></div>
+        <div class="col-sm-3">{{$meetings->start_time }}</div>
 
-          <div class="col-sm-2"><strong>Venue</strong></div>
-        <div class="col-sm-4">{{ $meetings->venue }}</div>
+       <div class="col-sm-1"><strong>Duration</strong></div>
+        <div class="col-sm-3">
+            <?php
+            $date1 = date_create($meetings->start_time);
+            $date2 = date_create($meetings->end_time);
+
+            //difference between two dates
+            $diff = date_diff($date1,$date2);
+
+            //count days
+            echo ' '.$diff->format("%h hr %i min");
+            ?>
+          </div>
+
+          <div class="col-sm-1"><strong>Venue</strong></div>
+        <div class="col-sm-3">{{ $meetings->venue }}</div>
       </div>
       
       <div class="row  view-striped">
