@@ -31,6 +31,14 @@
 					{{ Form::text('name', Input::old('name'), array('class' => 'form-control')) }}
 				</div>
 				<div class="form-group">
+					{{ Form::label('email', Lang::choice('messages.email',1)) }}
+					{{ Form::text('email', Input::old('email'), array('class' => 'form-control')) }}
+				</div>
+				<div class="form-group">
+					{{ Form::label('telephoneNo', Lang::choice('messages.telephoneNo',1)) }}
+					{{ Form::text('telephoneNo', Input::old('telephoneNo'), array('class' => 'form-control')) }}
+				</div>
+				<div class="form-group">
 					{{ Form::label('description', trans('messages.description')) }}
 					{{ Form::textarea('description', Input::old('description'), 
 						array('class' => 'form-control', 'rows' => '2')) }}

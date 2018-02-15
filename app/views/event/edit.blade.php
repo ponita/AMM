@@ -34,19 +34,6 @@
 		
 		<div class="form-group">
 			{{ Form::hidden('user_id', Auth::user()->id) }}
-			{{ Form::label('name', 'Activity Name', array('class' => 'col-sm-2')) }}
-			{{ Form::text('name', Input::old('name'), array('size' => '10x1','class' => 'form-control col-sm-10')) }}
-			
-		</div>
-
-		<div class="form-group">
-			
-
-			{{Form::label('thematicarea', 'Thematic Area', array('class' => 'col-sm-2'))}}
-			{{ Form::select('thematicarea', $thematicAreas, $event->thematicArea_id,
-					['class' => 'form-control col-sm-4']) }}
- 
-			
 			{{ Form::label('type', 'Type', array('class' => 'col-sm-2 col-sm-offset-1')) }}
 			{{ Form::select('type', [
 					'0' =>'---Select a type---',
@@ -54,7 +41,19 @@
 					'Sensitization' => 'Sensitization',
 					'Outreach' => 'Outreach',
 					'Support Supervision' => 'Support Supervision'], 
-					Input::old('type'), array('id' => 'type', 'class' => 'form-control col-sm-4')) }}		
+					Input::old('type'), array('id' => 'type', 'class' => 'form-control col-sm-4')) }}
+			
+		</div>
+
+		<div class="form-group">
+			{{ Form::label('name', 'Activity Name', array('class' => 'col-sm-2')) }}
+			{{ Form::text('name', Input::old('name'), array('size' => '10x1','class' => 'form-control col-sm-10')) }}			
+
+
+			{{Form::label('thematicarea', 'Thematic Area', array('class' => 'col-sm-2'))}}
+			{{ Form::select('thematicarea', $thematicAreas, Input::old('thematicarea'),
+					['class' => 'form-control col-sm-4']) }}
+					
 		</div>
 
 		<div class="form-group">
@@ -73,7 +72,8 @@
 			{{ Form::select('location', [
 					'' => '',
 					'Butabika Headquaters' => 'Butabika Headquaters',
-					'Field Activity' => 'Field Activity'], 
+					'Field Activity' => 'Field Activity In-Country',
+					'Field Activity' => 'Field Activity Foreign'], 
 					Input::old('location'), array('id' => 'location', 'class' => 'form-control col-sm-4')) }}
 			
 			{{ Form::label('premise', 'Venue', array('class' => 'col-sm-1 col-sm-offset-1')) }}
@@ -90,6 +90,10 @@
 			{{ Form::select('district', $districts, $event->district_id, array('class' => 'form-control col-sm-4')) }}
 			</div>
 
+			<div class="form-group">
+			{{ Form::label('country', 'Country', array('class' => 'col-sm-2 col-sm-offset-1')) }}
+			{{ Form::select('country', $country, Input::old('country'), array('class' => 'form-control col-sm-4')) }}
+		</div>
 
 		<div class="form-group">
 			{{Form::label('funders', 'Funding Source', array('class' => 'col-sm-2')) }}
@@ -101,6 +105,11 @@
 					['class' => 'form-control col-sm-4']) }}	
 		</div>
 
+		<div class="form-group">
+			{{Form::label('co_organiser', 'Co/Organiser', array('class' => 'col-sm-2 col-sm-offset-1')) }}
+			{{ Form::select('co_organiser', Input::old('co_organiser'),
+					['class' => 'form-control col-sm-4']) }}
+		</div>
 		
 			<div class="form-group">
 			{{ Form::label('participants_no', 'No of Participants', array('class' => 'col-sm-2' )) }}

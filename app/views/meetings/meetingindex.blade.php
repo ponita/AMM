@@ -38,13 +38,13 @@
 		<table class="table table-striped table-hover table-condensed search-table">
 			<thead>
 				<tr>
-					<th>Name</th>
-					<!-- <th>Serial No</th> -->
 					<th>Date</th>			
-					<th>Registered by</th>
-					<th>No. of paticipants</th>
-					<th>Approval Status</th>
-					<th>Objective</th>
+					<th>Time</th>			
+					<th>Name</th>
+					<th>Organised by</th>
+					<th>Paticipants No</th>
+					<th>Venue</th>
+					<th>Status</th>
 					<th>Action</th>
 				</tr>
 			</thead>
@@ -55,10 +55,12 @@
 					@endif
 				>
 					
-					<td>{{ $meetings->name }}</td>
 					<td>{{ date('d', strtotime($meetings->start_time)) }}-{{ date('d M Y', strtotime($meetings->end_time)) }}</td>
-					<td>{{ $meetings->user->name }}</td>
+					<td>{{ date('h:m:i', strtotime($meetings->start_time)) }}</td>
+					<td>{{ $meetings->name }}</td>
+					<td>{{ $meetings->organiser->name }}</td>
 					<td align="center">{{ $meetings->participants_no }}</td>
+					<td>{{ $meetings->venue}}</td> 
 					
            			<td>
 					@if ($meetings->approval_status)
@@ -77,7 +79,6 @@
 <!-- <td>{{ $meetings->type }}</td> -->
 					
 
-					<td>{{ $meetings->objective}}</td> 
 
            			
 
@@ -92,28 +93,34 @@
                             </a>
                             @endif
 
-    					@if(Auth::user()->can('edit_meeting'))
+    					@if(Auth::user()->can('edit_meeting') && ($meetings->status_id == 1))
+                       
                         <a class="btn btn-sm btn-info" 
                             href="{{ URL::to("meetings/" . $meetings->id . "/m_edit") }}" >
                             <span class="glyphicon glyphicon-edit"></span>
                             Edit</a>
                             @endif
 
-
-      					@if(Auth::user()->can('approve_meeting'))
+      					@if(Auth::user()->can('approve_meeting') && ($meetings->approval_status_id == 0))
                    		<a class="btn btn-sm btn-warning" 
                             href="{{ URL::to("meetings/" . $meetings->id . "/editapproval") }}" >
                             <span class="glyphicon glyphicon-edit"></span>
                             Approve</a>
                             @endif
 
-      					@if(Auth::user()->can('add_minutes'))
+      					@if(Auth::user()->can('add_minutes') && ($meetings->status_id == 1))
 
                             <a class="btn btn-sm btn-info" 
                             href="{{ URL::to("meetings/" . $meetings->id . "/addminutes") }}" >
                             <span class="glyphicon glyphicon-edit"></span>
                             Attach Mins</a>
                             @endif
+
+                         <a class="btn btn-sm btn-info" 
+                            href="{{ URL::to("meetings/" . $meetings->id . "/actionpoints") }}" >
+                            <span class="glyphicon glyphicon-edit"></span>
+                            Action points</a>
+
                     </td>
                     
 				</tr>

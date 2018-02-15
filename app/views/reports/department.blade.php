@@ -12,7 +12,6 @@
 	<div class="alert alert-info">{{ trans(Session::get('message')) }}</div>
 @endif
 
-<div class="panel panel-primary">
 	
 	<div class='container-fluid'>
 		{{ Form::open(array('route' => array('reports.department'), 'class'=>'form-inline',
@@ -46,36 +45,49 @@
 				  	{{ Form::button("<span class='glyphicon glyphicon-filter'></span> ".trans('messages.view'), 
 		                array('class' => 'btn btn-info', 'id' => 'filter', 'type' => 'submit')) }}
 		        </div>
-		        <!-- <div class="col-sm-1">
+		        <div class="col-sm-1">
 					{{Form::submit(trans('messages.export-to-word'), 
 			    		array('class' => 'btn btn-success', 'id'=>'word', 'name'=>'word'))}}
-				</div> -->
+				</div>
 			</div>
 		</div>
 	</div> 
 
+<div class="row">
+<div class="col-md-6">
+	    	
+		        <div class="form-group">
+		        	{{ Form::label('type', Lang::choice('Type',1)) }}
+		       
+		            {{ Form::select('type', array(0 => '-- All --')+UNHLSEvent::all()->sortBy('type')->lists('type','id'),
+		            	isset($input['type'])?$input['type']:0, array('class' => 'form-control col-sm-4')) }}
+		        </div>
+        </div>
+
+        <div class="col-md-6">
+	    	
+		        <div class="form-group">
+		        	{{ Form::label('thematicArea_id', Lang::choice('Department',1)) }}
+		       
+		            {{ Form::select('thematicArea_id', array(0 => '-- All --')+ThematicAreas::all()->sortBy('thematicArea_id')->lists('name','id'),
+		            	isset($input['thematicArea_id'])?$input['thematicArea_id']:0, array('class' => 'form-control col-sm-4')) }}
+		        </div>
+		
+
+        </div>
+    </div>
+	{{ Form::close() }}
 	
-	<div class='row'>
-		<div class='row col-sm-12'>
-			
-			<div class="form-group">
-
-			{{ Form::label('name', 'Search', array('class' => 'col-sm-2')) }}
-			{{ Form::text('name', Input::get('name'), array('placeholder' => 'Only one keyword', 'class' => 'form-control col-sm-4')) }}
-
-			</div>
-		{{ Form::close() }}
-		</div>
-	</div>
 	</div>
 
 
 	<hr>
 
 <?php if($events){ ?>
+<div class="panel panel-primary">
 	<div class="panel-heading ">
 		<span class="glyphicon glyphicon-dashboard"></span>
-		Filtered Activities  ({{ count($events); }})
+	 Activity Summary ({{ count($events); }})
 	</div>
 	
 	<div class="panel-body">

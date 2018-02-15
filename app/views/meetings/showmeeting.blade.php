@@ -121,6 +121,31 @@
           @endforeach
           </ol>
         </div>
+      </div>
+
+<div class="col-sm-6"><strong>Action Points</strong><br>
+      
+                      <table>
+    <tr>
+        <th>Action</th>
+        <th>Name</th>
+        <th>date</th>
+        <th>location</th>
+    </tr>
+  <?php
+    $i = 0;
+    foreach ($meetings->action as $action) {
+        echo "<tr>";
+        echo "<td>" . $action['action'] . "</td><td>" . strtolower(trim(($action['name']))) . "</td><td>" . strtolower(trim($action['date'])) . "</td><td>" . strtolower(trim(($action['location']))) . "</td>";
+        echo "</tr>";
+
+        $i++;
+    }
+    ?>
+
+</table>
+
+        </div>
 
       <div class="row view-striped">
         <div class="col-sm-2"><strong>Attached Minutes</strong></div>
@@ -132,17 +157,17 @@
           Pending
           @endif
         </div>
-        
-      </div>
+        </div>
+     
     
    <div class="row view-striped">
         <div class="col-sm-2"><strong>Comment:</strong><br></div>
-          <div class="col-sm-4">{{ $meetings->comment }}</div>
+          <div class="col-sm-10">{{ $meetings->comment }}</div>
 
         </div>
  
 
-  </div>
+  
   </div>
   </div>
 </div>

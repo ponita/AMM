@@ -34,6 +34,7 @@
 					{{ Form::textarea('description', Input::old('description'), 
 						array('class' => 'form-control', 'rows' => '2')) }}
 				</div>
+
 				<div class="form-group actions-row">
 					{{ Form::button("<span class='glyphicon glyphicon-save'></span> ".trans('messages.save'), 
 						array('class' => 'btn btn-primary', 'onclick' => 'submit()')) }}

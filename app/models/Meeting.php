@@ -6,7 +6,17 @@ use log;
 class Meeting extends \Eloquent 
 {
 	protected $table = 'unhls_meetings';
-	
+
+
+/**
+	 * Meeting status constants
+	 */
+	const STARTED = 1;
+	const COMPLETED = 2;
+	const VERIFIED = 3;
+	const APPROVED = 4;
+	const CANCELLED = 5;
+
 public function user()
 	{
 		return $this->belongsTo('User', 'user_id', 'id');
@@ -19,6 +29,10 @@ public function agenda()
     {
         return $this->hasMany('MeetingAgenda','meeting_id','id');
 	}
+public function action()
+    {
+        return $this->hasMany('UNHLSMeetingAction','meeting_id','id');
+	}
 public function thematicarea()
 	{
 		return $this->belongsTo('ThematicAreas','thematicArea_id','id');
@@ -29,19 +43,24 @@ public function organiser()
 	}
 //Filters for reports
 
-	public static function reportfilter($datefrom,$dateto,$name)
+	public static function reportfilter($datefrom,$dateto,$name,$thematicArea)
 	{
-		return Meeting::Where(function ($query) use ($datefrom,$dateto,$name){
+		return Meeting::Where(function ($query) use ($datefrom,$dateto,$name,$thematicArea){
 			$query->orWhere('name','LIKE','%$name%');
 		})
-		->orWhere(function ($query) use ($datefrom,$dateto,$name){
+		->orWhere(function ($query) use ($datefrom,$dateto,$name,$thematicArea){
 			$query->where('start_time','>=',$datefrom)
 					->where('start_time','<=',$dateto);
 					
 		})
-		->orWhere(function ($query) use ($datefrom,$dateto,$name){
+		->orWhere(function ($query) use ($datefrom,$dateto,$name,$thematicArea){
 			$query->where('end_time','>=',$datefrom)
 					->where('end_time','<=',$dateto);
+					
+		})
+		->orWhere(function ($query) use ($datefrom,$dateto,$name,$thematicArea){
+			$query->where('thematicArea_id','=',$thematicArea);
+					
 					
 		})
 		// ->orWhere(function ($query) use ($department)

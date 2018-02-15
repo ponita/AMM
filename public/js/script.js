@@ -582,13 +582,15 @@ $(function(){
 
 	
 	/**
-	 * Disable Bed No: input field  based on Visit type selected
+	 * Disable country select field  based on location selected
 	 */
-	 $("#visit_type").on('change', function() {
-    	if(this.value === "0" || this.value === "null") {
-    		$("#bed_no").prop("disabled", true);
+	 $("#location").on('change', function() {
+    	if(this.value === "3" || this.value === "null") {
+            $("#premise").prop("disabled", true);
+    		$("#district").prop("disabled", true);
     	} else{
-    		$("#bed_no").prop("disabled", false);
+            $("#premise").prop("disabled", false);
+    		$("#district").prop("disabled", false);
     	}
 	});
 

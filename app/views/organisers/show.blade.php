@@ -1,4 +1,4 @@
-@extends("layout")
+\@extends("layout")
 @section("content")
 
 @if (Session::has('message'))
@@ -26,6 +26,10 @@
 		<div class="panel-body">
 			<div class="display-details">
 				<h3 class="view"><strong>{{ Lang::choice('messages.name',1) }}:</strong>{{ $organisers->name }} </h3>
+				<p class="view-striped"><strong>{{ trans('Tel') }}:</strong>
+					{{ $organisers->telephoneNo }}</p>
+				<p class="view-striped"><strong>{{ trans('Email') }}:</strong>
+					{{ $organisers->email }}</p>
 				<p class="view-striped"><strong>{{ trans('messages.description') }}:</strong>
 					{{ $organisers->description }}</p>
 				

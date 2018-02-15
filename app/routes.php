@@ -865,6 +865,16 @@ Route::group(array("before" => "auth"), function()
         "uses" => "MeetingController@updateminutes"
     ));
 
+    Route::any("/meetings/{id}/actionpoints", array(
+        "as"   => "meetings.actionpoints",
+        "uses" => "MeetingController@editactions"
+    ));
+
+    Route::any("/meetings/{id}/updateactions", array(
+        "as"   => "meetings.updateactions",
+        "uses" => "MeetingController@updateactions"
+    ));
+
 
     Route::any("/meetings/{id}/m_edit", array(
         "as"   => "meetings.m_edit",

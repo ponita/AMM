@@ -41,10 +41,19 @@ else { el.hide();}
 		
 		<div class="form-group">
 			{{ Form::hidden('user_id', Auth::user()->id) }}
-			{{ Form::label('name', 'Meeting', array('class' => 'col-sm-2')) }}
-			{{ Form::textarea('name', Input::old('name'), array('size' => '10x1','class' => 'form-control col-sm-10')) }}
+			{{ Form::label('category', 'Meeting Type', array('class' => 'col-sm-2')) }}
+			{{ Form::select('category', [
+					'0' => '----Select category----',
+					'1' => 'Internal',
+					'2' => 'External'], 
+					Input::old('category'), array('id' => 'category', 'class' => 'form-control col-sm-4')) }}
 			
 		</div> 
+
+		<div class="form-group">
+			{{ Form::label('name', 'Meeting', array('class' => 'col-sm-2')) }}
+			{{ Form::textarea('name', Input::old('name'), array('size' => '10x1','class' => 'form-control col-sm-10')) }}
+		</div>
 
 		<div class="form-group">
 			{{Form::label('thematicarea', 'Thematic Area', array('class' => 'col-sm-2'))}}
@@ -53,8 +62,6 @@ else { el.hide();}
 		</div>
 
 		<div class="form-group">
-		
-
 		    {{ Form::label('start_time', 'Start Time', array('class' => 'col-sm-2')) }}
 			{{ Form::text('start_time', Input::old('start_time'), array('class' => 'form-control standard-datepicker col-sm-4')) }}
          </div>
@@ -65,7 +72,7 @@ else { el.hide();}
 			{{ Form::label('end_time', 'End Time', array('class' => 'col-sm-2')) }}
 			{{ Form::text('end_time', Input::old('end_time'), array('class' => 'form-control standard-datepicker col-sm-4')) }}	
 
-		</div>
+			</div>
         
 
 		<div class="form-group">
@@ -97,10 +104,11 @@ else { el.hide();}
 			{{ Form::select('organiser', $organisers, Input::get('organiser'),
 					['class' => 'form-control']) }}		
 		</div>
+		
 
 		<div class="form-group">
 			
-			{{ Form::label('targetAudience', 'Target Audience', array('class' => 'col-sm-2')) }}
+			{{ Form::label('targetAudience', 'Target Audience (MUST)', array('class' => 'required')) }}
 			
 			<div class="form-pane panel panel-default">
 			<div class="container-fluid">
@@ -121,6 +129,14 @@ else { el.hide();}
 			<label>
 			<input type="checkbox"  name="targetAudience[]" id="optionsRadios4" value="RRH Directors">
 			RRH Directors
+			</label>
+			<label>
+			<input type="checkbox"  name="targetAudience[]" id="optionsRadios4" value="Hospital Directors">
+			Hospital Directors
+			</label>
+			<label>
+			<input type="checkbox"  name="targetAudience[]" id="optionsRadios4" value="UNHLS facility">
+			UNHLS facility
 			</label>
 			<label>
 			<input type="checkbox" name="targetAudience[]" id="optionsRadios5" value="IP Lab Advisors">
@@ -173,6 +189,10 @@ else { el.hide();}
 			<label>
 			<input type="checkbox" name="targetAudience[]" id="optionsRadios5" value="Departmental">
 			Departmental
+			</label>
+			<label>
+			<input type="checkbox" name="targetAudience[]" id="optionsRadios5" value="Others">
+			Others
 			</label>
 		</div>
 		</div>

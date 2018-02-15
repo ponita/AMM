@@ -59,16 +59,12 @@
 			<thead>
 				<tr>
 					<th>#</th>
-					<th>Serial No</th>
+					<!-- <th>Serial No</th> -->
 					<th>Date</th>
 					<th>Event Name</th>
 					<th>Department</th>
-					<th>Type</th>
 					<th>Objectives</th>
 
-					<th>Report</th>
-					
-					<th>Actions</th>
 					
 				</tr>
 			</thead>
@@ -79,46 +75,18 @@
 					@endif
 				>
 					<td>{{ $event->id }}</td>
-					<td>{{ $event->serial_no }}</td>
+					<!-- <td>{{ $event->serial_no }}</td> -->
 					<td>{{ date('d M', strtotime($event->start_date)) }}-{{ date('d M Y', strtotime($event->end_date)) }}</td>
-					<td>{{ date('d M Y', strtotime($event->end_date)) }}</td>
 					<td>{{ $event->name }}</td>
-					<td>{{ $event->department }}</td>
-					<td>{{ $event->type }}</td>
+					<td>{{ $event->thematicarea->name }}</td>
 					<td title ="@foreach ($event->objective as $objective)
               		{{$objective->objective}}
            			@endforeach"> <a href='#'>Point here</a> </td>
 					
 
-					<td>
-					@if ($event->report_filename)
-          			<a href="{{ URL::to( 'attachments/' . $event->report_filename) }}"
-            			target="_blank">Download</a>
-          			@else Pending
-          			@endif	
-					</td>
 					
-					<td>
-						 <div class="dropdown">
-  							<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Action
-  							<span class="caret"></span></button>
-  							<ul class="dropdown-menu">
-    							<li><a href="{{ URL::route('event.show', array($event->id)) }}">
-    								View Details</a></li>
-    							<li><a href="{{ URL::route('event.edit', array($event->id)) }}">
-    								Update Event Information</a></li>
-    							<li><a href="{{ URL::route('event.editobjectives', array($event->id)) }}">
-    								Update Event Objectives</a></li>
-    							<li><a href="{{ URL::route('event.editlessons', array($event->id)) }}">
-    								Update Event Lessons</a></li>
-    							<li><a href="{{ URL::route('event.editrecommendations', array($event->id)) }}">
-    								Update Event Recommendations</a></li>
-    							<li><a href="{{ URL::route('event.editactions', array($event->id)) }}">
-    								Update Event Actions</a></li>
-    						</ul>
-						</div>
-
-					</td>
+					
+					
 				</tr>
 			@endforeach
 			</tbody>

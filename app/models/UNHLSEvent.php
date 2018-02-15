@@ -8,7 +8,7 @@ class UNHLSEvent extends Eloquent
 	protected $table = 'unhls_events';
 	
 /**
-	 * Test status constants
+	 * Activity status constants
 	 */
 	const NOT_RECEIVED = 1;
 	const PENDING = 2;
@@ -25,6 +25,10 @@ class UNHLSEvent extends Eloquent
 	public function district()
 	{
 		return $this->belongsTo('District', 'district_id', 'id');
+	}
+	public function country()
+	{
+		return $this->belongsTo('Country', 'country_id', 'id');
 	}
 
 	public function objective()
@@ -131,19 +135,29 @@ class UNHLSEvent extends Eloquent
 	
 //Filters for reports
 
-	public static function reportfilter($datefrom,$dateto,$name)
+	public static function reportfilter($datefrom,$dateto,$name,$type,$thematicArea)
 	{
-		return UNHLSEvent::Where(function ($query) use ($datefrom,$dateto,$name){
+		return UNHLSEvent::Where(function ($query) use ($datefrom,$dateto,$name,$type,$thematicArea){
 			$query->orWhere('name','LIKE','%$name%');
 		})
-		->orWhere(function ($query) use ($datefrom,$dateto,$name){
+		->orWhere(function ($query) use ($datefrom,$dateto,$name,$type,$thematicArea){
 			$query->where('start_date','>=',$datefrom)
 					->where('start_date','<=',$dateto);
 					
 		})
-		->orWhere(function ($query) use ($datefrom,$dateto,$name){
+		->orWhere(function ($query) use ($datefrom,$dateto,$name,$type,$thematicArea){
 			$query->where('end_date','>=',$datefrom)
 					->where('end_date','<=',$dateto);
+					
+		})
+		->orWhere(function ($query) use ($datefrom,$dateto,$name,$type,$thematicArea){
+			$query->where('type','=',$type);
+					
+					
+		})
+		->orWhere(function ($query) use ($datefrom,$dateto,$name,$type,$thematicArea){
+			$query->where('thematicArea_id','=',$thematicArea);
+					
 					
 		})
 		// ->orWhere(function ($query) use ($department)

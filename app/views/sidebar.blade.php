@@ -37,6 +37,10 @@
 							<a href="{{ URL::route('reports.meetingreport')}}">
 								<span class="glyphicon glyphicon-tag"></span>Meetings</a>
 							</li>
+							<li>
+							<a href="#">
+								<span class="glyphicon glyphicon-tag"></span>User Statistics</a>
+							</li>
 							</ul>
 
 						<div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px; width: 215px; display: none;"><div class="ps-scrollbar-x" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; right: 3px; height: 620px; display: none;"><div class="ps-scrollbar-y" style="top: 0px; height: 0px;"></div></div></div>
@@ -55,7 +59,7 @@
 					</a>
 					<div class="sub_panel" style="left: -220px;">
 						<div class="side_inner ps-ready ps-container" style="height: 620px;">
-							<h4 class="panel_heading panel_heading_first">ACTIVITIES REPORTING</h4>
+							<h4 class="panel_heading panel_heading_first">ACTIVITY INFORMATION</h4>
 							<ul>
 							
 							<li>
@@ -85,7 +89,7 @@
 					</a>
 					<div class="sub_panel" style="left: -220px;">
 						<div class="side_inner ps-ready ps-container" style="height: 800px;">
-							<h4 class="panel_heading panel_heading_first">MEETING REPORT</h4>
+							<h4 class="panel_heading panel_heading_first">MEETING INFORMATION</h4>
 							<ul>
 							
        @if(Auth::user()->can('manage_meeting'))
@@ -115,7 +119,7 @@
 					</a>
 					<div class="sub_panel" style="left: -220px;">
 						<div class="side_inner ps-ready ps-container" style="height: 620px;">
-							<h4 class="panel_heading panel_heading_first">MEMO REPORTING</h4>
+							<h4 class="panel_heading panel_heading_first">MEMO & INVITATIONS</h4>
 							<ul>
 							
         @if(Auth::user()->can('manage_memo'))
@@ -156,6 +160,7 @@
 					</a>
 					<div class="sub_panel" style="left: -220px;">
 						<div class="side_inner ps-ready ps-container" style="height: 620px;">
+							<h4 class="panel_heading panel_heading_first">CONFIGURATIONS</h4>
 							<ul>
 							<li>
 								<a href="{{ URL::route('thematicAreas.index')}}">

@@ -63,7 +63,7 @@
 					
 					<td><a class="btn btn-sm btn-info" href="{{ URL::route('event.print', array($event->id)) }}" href="javascript:printSpecial('UGANDA NATIONAL HEALTH LABORATORY SERVICES - ACTIVITIES REPORTING <br> 
   ACTIVITY STATUS/DETAILS')" target="_blank">
-      <span class="glyphicon glyphicon-eye-open"></span>View Report
+      <span class="glyphicon glyphicon-eye-open"></span>View Details
     </a></td>
 					
        @if(Auth::user()->can('download_report'))

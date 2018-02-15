@@ -350,7 +350,7 @@ class ReportController extends \BaseController {
 								->with('testType', $testType)
 								->with('pendingOrAll', $pendingOrAll)
 								->with('accredited', $accredited)
-								->withInput(Input::all());
+								->withInput(Input::all()); 
 		    	return Response::make($content,200, $headers);
 			}
 			else
@@ -1018,47 +1018,13 @@ class ReportController extends \BaseController {
 		$to = Input::get('end');
 		if(!$to) $to = $date;
 		
-		$selectedUser = Input::get('user');
+		$selectedUser = Input::get('user'); 
 		if(!$selectedUser)$selectedUser = "";
 		else $selectedUser = " USER: ".User::find($selectedUser)->name;
 
-		$reportTypes = array('Summary', 'Patient Registry', 'Specimen Registry', 'Tests Registry', 'Tests Performed');
-
-		$selectedReport = Input::get('report_type');
-		if(!$selectedReport)$selectedReport = 0;
-
-		switch ($selectedReport) {
-			case '1':
-				$reportData = User::getPatientsRegistered($from, $to.' 23:59:59', Input::get('user'));
-				$reportTitle = Lang::choice('messages.user-statistics-patients-register-report-title',1);
-				break;
-			case '2':
-				$reportData = User::getSpecimensRegistered($from, $to.' 23:59:59', Input::get('user'));
-				$reportTitle = Lang::choice('messages.user-statistics-specimens-register-report-title',1);
-				break;
-			case '3':
-				$reportData = User::getTestsRegistered($from, $to.' 23:59:59', Input::get('user'));
-				$reportTitle = Lang::choice('messages.user-statistics-tests-register-report-title',1);
-				break;
-			case '4':
-				$reportData = User::getTestsPerformed($from, $to.' 23:59:59', Input::get('user'));
-				$reportTitle = Lang::choice('messages.user-statistics-tests-performed-report-title',1);
-				break;
-			default:
-				$reportData = User::getSummaryUserStatistics($from, $to.' 23:59:59', Input::get('user'));
-				$reportTitle = Lang::choice('messages.user-statistics-summary-report-title',1);
-				break;
-		}
-
-		$reportTitle = str_replace("[FROM]", $from, $reportTitle);
-		$reportTitle = str_replace("[TO]", $to, $reportTitle);
-		$reportTitle = str_replace("[USER]", $selectedUser, $reportTitle);
+		
 		
 		return View::make('reports.userstatistics.index')
-					->with('reportTypes', $reportTypes)
-					->with('reportData', $reportData)
-					->with('reportTitle', $reportTitle)
-					->with('selectedReport', $selectedReport)
 					->withInput(Input::all());
 	}
 

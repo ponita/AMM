@@ -105,20 +105,23 @@
         <div class="col-sm-2"><strong>Health Region</strong></div>
         <div class="col-sm-4" style="">{{ $event->healthregion->name }}</div>
         
-        <div class="col-sm-2"><strong>District</strong></div>
+        <div class="col-sm-2"><strong>District/Country</strong></div>
         <div class="col-sm-4">
          
-          {{ $event->district->name }}
+          {{ $event->country->name}}
          
         </div>
       </div>
 
       <div class="row view-striped">
         <div class="col-sm-2"><strong>Funding Source</strong></div>
-        <div class="col-sm-4" style="">{{ $event->funder->name}}</div>
+        <div class="col-sm-2" style="">{{ $event->funder->name}}</div>
         
         <div class="col-sm-2"><strong>Organiser</strong></div>
-        <div class="col-sm-4">{{ $event->organiser->name }}</div>
+        <div class="col-sm-2">{{ $event->organiser->name }}/{{ $event->organiser->telephoneNo}}</div>
+
+        <div class="col-sm-2"><strong>Co-organiser</strong></div>
+        <div class="col-sm-2">{{ $event->co_organiser }}/{{ $event->organiser->telephoneNo}}</div>
       </div>
 
       <div class="row view-striped">

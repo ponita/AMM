@@ -1,0 +1,117 @@
+FILE SIGNATURE,51121a82fc77f9c9f7ed5c2362f8e176,,,,,,,,,,,,,,,,,,,,,,
+SOFTWARE VERSION,8.0.25.0,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,
+PLATE NAME,30112017,,,,,,,,,,,,,,,,,,,,,,
+PLATE STATUS,Completed,,,,,,,,,,,,,,,,,,,,,,
+RUN START TIME,30/11/2017 4:39:13 PM,,,,,,,,,,,,,,,,,,,,,,
+RUN COMPLETION TIME,30/11/2017 7:44:39 PM,,dd/MM/yyyy,,,,,,,,,,,,,,,,,,,,
+SAMPLE EXTRACTION APPLICATION NAME,0.6ml HIV-1 RNA,,,,,,,,,,,,,,,,,,,,,,
+SAMPLE EXTRACTION APPLICATION VERSION,6,,,,,,,,,,,,,,,,,,,,,,
+REAGENT ADDITION APPLICATION NAME,0.6ml HIV-1 RNA,,,,,,,,,,,,,,,,,,,,,,
+REAGENT ADDITION APPLICATION VERSION,6,,,,,,,,,,,,,,,,,,,,,,
+AMPLIFICATION DETECTION APPLICATION NAME,0.6ml HIV-1 RNA,,,,,,,,,,,,,,,,,,,,,,
+AMPLIFICATION DETECTION APPLICATION VERSION,6,,,,,,,,,,,,,,,,,,,,,,
+AMPLIFICATION DETECTION APPLICATION TYPE,m2000,,,,,,,,,,,,,,,,,,,,,,
+OPERATOR,KTRACY,,,,,,,,,,,,,,,,,,,,,,
+SAMPLE PREPARATION REAGENT LOT,11402421,,,,,,,,,,,,,,,,,,,,,,
+SAMPLE PREPARATION EXPIRATION DATE,30/06/2018,,,,,,,,,,,,,,,,,,,,,,
+PCR WELL VOLUME,100,,,,,,,,,,,,,,,,,,,,,,
+PLATE COMMENT,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,
+SAMPLE LOCATION,SAMPLE ID,,SAMPLE TYPE,ASSAY NAME,ASSAY VERSION,RESULT,INTERPRETATION,FLAGS,TARGET CYCLE NUMBER,IC CYCLE NUMBER,ERROR CODE/DESCRIPTION,ASSAY CALIBRATION TIME,REAGENT LOT NUMBER,REAGENT LOT EXPIRATION DATE,CONTROL LOT NUMBER,CONTROL EXPIRATION DATE,CONTROL RANGE,CALIBRATOR LOT NUMBER,CALIBRATOR EXPIRATION DATE,CALIBRATOR LOG CONCENTRATION,RESULT COMMENT,TARGET MR,IC MR
+A1,HIV_NEG,,Control,HIV0.6ml,6,Not detected,,,-1,21.4,,19/10/2017 4:25:29 PM,476172,2/9/2018,476105,3/7/2018, - ,N/A,N/A,N/A,,0.003,0.27
+A2,M033834,048858/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.7,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.036,0.272
+A3,M028830,048976/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.33,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.007,0.278
+A4,M031224,049066/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.27,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.066,0.273
+A5,M034112,049311/1712,Patient,HIV0.6ml,6,< 40 Copies / mL,Detected,,28.62,21.2,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.142,0.274
+A6,M031054,048760/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,20.84,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.004,0.274
+A7,M033125,048816/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.13,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.002,0.27
+A8,M033706,,Patient,HIV0.6ml,6,,,,,,3130 A less liquid than expected error was encountered by the Liquid Handler.,,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,,
+A9,M035266,048871/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.19,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.007,0.271
+A10,M014961,049152/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.31,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.007,0.273
+A11,M000193,049216/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.44,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.007,0.276
+A12,M014356,049301/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.65,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.007,0.277
+B1,HIV_HIPOS,,Control,HIV0.6ml,6,"69,303 Copies / mL",,,16.2,21.73,,19/10/2017 4:25:29 PM,476172,2/9/2018,476105,3/7/2018,"14,454 - 457,088",N/A,N/A,N/A,,0.355,0.2
+B2,M027487,048872/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.48,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.034,0.273
+B3,M027092,048984/1712,Patient,HIV0.6ml,6,"2,178 Copies / mL",,,21.49,21.18,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.309,0.279
+B4,M023816,049082/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.14,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.004,0.275
+B5,M036034,049322/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.21,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.003,0.276
+B6,M023637,048767/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,20.96,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.004,0.271
+B7,M017030,048821/1712,Patient,HIV0.6ml,6,< 40 Copies / mL,Detected,,28.02,21.12,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.089,0.272
+B8,M018330,048852/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.03,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.003,0.273
+B9,M034078,,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.15,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.004,0.273
+B10,M032992,049155/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.13,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.007,0.276
+B11,M034136,049233/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.35,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.046,0.276
+B12,M015431,,Patient,HIV0.6ml,6,,,,-1,25.8,"4442 Internal control cycle number is too high. Valid range is [18.68, 22.68].",19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0,0.214
+C1,HIV_LOPOS,,Control,HIV0.6ml,6,"1,125 Copies / mL",,,22.5,21.57,,19/10/2017 4:25:29 PM,476172,2/9/2018,476105,3/7/2018,"204 - 6,457",N/A,N/A,N/A,,0.229,0.271
+C2,M030617,048890/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.41,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.004,0.278
+C3,M021205,048992/1712,Patient,HIV0.6ml,6,45 Copies / mL,,,27.41,21.58,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.138,0.273
+C4,M035620,,Patient,HIV0.6ml,6,,,,25.25,23.22,"4442 Internal control cycle number is too high. Valid range is [18.68, 22.68].",19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.147,0.262
+C5,M017467,049331/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.35,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.007,0.269
+C6,M022674,048779/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,20.92,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.005,0.266
+C7,M028273,048824/1712,Patient,HIV0.6ml,6,104 Copies / mL,,,26.14,20.83,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.201,0.265
+C8,M031072,,Patient,HIV0.6ml,6,,,,,,3119 A no clot exit detected error was encountered by the Liquid Handler.,,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,,
+C9,M016326,,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.12,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.004,0.275
+C10,M031288,049161/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.31,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.007,0.275
+C11,M030366,049240/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.71,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.005,0.273
+C12,M036566,049312/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.72,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.007,0.276
+D1,M027374,048768/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.56,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.003,0.278
+D2,M034200,048905/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.28,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.004,0.277
+D3,M021784,049003/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.53,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.005,0.274
+D4,M031839,049094/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.09,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.007,0.275
+D5,M021906,048712/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,20.97,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.007,0.272
+D6,M019461,048784/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,20.71,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.005,0.267
+D7,M034760,,Patient,HIV0.6ml,6,,,,,,3119 A no clot exit detected error was encountered by the Liquid Handler.,,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,,
+D8,M033289,,Patient,HIV0.6ml,6,,,,,,3119 A no clot exit detected error was encountered by the Liquid Handler.,,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,,
+D9,M004034,048894/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.08,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.007,0.272
+D10,M034811,049168/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.23,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.004,0.274
+D11,M025059,049254/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.27,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.039,0.278
+D12,M027669,049320/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.78,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.006,0.274
+E1,M035760,049374/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.56,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.002,0.28
+E2,M036112,048931/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.61,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.058,0.276
+E3,M033441,049013/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.25,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.005,0.275
+E4,M016560,049267/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.14,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.006,0.275
+E5,M030438,048724/1712,Patient,HIV0.6ml,6,< 40 Copies / mL,Detected,,28.17,20.92,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.11,0.272
+E6,M025463,048789/1712,Patient,HIV0.6ml,6,< 40 Copies / mL,Detected,,28.07,21.11,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.112,0.268
+E7,M031382,,Patient,HIV0.6ml,6,,,,,,3119 A no clot exit detected error was encountered by the Liquid Handler.,,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,,
+E8,M028429,,Patient,HIV0.6ml,6,,,,,,3119 A no clot exit detected error was encountered by the Liquid Handler.,,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,,
+E9,M027805,048904/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.13,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.007,0.27
+E10,M023221,049184/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.16,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.007,0.271
+E11,M023247,049262/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.56,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.004,0.274
+E12,M017965,049327/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.71,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.005,0.274
+F1,M031419,048804/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.69,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.003,0.277
+F2,M026484,048942/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.56,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.027,0.28
+F3,M034125,049031/1712,Patient,HIV0.6ml,6,< 40 Copies / mL,Detected,,28.77,21.18,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.076,0.273
+F4,M017006,049277/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.2,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.007,0.271
+F5,M023139,048733/1712,Patient,HIV0.6ml,6,40 Copies / mL,,,27.59,20.86,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.1,0.267
+F6,M024906,048795/1712,Patient,HIV0.6ml,6,68 Copies / mL,,,26.79,20.87,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.207,0.264
+F7,M027917,048832/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,20.99,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.007,0.264
+F8,M025591,,Patient,HIV0.6ml,6,,,,,,3119 A no clot exit detected error was encountered by the Liquid Handler.,,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,,
+F9,M033854,048915/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.1,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.007,0.269
+F10,M026120,049183/1712,Patient,HIV0.6ml,6,42 Copies / mL,,,27.52,21.17,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.099,0.272
+F11,M024712,049272/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.52,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.004,0.27
+F12,M024115,049337/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.61,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.003,0.271
+G1,M024364,048814/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.88,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.023,0.275
+G2,M036074,048956/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.32,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.005,0.276
+G3,M036075,049043/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.25,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.003,0.275
+G4,M017646,049291/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.15,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.005,0.271
+G5,M008846,048746/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.1,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.006,0.268
+G6,M028518,048803/1712,Patient,HIV0.6ml,6,< 40 Copies / mL,Detected,,27.86,20.92,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.087,0.266
+G7,M024166,048836/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.1,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.007,0.27
+G8,M023609,048855/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,20.88,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.005,0.268
+G9,M033738,048923/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.04,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.006,0.271
+G10,M031480,049203/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.26,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.003,0.276
+G11,M023737,049278/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.25,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.008,0.277
+G12,M034013,049341/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.56,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.007,0.28
+H1,M031104,048850/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.59,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.004,0.275
+H2,M034478,048964/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.52,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.053,0.276
+H3,M030228,049054/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.17,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.003,0.277
+H4,M032277,049302/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.01,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.003,0.271
+H5,M036118,048752/1712,Patient,HIV0.6ml,6,< 40 Copies / mL,Detected,,27.93,20.94,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.147,0.272
+H6,M034087,048808/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,20.94,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.007,0.269
+H7,M016997,048846/1712,Patient,HIV0.6ml,6,81 Copies / mL,,,26.52,21.04,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.231,0.272
+H8,M033811,048862/1712,Patient,HIV0.6ml,6,69 Copies / mL,,,26.77,21.09,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.192,0.272
+H9,M032145,049148/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.29,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.006,0.273
+H10,M026117,049209/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.15,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.003,0.278
+H11,M028087,049294/1712,Patient,HIV0.6ml,6,Not detected,Target not detected,,-1,21.66,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.003,0.276
+H12,M030361,049345/1712,Patient,HIV0.6ml,6,68 Copies / mL,,,26.8,21.67,,19/10/2017 4:25:29 PM,476172,2/9/2018,N/A,N/A,N/A,N/A,N/A,N/A,,0.108,0.284

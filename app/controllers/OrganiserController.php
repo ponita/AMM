@@ -46,6 +46,8 @@ class OrganiserController extends \BaseController {
 			//store
 			$organisers = new Organiser;
 			$organisers->name = Input::get('name');
+			$organisers->telephoneNo = Input::get('telephoneNo');
+			$organisers->email = Input::get('email');
 			$organisers->description = Input::get('description');
 			try{
 				$organisers->save();
@@ -107,6 +109,8 @@ class OrganiserController extends \BaseController {
 			// Update
 			$organisers = Organiser::find($id);
 			$organisers->name = Input::get('name');
+			$organisers->telephoneNo = Input::get('telephoneNo');
+			$organisers->email = Input::get('email');
 			$organisers->description = Input::get('description');
 			$organisers->save();
 

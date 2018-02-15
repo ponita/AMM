@@ -45,7 +45,7 @@
 			<thead>
 				<tr>
 					<th>Actions</th>
-					<th>SN</th>
+					<!-- <th>SN</th> -->
 					<th>Date</th>
 					<th>Activity Name</th>
 					<th>Type</th>
@@ -71,33 +71,33 @@
     								View Details</a></li>
                                 @endif
                            
-                                @if(Auth::user()->can('edit_activity'))
+                                @if(Auth::user()->can('edit_activity') && ($event->status_id == 0))
     							<li><a href="{{ URL::route('event.edit', array($event->id)) }}">
-    								Update Details</a></li>
+    								Edit</a></li>
                                @endif
                                 
-                                @if(Auth::user()->can('update_objective'))
+                                @if(Auth::user()->can('update_objective') && ($event->obj_status_id == 0))
     							<li><a href="{{ URL::route('event.editobjectives', array($event->id)) }}">
     								Update Objectives</a></li>
                                 @endif
-                                @if(Auth::user()->can('update_lessons'))
+                                @if(Auth::user()->can('update_lessons') && ($event->les_status_id == 0))
     							<li><a href="{{ URL::route('event.editlessons', array($event->id)) }}">
     								Update Lessons</a></li>
                                 @endif
-                                @if(Auth::user()->can('update_recommendations'))
+                                @if(Auth::user()->can('update_recommendations') && ($event->rec_status_id == 0))
     							<li><a href="{{ URL::route('event.editrecommendations', array($event->id)) }}">
     								Update Recommendations</a></li>
                                 @endif
-                                @if(Auth::user()->can('update_actions'))
+                                @if(Auth::user()->can('update_actions') && ($event->action_status_id == 0))
     							<li><a href="{{ URL::route('event.editactions', array($event->id)) }}">
     								Update Actions</a></li>
                                 @endif
-                                @if(Auth::user()->can('add_report'))
+                                @if(Auth::user()->can('add_report') && ($event->status_id == 0))
     							<li><a href="{{ URL::route('event.addreport', array($event->id)) }}">
     								Add Report</a></li>
     								@endif
                            	
-    							@if(Auth::user()->can('approve_activity'))
+    							@if(Auth::user()->can('approve_activity') && ($event->approval_status_id == 0))
     							<li><a href="{{ URL::route('event.editapproval', array($event->id)) }}">
     								Update Approval</a></li>
                                 @endif
@@ -105,7 +105,7 @@
 						</div>
 
 					</td>
-					<td>{{ $event->serial_no }}</td>
+					<!-- <td>{{ $event->serial_no }}</td> -->
 					<td>{{ date('d', strtotime($event->start_date)) }}-{{ date('d M Y', strtotime($event->end_date)) }}</td>
 					<td>{{ $event->name }}</td>
 					<!-- <td>{{ $event->user->name }}</td> -->

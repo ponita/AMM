@@ -21,14 +21,17 @@ class CreateMeetings extends Migration {
 		   	$table->integer('thematicArea_id')->unsigned()->nullable();
 		    $table->dateTime('start_time');
 		    $table->dateTime('end_time');
+		    $table->string('category');
 		    $table->string('approval_status');
+		    $table->string('co_organiser');
+		    $table->integer('approval_status_id');
 			$table->string('approvedby');
 			$table->timestamp('approvedon');
 			$table->string('venue')->nullable();			
 			$table->integer('participants_no')->unsigned()->nullable();	
 			$table->integer('organiser_id')->unsigned()->nullable();		
 			$table->string('objective');
-            $table->integer('event_status_id')->unsigned()->default(0);
+            $table->integer('status_id')->unsigned()->default(0);
 			$table->string('email');
 			$table->string('minutes');		
 			$table->integer('user_id')->unsigned();
@@ -48,6 +51,21 @@ class CreateMeetings extends Migration {
 			$table->softDeletes();
  
 
+		});
+
+		Schema::create('unhls_meeting_actions', function($table)
+		{
+		
+			$table->increments('id');
+			$table->integer('meeting_id');
+			$table->text('action');
+			$table->string('name');
+			$table->dateTime('date');
+			$table->string('location');
+
+			$table->timestamps();
+			$table->softDeletes(); 
+  
 		});
 
 		Schema::create('unhls_meeting_agenda', function($table)
@@ -73,6 +91,7 @@ class CreateMeetings extends Migration {
 		//
 		Schema::drop('unhls_meetings');
 		Schema::drop('unhls_targetaudience');
+		Schema::drop('unhls_meeting_actions');
 		Schema::drop('unhls_meeting_agenda');
 	}
 

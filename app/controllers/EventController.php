@@ -50,11 +50,13 @@ class EventController extends \BaseController {
 		//$districts = District::orderBy('name')->get();
 		$districts = District::orderBy('name')->lists('name','id');
 
+		$country = Country::orderBy('name')->lists('name','id');
+
 		$healthregion =['Select Health region']+ Healthregion::orderBy('name')->lists('name', 'id');
 
 		$funders =['Select funder']+ Funder::orderBy('name')->lists('name', 'id');
 
-		$organisers =['Select organiser']+ Organiser::orderBy('name')->lists('name','id');
+		$organisers =['Select organiser']+ Organiser::orderBy('name','telephoneNo')->lists('name','id');
 
 		$thematicAreas =['Select department']+ ThematicAreas::orderBy('name')->lists('name','id');
 
@@ -62,6 +64,7 @@ class EventController extends \BaseController {
 
 
 		return View::make('event.create')->with('districts', $districts)
+										->with('country', $country)
 										->with('healthregion', $healthregion)
 										->with('funders', $funders)
 										->with('organisers', $organisers)
@@ -106,12 +109,22 @@ class EventController extends \BaseController {
 		$event->end_date = Input::get('end_date');
 		$event->location = Input::get('location');
 		$event->premise = Input::get('premise');
+		$event->co_organiser = Input::get('co_organiser');
 		$event->district_id = Input::get('district');
+		$event->country_id = Input::get('country');
 		$event->healthregion_id = Input::get('healthregion');
 		$event->funders_id = Input::get('funder');
 		$event->organiser_id = Input::get('organiser');
 		$event->audience_id = Input::get('audience_id');
 		$event->participants_no = Input::get('participants_no');
+		
+		$event->status_id = 0;
+		$event->obj_status_id = 0;
+		$event->les_status_id = 0;
+		$event->rec_status_id = 0;
+		$event->action_status_id = 0;
+		$event->approval_status_id = 0;
+
 		$event->save();
 
 
@@ -243,6 +256,8 @@ class EventController extends \BaseController {
 		$event = UNHLSEvent::find($id);
 		$districts = District::orderBy('name')->lists('name','id');
 
+		$country = Country::orderBy('name')->lists('name','id');
+		
 		$healthregion = Healthregion::orderBy('name')->lists('name', 'id');
 
 		$funders = Funder::orderBy('name')->lists('name', 'id');
@@ -254,6 +269,7 @@ class EventController extends \BaseController {
 		// $audience = Audience::lists('audience','id');
 		
 		return View::make('event.edit')->with('event', $event)->with('districts', $districts)
+															->with('country', $country)
 															->with('healthregion', $healthregion)
 															->with('funders', $funders)
 															->with('organisers', $organisers)
@@ -298,7 +314,9 @@ class EventController extends \BaseController {
 		$event->end_date = Input::get('end_date');
 		$event->location = Input::get('location');
 		$event->premise = Input::get('premise');
+		$event->co_organiser = Input::get('co_organiser');
 		$event->district_id = Input::get('district');
+		$event->country_id = Input::get('country');
 		$event->healthregion_id = Input::get('healthregion');
 		$event->funders_id = Input::get('funders');
 		$event->organiser_id = Input::get('organiser');
@@ -368,6 +386,8 @@ class EventController extends \BaseController {
 
         	//$event->report_path = $destinationPath .'\\'. $filename;
         	$event->reports = $filename;
+		
+		$event->status_id = 1;
         	$event->save();
     	}
 
@@ -409,6 +429,8 @@ public function team()
 		$event->comment = Input::get('comment');
 		$event->approvedon = \Carbon\Carbon::now()->toDateTimeString();
 		
+		$event->approval_status_id = 1;
+
 		$event->save();
 		}
 		//Fire of entry saved/edited event
@@ -436,19 +458,24 @@ public function team()
 	public function updateobjectives($id)
 	{
 		
-		// $event = UNHLSEvent::find($id);
+		$event = UNHLSEvent::find($id);
 		// $event->event_status_id = UNHLSEvent::COMPLETED;
 		// $event->created_by = Auth::user()->id;
 		// $event->time_completed = date('Y-m-d H:i:s');
 		// // store
+
+		$event->obj_status_id = 1;
+
 
 		$objectives = Input::get('objective');
 		foreach ($objectives as $ob) {
 			$objective = new UNHLSEventObjective;
 			$objective->event_id = Input::get('event_id');
 			$objective->objective=$ob;
+			
 			$objective->save();			# code...
 		}
+		$event->save();
 		
 		//Fire of entry saved/edited event
 		// Event::fire('test.saved', array($id));
@@ -473,12 +500,13 @@ return Redirect::to('event')->with('message', 'Successfully updated objectives f
 
 	public function updatelessons($id)
 	{
-		// $event = UNHLSEvent::find($id);
+		$event = UNHLSEvent::find($id);
 		// $event->event_status_id = UNHLSEvent::COMPLETED;
 		// $event->created_by = Auth::user()->id;
 		// $event->time_completed = date('Y-m-d H:i:s');
 		// // store
 
+		$event->les_status_id = 1;
 		
 
 		$lessons = Input::get('lesson');
@@ -489,6 +517,7 @@ return Redirect::to('event')->with('message', 'Successfully updated objectives f
 			$lesson->save();			# code...
 		}
 		
+		$event->save();
     	//Fire of entry saved/edited event
 		// Event::fire('test.saved', array($id));
 
@@ -511,12 +540,13 @@ return Redirect::to('event')->with('message', 'Successfully updated objectives f
 
 	public function updaterecommendations($id)
 	{
-		// $event = UNHLSEvent::find($id);
+		$event = UNHLSEvent::find($id);
 		// $event->event_status_id = UNHLSEvent::COMPLETED;
 		// $event->created_by = Auth::user()->id;
 		// $event->time_completed = date('Y-m-d H:i:s');
 		// // store
 
+		$event->rec_status_id = 1;
 		
 
 		$recommendations = Input::get('recommendation');
@@ -527,6 +557,7 @@ return Redirect::to('event')->with('message', 'Successfully updated objectives f
 			$recommendation->save();			# code...
 		}
     	
+    	$event->save();
 //Fire of entry saved/edited event
 		// Event::fire('test.saved', array($id));
 
@@ -551,21 +582,9 @@ return Redirect::to('event')->with('message', 'Successfully updated objectives f
 
 	public function updateactions($id)
 	{
-		// $event = UNHLSEvent::find($id);
-		// $event->event_status_id = UNHLSEvent::COMPLETED;
-		// $event->created_by = Auth::user()->id;
-		// $event->time_completed = date('Y-m-d H:i:s');
-		// // store
-
-		// $action = new UNHLSEventAction;
-
-		// $action->action = Input::get('action');
-		// $action->name = Input::get('name');
-		// $action->date = Input::get('date');
-		// $action->location = Input::get('location');
-		// $action->event_id = Input::get('event_id');
-
-		// $action->save();
+		$event = UNHLSEvent::find($id);
+		
+		$event->action_status_id = 1;
     	
     	$actions = Input::get('action');
 		$names = Input::get('name');
@@ -581,6 +600,7 @@ return Redirect::to('event')->with('message', 'Successfully updated objectives f
 			$action->save();			# code...
 		}
 
+		$event->save();
 //Fire of entry saved/edited event
 		// Event::fire('test.saved', array($id));
 
@@ -631,23 +651,23 @@ public function department()
 		$datefrom = Input::get('datefrom');
 		$dateto = Input::get('dateto');
 		$name = Input::get('name');
-		// $department = Input::get('thematicArea_id');
-		// $type = Input::get('type');
-
-		// //$events = UNHLSEvent::get();
-		// $this->model('UNHLSEvent');
-		// $getThematicarea = $this->UNHLSEvent->getThematicarea();
-		// $getType = $this->UNHLSEvent->getType();
-		// $this->view('reports.department',['getThematicarea'=>$getThematicarea, 'getType'=>$getType]);
+		$type = Input::get('type');
+		$thematicArea = Input::get('thematicArea_id');
 
 		
 		
 		if($datefrom != '' or $name){
-			$events = UNHLSEvent::reportfilter($datefrom,$dateto,$name);
+			$events = UNHLSEvent::reportfilter($datefrom,$dateto,$name,$type,$thematicArea);
 		}
 		else{
 		$events = '';
 		}
+
+		// $selectedUser = Input::get('type'); 
+		// if(!$selectedUser)$selectedUser = "";
+		// else $selectedUser = " USER: ".UNHLSEvent::find($selectedUser)->type;
+
+
 
 		return View::make('reports.department')->with('events', $events);
 	}

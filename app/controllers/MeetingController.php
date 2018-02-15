@@ -66,6 +66,7 @@ public function report()
 			'name' => 'required',
 			'start_time' => 'required',
 			'end_time' => 'required',
+			'targetAudience' => 'required',
 
 		);
 		$validator = Validator::make(Input::all(), $rules);
@@ -81,6 +82,7 @@ public function report()
 
 		$meetings->user_id = Input::get('user_id');
 		$meetings->name = Input::get('name');
+		$meetings->category = Input::get('category');
 		$meetings->thematicArea_id = Input::get('thematicarea');
 		$meetings->organiser_id = Input::get('organiser');
 		$meetings->start_time = Input::get('start_time');
@@ -88,6 +90,8 @@ public function report()
 		$meetings->venue = Input::get('venue');
 		$meetings->objective = Input::get('objective');
 		$meetings->participants_no = Input::get('participants_no');
+		$meetings->status_id = 1;
+		$meetings->approval_status_id = 0;
 		 
 
 		$meetings->save();
@@ -215,6 +219,7 @@ public function report()
 
 		$meetings->user_id = Input::get('user_id');
 		$meetings->name = Input::get('name');
+		$meetings->category = Input::get('category');
 		$meetings->thematicArea_id = Input::get('thematicarea');
 		$meetings->organiser_id = Input::get('organiser');
 		$meetings->start_time = Input::get('start_time');
@@ -316,6 +321,7 @@ public function report()
 		$meetings->user->name = Input::get('name');
 		$meetings->approvedon = \Carbon\Carbon::now()->toDateTimeString();
 		
+		$meetings->approval_status_id = 1;
 		$meetings->save();
 
  
@@ -347,6 +353,7 @@ public function updateminutes($id)
 
         	//$meetings->report_path = $destinationPath .'\\'. $filename;
         	$meetings->minutes = $filename;
+        	$meetings->status_id = 2;
         	$meetings->save();
     	}
 		return Redirect::to('meetings')->with('message', 'Successfully uploaded minutes information for ID No '.$meetings->id);
@@ -365,6 +372,7 @@ public function updateminutes($id)
 		$datefrom = Input::get('datefrom');
 		$dateto = Input::get('dateto');
 		$name = Input::get('name');
+		$thematicArea = Input::get('thematicArea_id');
 		
 		
 
@@ -372,13 +380,50 @@ public function updateminutes($id)
 		
 		
 		if($datefrom != '' or $name){
-			$meetings = Meeting::reportfilter($datefrom,$dateto,$name);
+			$meetings = Meeting::reportfilter($datefrom,$dateto,$name,$thematicArea);
 		}
 		else{
 		$meetings = '';
 		}
 
+		
+
 		return View::make('reports.meetingreport')->with('meetings', $meetings);
+	}
+
+	public function editactions($id)
+	{
+		$meetings = Meeting::find($id);
+
+		return View::make('meetings.actionpoints')->with('meetings', $meetings);
+	}
+
+
+	public function updateactions($id)
+	{
+		$meetings = Meeting::find($id);
+		
+		// $meetings->action_status_id = 1;
+    	
+    	$actions = Input::get('action');
+		$names = Input::get('name');
+		$dates = Input::get('date');
+		$locations = Input::get('location');
+		foreach ($actions as $k=>$ac) {
+			$action = new UNHLSMeetingAction;
+			$action->meeting_id = Input::get('meeting_id');
+			$action->action = $ac;
+			$action->name = $names[$k];
+			$action->date = $dates[$k];
+			$action->location =$locations[$k];
+			$action->save();			# code...
+		}
+
+		$meetings->save();
+
+
+		return Redirect::to('meetings')->with('message', 'Successfully updated recommendations for for ID No '.$action->meeting_id);
+									
 	}
 
 	/**

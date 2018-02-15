@@ -22,20 +22,28 @@ class CreateActivityTable extends Migration {
 		    $table->dateTime('start_date');
 		    $table->dateTime('end_date');
 		    $table->string('approval_status');
+		    $table->string('co_organiser');
+		    $table->integer('approval_status_id');
+		    $table->integer('obj_status_id');
+		    $table->integer('les_status_id');
+		    $table->integer('rec_status_id');
+		    $table->integer('action_status_id');
 			$table->string('approvedby');
 			$table->text('comment')->nullable();
 			$table->timestamp('approvedon');
 			$table->string('location')->nullable();			
 			$table->string('premise')->nullable();	
-			$table->integer('district_id')->unsigned()->nullable();
+			$table->integer('district_id')->unsigned()->nullable()->default('200');
+			$table->integer('country_id')->unsigned()->nullable();
 			$table->integer('funders_id')->unsigned()->nullable();
 			$table->integer('organiser_id')->unsigned()->nullable();
 			$table->integer('thematicArea_id')->unsigned()->nullable();
-			$table->integer('healthregion_id')->unsigned()->nullable();	
+			$table->integer('healthregion_id')->unsigned()->nullable()->default('0');	
 			$table->integer('audience_id')->unsigned()->nullable();	
 			$table->integer('objective_id')->unsigned()->nullable();		
 			$table->integer('participants_no')->unsigned();	
 			$table->string('report_filename');
+			$table->integer('status_id');
 			$table->string('reports');		
 			$table->integer('user_id')->unsigned();
 
@@ -114,6 +122,8 @@ class CreateActivityTable extends Migration {
         { 
             $table->increments('id')->unsigned();
             $table->string('name',100)->unique();
+            $table->string('telephoneNo',13)->nullable();
+            $table->string('email',100);
             $table->string('description',100)->nullable();
 
             $table->softDeletes();

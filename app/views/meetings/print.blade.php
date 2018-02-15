@@ -70,6 +70,29 @@
           <li>{{$agenda->agenda}}</li>
           @endforeach</ol></td>
         </tr>
+
+        <tr>
+          <td colspan="9">
+            <table class="table table-condensed table-bordered" BORDER="1" CELLPADDING="0" CELLSPACING="0" width="100%">
+    <tr>
+        <th class="warning" align="center">Action</th>
+        <th align="center">Person responsible</th>
+        <th align="center">date</th>
+        <th align="center">location</th>
+    </tr>
+    @foreach($meetings->action as $action)
+    <tr>
+        <td>{{ $action['action'] }}</td>
+        <td align="center">{{ $action['name'] }}</td>
+        <td align="center">{{ $action['date'] }}</td>
+        <td align="center">{{ $action['location'] }} </td>
+    </tr>
+    @endforeach
+
+</table>
+</td>
+        </tr>
+
        </table>
           <table >
 

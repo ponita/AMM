@@ -52,19 +52,6 @@ else { el.hide();}
 		
 		<div class="form-group">
 			{{ Form::hidden('user_id', Auth::user()->id) }}
-			{{ Form::label('name', 'Activity Name', array('class' => 'col-sm-2')) }}
-			{{ Form::text('name', Input::old('name'), array('size' => '10x1','class' => 'form-control col-sm-10')) }}
-			
-		</div>
-
-		<div class="form-group">
-			
-
-			{{Form::label('thematicarea', 'Thematic Area', array('class' => 'col-sm-2'))}}
-			{{ Form::select('thematicarea', $thematicAreas, Input::old('thematicarea'),
-					['class' => 'form-control col-sm-4']) }}
- 
-			
 			{{ Form::label('type', 'Type', array('class' => 'col-sm-2 col-sm-offset-1')) }}
 			{{ Form::select('type', [
 					'0' =>'---Select a type---',
@@ -72,7 +59,19 @@ else { el.hide();}
 					'Sensitization' => 'Sensitization',
 					'Outreach' => 'Outreach',
 					'Support Supervision' => 'Support Supervision'], 
-					Input::old('type'), array('id' => 'type', 'class' => 'form-control col-sm-4')) }}		
+					Input::old('type'), array('id' => 'type', 'class' => 'form-control col-sm-4')) }}
+			
+		</div>
+
+		<div class="form-group">
+			{{ Form::label('name', 'Activity Name', array('class' => 'col-sm-2')) }}
+			{{ Form::text('name', Input::old('name'), array('size' => '10x1','class' => 'form-control col-sm-10')) }}			
+
+
+			{{Form::label('thematicarea', 'Thematic Area', array('class' => 'col-sm-2'))}}
+			{{ Form::select('thematicarea', $thematicAreas, Input::old('thematicarea'),
+					['class' => 'form-control col-sm-4']) }}
+					
 		</div>
 
 		<div class="form-group">
@@ -89,9 +88,10 @@ else { el.hide();}
 		<div class="form-group">
 			{{ Form::label('location', 'Location', array('class' => 'col-sm-2')) }}
 			{{ Form::select('location', [
-					'' => '',
-					'Butabika Headquaters' => 'Butabika Headquaters',
-					'Field Activity' => 'Field Activity'], 
+					'0' => '----Select Location----',
+					'1' => 'Butabika Headquaters',
+					'2' => 'Field Activity InCountry',
+					'3' => 'Field Activity Foreign'], 
 					Input::old('location'), array('id' => 'location', 'class' => 'form-control col-sm-4')) }}
 			
 			{{ Form::label('premise', 'Venue', array('class' => 'col-sm-1 col-sm-offset-1')) }}
@@ -108,6 +108,10 @@ else { el.hide();}
 			{{ Form::select('district', $districts, Input::old('district'), array('class' => 'form-control col-sm-4')) }}
 			</div>
 
+			<div class="form-group">
+			{{ Form::label('country', 'Country', array('class' => 'col-sm-2 col-sm-offset-1')) }}
+			{{ Form::select('country', $country, Input::old('country'), array('class' => 'form-control col-sm-4')) }}
+			</div>
 
 		<div class="form-group">
 			{{Form::label('funder', 'Funding Source', array('class' => 'col-sm-2')) }}
@@ -117,6 +121,11 @@ else { el.hide();}
 			{{Form::label('organiser', 'Organiser', array('class' => 'col-sm-2 col-sm-offset-1')) }}
 			{{ Form::select('organiser', $organisers, Input::old('organiser'),
 					['class' => 'form-control col-sm-4']) }}	
+		</div>
+
+		<div class="form-group">
+			{{Form::label('co_organiser', 'Co/Organiser', array('class' => 'col-sm-2 col-sm-offset-1')) }}
+			{{ Form::text('co_organiser', Input::old('co_organiser'), array('class' => 'form-control col-sm-4')) }}
 		</div>
 
 		<div class="form-group">
@@ -142,6 +151,14 @@ else { el.hide();}
 			<label>
 			<input type="checkbox"  name="audience[]" id="optionsRadios4" value="RRH Directors"  @if(is_array(input::old('audience')) && in_array(1, old('audience'))) checked @endif>
 			RRH Directors
+			</label>
+			<label>
+			<input type="checkbox"  name="audience[]" id="optionsRadios4" value="Hospital Directors"  @if(is_array(input::old('audience')) && in_array(1, old('audience'))) checked @endif>
+			Hospital Directors
+			</label>
+			<label>
+			<input type="checkbox"  name="audience[]" id="optionsRadios4" value="UNHLS facility"  @if(is_array(input::old('audience')) && in_array(1, old('audience'))) checked @endif>
+			UNHLS facility
 			</label>
 			<label>
 			<input type="checkbox" name="audience[]" id="optionsRadios5" value="IP Lab Advisors"  @if(is_array(input::old('audience')) && in_array(1, old('audience'))) checked @endif>
@@ -195,7 +212,10 @@ else { el.hide();}
 			<input type="checkbox" name="audience[]" id="optionsRadios5" value="Departmental" @if(is_array(input::old('audience')) && in_array(1, old('audience'))) checked @endif>
 			Departmental
 			</label>
-			
+			<label>
+			<input type="checkbox" name="audience[]" id="optionsRadios5" value="Others" @if(is_array(input::old('audience')) && in_array(1, old('audience'))) checked @endif>
+			Others
+			</label>
 		</div>
 		</div>
 	</div>
