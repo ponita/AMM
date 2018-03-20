@@ -63,14 +63,27 @@ public function organiser()
 					
 					
 		})
-		// ->orWhere(function ($query) use ($department)
-		// 	{
-		// 	    $query->where('thematicArea_id', 'like', '%' . $department . '%');//Search by department
-		// 	})
-		// ->orWhere(function ($query) use ($type)
-		// 	{
-		// 	    $query->where('type', 'like', '%' . $type . '%');//Search by type
-		// 	})
+		
+		->get();
+	}
+
+	public static function detailedfilter($datefrom,$dateto,$thematicArea){
+	
+		return Meeting::Where(function ($query) use ($datefrom,$dateto,$thematicArea){
+			$query->orWhere('thematicArea_id','=',$thematicArea);
+		})
+		->orWhere(function ($query) use ($datefrom,$dateto,$thematicArea){
+			$query->where('start_time','>=',$datefrom)
+					->where('start_time','<=',$dateto);
+					
+		})
+		->orWhere(function ($query) use ($datefrom,$dateto,$thematicArea){
+			$query->where('end_time','>=',$datefrom)
+					->where('end_time','<=',$dateto);
+					
+		})
+		
+		
 		->get();
 	}
 
@@ -92,11 +105,44 @@ public function organiser()
 	//  *
 	//  * @return boolean
 	 
-	// public function isCompleted()
-	// {
-	// 	if($this->test_status_id == Meeting::COMPLETED || $this->test_status_id == Meeting::VERIFIED)
-	// 		return true;
-	// 	else 
-	// 		return false;
-	// }
+	public function isCompleted()
+	{
+		if($this->status_id == Meeting::COMPLETED)
+			return true;
+		else 
+			return false;
+	}
+
+	public static function completedmeeting($datefrom=NULL ,$dateto=NULL ,$name='' ,$statusId=2 )
+	{
+		return Meeting::Where(function ($query) use ($name){
+			$query->orWhere('name','LIKE','%$name%');
+		})
+		->orWhere(function ($query) use ($datefrom){
+			$query->where('start_time','>=',$datefrom)
+					->where('start_time','<=',$dateto);
+					
+		})
+		->orWhere(function ($query) use ($dateto){
+			$query->where('end_time','>=',$datefrom)
+					->where('end_time','<=',$dateto);
+					
+		})
+
+		->orWhere(function ($query) use ($statusId){
+			$query->where('status_id','=',$statusId ?:2);
+					
+		})
+		
+
+		// if ($statusId > 0) {
+		// 	$meetings = $meetings->where(function($q) use ($statusId)
+		// 	{
+		// 		    $q->where('status_id','=', $statusId);//Filter by status
+				
+		// 	});
+		// }
+		
+		->get();
+	}
 }

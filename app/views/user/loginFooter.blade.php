@@ -9,8 +9,9 @@
 				<td><a href="https://vldash.cphluganda.org/" target="_blank">VL Dashboard</a></td>
 				<td><a href="#">Help/FAQs</a></td>
 				<td><a href="http://216.104.205.213/" target="_blank">ALIS</a></td>
-				<td><a href="#">Lab Regulatory Documents</a></td>
-				<td><a href="#">Lab services evaluation</a></td>
+				<td><a href="#">Sample Tracking</a></td>
+				<td><a href="#">EDMS</a></td>
+				<td><a href="#">HR Development</a></td>
 				<td><a href="http://www.cphl.go.ug/" target="_blank">CPHL Website</a></td>
 			</tr>
 		</thead>	

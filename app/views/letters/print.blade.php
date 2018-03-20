@@ -30,7 +30,7 @@
         </tr>
     <br>
         <tr>
-          <td colspan="3"><b>RE:</b><u>{{ $appointment->ref }}</u></td>
+          <td colspan="3"><b>RE: {{ $appointment->ref }}</b></td>
         </tr>
 
         <tr>

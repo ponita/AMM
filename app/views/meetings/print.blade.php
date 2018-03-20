@@ -9,6 +9,7 @@
     table {
       padding: 2px;
     }
+  
     </style>
     <?php
     $testedBy = '';
@@ -27,7 +28,7 @@
 
         <tr>
           <td colspan="1"><b>Date</b></td>
-          <td colspan="2">{{ date('d M Y', strtotime($meetings->start_time)) }}</td>
+          <td colspan="2">{{ date('d M Y  h:i', strtotime($meetings->start_time)) }}</td>
           <td class="col-sm-1"><strong>Duration</strong></td>
         <td class="col-sm-3">
             <?php
@@ -48,8 +49,8 @@
         </tr>
         
         <tr>
-          <td colspan="1"><b>Number of Participants</b></td>
-          <td colspan="3">{{ $meetings->participants_no }}</td>
+          <td colspan="2"><b>No. of Participants</b></td>
+          <td colspan="10">{{ $meetings->participants_no }}</td>
         </tr>
        
 
@@ -70,10 +71,13 @@
           <li>{{$agenda->agenda}}</li>
           @endforeach</ol></td>
         </tr>
-
+          
+          <tr>
+          <td colspan="3"><b>Action Points</b></td>
+          </tr>
         <tr>
           <td colspan="9">
-            <table class="table table-condensed table-bordered" BORDER="1" CELLPADDING="0" CELLSPACING="0" width="100%">
+            <table class="table table-condensed table-bordered" BORDER="0.5" CELLPADDING="3" CELLSPACING="0" width="100%">
     <tr>
         <th class="warning" align="center">Action</th>
         <th align="center">Person responsible</th>
@@ -83,9 +87,9 @@
     @foreach($meetings->action as $action)
     <tr>
         <td>{{ $action['action'] }}</td>
-        <td align="center">{{ $action['name'] }}</td>
-        <td align="center">{{ $action['date'] }}</td>
-        <td align="center">{{ $action['location'] }} </td>
+        <td>{{ $action['name'] }}</td>
+        <td>{{ $action['date'] }}</td>
+        <td>{{ $action['location'] }} </td>
     </tr>
     @endforeach
 

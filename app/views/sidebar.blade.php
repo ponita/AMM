@@ -38,6 +38,10 @@
 								<span class="glyphicon glyphicon-tag"></span>Meetings</a>
 							</li>
 							<li>
+							<a href="{{ URL::route('reports.detailed')}}">
+								<span class="glyphicon glyphicon-tag"></span>Detailed</a>
+							</li>
+							<li>
 							<a href="#">
 								<span class="glyphicon glyphicon-tag"></span>User Statistics</a>
 							</li>
@@ -73,7 +77,23 @@
 								<span class="glyphicon glyphicon-plus-sign"></span> New Activity</a>
 							</li>
 					@endif
+							<li>
+								<a href="{{ URL::route('event.Unapproved')}}">
+								<span class="glyphicon glyphicon-list"></span>Not approved</a>
+							</li>
+							<li>
+								<a href="{{ URL::route('event.pending')}}">
+								<span class="glyphicon glyphicon-list"></span>Pending</a>
+							</li>
 							
+							<li>
+								<a href="{{ URL::route('event.complete')}}">
+								<span class="glyphicon glyphicon-list"></span>Complete</a>
+							</li>
+							<li>
+								<a href="{{ URL::route('event.unattached')}}">
+								<span class="glyphicon glyphicon-list"></span>Unattached reports</a>
+							</li>
 							</ul>
 
 						<div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px; width: 215px; display: none;"><div class="ps-scrollbar-x" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; right: 3px; height: 620px; display: none;"><div class="ps-scrollbar-y" style="top: 0px; height: 0px;"></div></div></div>
@@ -102,7 +122,27 @@
 							    <a href="{{ URL::route('meetings.meetingindex')}}"> 
 								<span class="glyphicon glyphicon-list"></span> List of meetings</a>
 							</li>
+							<li>
+							    <a href="{{ URL::route('meeting.internal', ['type'=> 'Internal'])}}"> 
+								<span class="glyphicon glyphicon-list"></span>Internal Unapproved</a>
+							</li>
+							<li>
+							    <a href="{{ URL::route('meeting.external', ['type'=> 'External'])}}"> 
+								<span class="glyphicon glyphicon-list"></span>External Unapproved</a>
+							</li>
+							<li>
+							    <a href="{{ URL::route('meeting.pending', ['action' => '1'])}}"> 
+								<span class="glyphicon glyphicon-list"></span>Pending</a>
+							</li>
 							
+							<li>
+							    <a href="{{ URL::route('meeting.comp', ['status' => '2' ,'action' => '2'])}}"> 
+								<span class="glyphicon glyphicon-list"></span> Complete</a>
+							</li>
+							<li>
+							    <a href="{{ URL::route('meeting.unattached', ['status' => '1'])}}"> 
+								<span class="glyphicon glyphicon-list"></span>Unattached Minutes</a>
+							</li>
 							
 							</ul>
 

@@ -25,6 +25,7 @@ class CreateMeetings extends Migration {
 		    $table->string('approval_status');
 		    $table->string('co_organiser');
 		    $table->integer('approval_status_id');
+		    $table->integer('action_status_id');
 			$table->string('approvedby');
 			$table->timestamp('approvedon');
 			$table->string('venue')->nullable();			

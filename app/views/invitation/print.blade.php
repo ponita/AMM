@@ -24,7 +24,7 @@
           </tr>
           <br>
           <tr>
-          <td colspan="3"><b>RE:</b><u>{{ $appointment->reference }}</u></td>
+          <td colspan="3"><b>RE: {{ $appointment->reference }}</b></td>
           </tr>
 <br>
           <tr>

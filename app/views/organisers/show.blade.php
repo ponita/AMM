@@ -28,6 +28,8 @@
 				<h3 class="view"><strong>{{ Lang::choice('messages.name',1) }}:</strong>{{ $organisers->name }} </h3>
 				<p class="view-striped"><strong>{{ trans('Tel') }}:</strong>
 					{{ $organisers->telephoneNo }}</p>
+				<p class="view-striped"><strong>{{ trans('Designation') }}:</strong>
+					{{ $organisers->cadre }}</p>
 				<p class="view-striped"><strong>{{ trans('Email') }}:</strong>
 					{{ $organisers->email }}</p>
 				<p class="view-striped"><strong>{{ trans('messages.description') }}:</strong>

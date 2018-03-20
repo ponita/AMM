@@ -116,17 +116,20 @@
                             Attach Mins</a>
                             @endif
 
+      					@if($meetings->action_status_id == 1)
                          <a class="btn btn-sm btn-info" 
                             href="{{ URL::to("meetings/" . $meetings->id . "/actionpoints") }}" >
                             <span class="glyphicon glyphicon-edit"></span>
                             Action points</a>
-
+                            @endif
                     </td>
                     
 				</tr>
 			@endforeach
 			</tbody>
 		</table>
+		{{ Session::put('SOURCE_URL', URL::full()) }}
+        {{ Session::put('TESTS_FILTER_INPUT', Input::except('_token')); }}
 	</div>
 </div>
 @stop

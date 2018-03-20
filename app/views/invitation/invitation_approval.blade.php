@@ -21,7 +21,7 @@
 				</div>
 			@endif
 			
-{{ Form::model($event, array('files'=>true,'route' => array('event.updateapproval', $event->id), 'method' => 'PUT',
+{{ Form::model($appointment, array('files'=>true,'route' => array('appointment.updateapproval', $appointment->id), 'method' => 'PUT',
 				'id' => 'form-edit-invitation')) }}
 <div class="form-group">
 			{{ Form::hidden('approvedby', Auth::user()->name) }}
@@ -44,44 +44,44 @@
 		
 		<div class="row view-striped">
         <div class="col-sm-1"><strong>ID #</strong></div>
-        <div class="col-sm-2" style="color:red;"><strong>{{ $event->serial_no }}</strong></div>
+        <div class="col-sm-2" style="color:red;"><strong>{{ $appointment->serial_no }}</strong></div>
         
         <div class="col-sm-2"><strong>Date</strong></div>
-        <div class="col-sm-7">{{ $event->name }}</div>
+        <div class="col-sm-7">{{ $appointment->date }}</div>
       </div>
       
       <div class="row  view-striped">
         <div class="col-sm-1"><strong>RE</strong></div>
-        <div class="col-sm-3">{{ $event->department }}</div>
+        <div class="col-sm-3">{{ $appointment->reference }}</div>
         
         <div class="col-sm-1"><strong>Objective</strong></div>
-        <div class="col-sm-3">{{ $event->type }}</div>
+        <div class="col-sm-3">{{ $appointment->objective }}</div>
 
         <div class="col-sm-1"><strong>scheduled period</strong></div>
-        <div class="col-sm-3">{{ date('d M Y', strtotime($event->start_date)) }} 
-          to {{ date('d M Y', strtotime($event->end_date)) }}</div>
+        <div class="col-sm-3">{{ date('d M Y', strtotime($appointment->start_date)) }} 
+          to {{ date('d M Y', strtotime($appointment->end_date)) }}</div>
       </div>
 
       <div class="row view-striped">
         <div class="col-sm-2"><strong>Body</strong></div>
-        <div class="col-sm-4" style="">{{ $event->location }}</div>
+        <div class="col-sm-4" style="">{{ $appointment->body }}</div>
         
         <div class="col-sm-2"><strong>Output</strong></div>
-        <div class="col-sm-4">{{ $event->premise }}</div>
+        <div class="col-sm-4">{{ $appointment->output }}</div>
       </div>
 
       <div class="row view-striped">
         <div class="col-sm-2"><strong>Venue</strong></div>
-        <div class="col-sm-4" style="">{{ $event->region }}</div>
+        <div class="col-sm-4" style="">{{ $appointment->venue }}</div>
         
         
 
       <div class="row view-striped">
         <div class="col-sm-2"><strong>Invitation Attachment</strong></div>
         <div class="col-sm-4" style="">
-          @if ($event->report_filename)
-          <a href="{{ URL::to( 'attachments/' . $event->report_filename) }}"
-            target="_blank">{{ $event->report_filename }}</a>
+          @if ($appointment->report_filename)
+          <a href="{{ URL::to( 'attachments/' . $appointment->report_filename) }}"
+            target="_blank">{{ $appointment->report_filename }}</a>
           @else
           Pending
           @endif

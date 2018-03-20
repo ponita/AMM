@@ -43,10 +43,13 @@
                 
       <div class="row view-striped">
         <div class="col-sm-1"><strong>ID #</strong></div>
-        <div class="col-sm-2" style="color:green;"><strong>{{ $appointment->id }}</strong></div>
+        <div class="col-sm-2" style="color:red;"><strong>{{ $appointment->id }}</strong></div>
         
-        <div class="col-sm-2"><strong>Date</strong></div>
-        <div class="col-sm-7">{{ $appointment->date }}</div>
+        <div class="col-sm-1"><strong>Ref_no</strong></div>
+        <div class="col-sm-3">{{ $appointment->ref_no }}</div>
+
+        <div class="col-sm-1"><strong>Date</strong></div>
+        <div class="col-sm-3">{{ $appointment->date }}</div>
       </div>
 	  
 	  <div class="row view-striped">
@@ -60,11 +63,7 @@
       </div>
       </div>
 		
-       <div class="col-sm-2"><strong>Date</strong></div>
-        <div class="col-sm-4">{{$appointment->date }} 
-          </div>
-      </div>
-      
+       
       <div class="row  view-striped">
         <div class="col-sm-2"><strong>RE</strong></div>
         <div class="col-sm-4">{{ $appointment->reference }}</div>

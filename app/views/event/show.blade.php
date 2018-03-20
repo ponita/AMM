@@ -103,14 +103,21 @@
 
       <div class="row view-striped">
         <div class="col-sm-2"><strong>Health Region</strong></div>
-        <div class="col-sm-4" style="">{{ $event->healthregion->name }}</div>
-        
-        <div class="col-sm-2"><strong>District/Country</strong></div>
-        <div class="col-sm-4">
-         
-          {{ $event->country->name}}
-         
+        <div class="col-sm-4" style="">
+          @if($event->healthregion_id)
+          {{ $event->healthregion->name }}
+        @endif
         </div>
+        <div class="col-sm-4">
+          @if($event->district_id)
+          <b>District: </b>{{ $event->district->name}}
+         @endif 
+          @if($event->country_id)
+          <b>Country: </b>{{ $event->country->name}}
+         @endif
+        </div>
+       
+
       </div>
 
       <div class="row view-striped">
@@ -121,7 +128,7 @@
         <div class="col-sm-2">{{ $event->organiser->name }}/{{ $event->organiser->telephoneNo}}</div>
 
         <div class="col-sm-2"><strong>Co-organiser</strong></div>
-        <div class="col-sm-2">{{ $event->co_organiser }}/{{ $event->organiser->telephoneNo}}</div>
+        <div class="col-sm-2">{{ $event->co_organiser }}</div>
       </div>
 
       <div class="row view-striped">
@@ -199,7 +206,7 @@
         </div>
       </div>
 
-      <div class="row view-striped">
+      <!-- <div class="row view-striped">
         <div class="col-sm-2"><strong>Participant list</strong></div>
         <div class="col-sm-4" style="">
           @if ($event->report_filename)
@@ -212,7 +219,7 @@
         
         <div class="col-sm-2"><strong></strong></div>
         <div class="col-sm-4"></div>
-      </div>
+      </div> -->
 
       <div class="row view-striped">
         <div class="col-sm-2"><strong>Activity Report</strong></div>

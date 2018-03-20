@@ -3,7 +3,7 @@
 <div>
 	<ol class="breadcrumb">
 	  <li><a href="{{{URL::route('user.home')}}}">{{trans('messages.home')}}</a></li>
-	  <li class="active">Appointments</li>
+	  <li class="active">appointments</li>
 	</ol>
 </div>
 <!--
@@ -19,7 +19,7 @@
 <div class="panel panel-primary">
 	<div class="panel-heading ">
 		<span class="glyphicon glyphicon-dashboard"></span>
-		Appointment Board  ({{ count($appointment); }})
+		appointment Board  ({{ count($appointment); }})
 		
     @if(Auth::user()->can('manage_invitation'))
 		<div class="panel-btn">

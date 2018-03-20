@@ -19,6 +19,7 @@ class CreateActivityTable extends Migration {
 		   	$table->string('name');
 		   	$table->string('description')->nullable();
 		    $table->string('type')->nullable();		    
+            $table->string('uid')->nullable();//todo: should be unique
 		    $table->dateTime('start_date');
 		    $table->dateTime('end_date');
 		    $table->string('approval_status');
@@ -33,7 +34,7 @@ class CreateActivityTable extends Migration {
 			$table->timestamp('approvedon');
 			$table->string('location')->nullable();			
 			$table->string('premise')->nullable();	
-			$table->integer('district_id')->unsigned()->nullable()->default('200');
+			$table->integer('district_id')->unsigned()->nullable();
 			$table->integer('country_id')->unsigned()->nullable();
 			$table->integer('funders_id')->unsigned()->nullable();
 			$table->integer('organiser_id')->unsigned()->nullable();
@@ -70,6 +71,15 @@ class CreateActivityTable extends Migration {
 			$table->increments('id');
 			$table->integer('event_id');
 			$table->text('lesson');
+			$table->timestamps();
+			$table->softDeletes();
+
+			});
+		Schema::create('unhls_events_challenges', function($table){
+
+			$table->increments('id');
+			$table->integer('event_id');
+			$table->text('challenges');
 			$table->timestamps();
 			$table->softDeletes();
 
@@ -122,7 +132,8 @@ class CreateActivityTable extends Migration {
         { 
             $table->increments('id')->unsigned();
             $table->string('name',100)->unique();
-            $table->string('telephoneNo',13)->nullable();
+            $table->integer('telephoneNo')->unsigned();
+            $table->string('cadre')->nullable();
             $table->string('email',100);
             $table->string('description',100)->nullable();
 
@@ -164,6 +175,7 @@ class CreateActivityTable extends Migration {
 		Schema::drop('unhls_events_recommendations');
 		Schema::drop('unhls_events_objectives');
 		Schema::drop('unhls_events_lessons');
+		Schema::drop('unhls_events_challenges');
 		Schema::drop('unhls_events_actions');
 		Schema::drop('unhls_healthregions');
 		Schema::drop('unhls_thematicareas');

@@ -11,10 +11,97 @@ class MeetingController extends \BaseController {
 	public function index()
 	{
 		//
-		$meetings = Meeting::orderBy('start_time','DESC')->get();
+		$fromRedirect = Session::pull('fromRedirect');
+
+		if($fromRedirect){
+
+			$input = Session::get('TESTS_FILTER_INPUT');
+			
+		}else{
+
+			$input = Input::except('_token');
+		}
+		$meetings = Meeting::orderBy('start_time','ASC')->get();
+
 		// $meetingss = Meeting::find($id);		
 		
-		return View::make('meetings.meetingindex')->with('meetings', $meetings);
+		return View::make('meetings.meetingindex')->with('meetings', $meetings)
+													->withInput($input);
+	}
+
+public function meetingtypes($type)
+	{
+		//
+		$fromRedirect = Session::pull('fromRedirect');
+
+		if($fromRedirect){
+
+			$input = Session::get('TESTS_FILTER_INPUT');
+			
+		}else{
+
+			$input = Input::except('_token');
+		}
+
+
+		$meetings = Meeting::where('approval_status_id',0)
+							->where('category',$type)
+							->orderBy('start_time','ASC')->get();
+
+		// $meetingss = Meeting::find($id);		
+		
+		return View::make('meetings.meetingindex')->with('meetings', $meetings)
+													->withInput($input);
+	}
+
+	public function statuses( $action)
+	{
+		//
+		$fromRedirect = Session::pull('fromRedirect');
+
+		if($fromRedirect){
+
+			$input = Session::get('TESTS_FILTER_INPUT');
+			
+		}else{
+
+			$input = Input::except('_token');
+		}
+
+
+		$meetings = Meeting::where('action_status_id', $action)
+								->where('approval_status_id',1)
+								->orderBy('start_time','ASC')->get();
+
+		// $meetingss = Meeting::find($id);		
+		
+		return View::make('meetings.meetingindex')->with('meetings', $meetings)
+													->withInput($input);
+	}
+
+	public function unattached($status_id)
+	{
+		//
+		$fromRedirect = Session::pull('fromRedirect');
+
+		if($fromRedirect){
+
+			$input = Session::get('TESTS_FILTER_INPUT');
+			
+		}else{
+
+			$input = Input::except('_token');
+		}
+
+
+		$meetings = Meeting::where('status_id',$status_id)
+								->where('approval_status_id',1)
+								->orderBy('start_time','ASC')->get();
+
+		// $meetingss = Meeting::find($id);		
+		
+		return View::make('meetings.meetingindex')->with('meetings', $meetings)
+													->withInput($input);
 	}
 
 	public function downloadAttachment($minutes){
@@ -92,6 +179,7 @@ public function report()
 		$meetings->participants_no = Input::get('participants_no');
 		$meetings->status_id = 1;
 		$meetings->approval_status_id = 0;
+		$meetings->action_status_id = 1;
 		 
 
 		$meetings->save();
@@ -155,7 +243,9 @@ public function report()
 		$id<=$firstInsertedId ? $previousmeetings=$firstInsertedId : $previousmeetings = $id-1;
 
 		//Show the view and pass the $meetings to it
-		$html = View::make('meetings.showmeeting')->with('meetings', $meetings)
+		
+		
+		 $html = View::make('meetings.showmeeting')->with('meetings', $meetings)
 		->with('nextmeetings', $nextmeetings)
 		->with('previousmeetings', $previousmeetings);
 
@@ -386,10 +476,60 @@ public function updateminutes($id)
 		$meetings = '';
 		}
 
-		
+		if(Input::has('word')){
+				$date = date("Ymdhi");
+				$fileName = "daily_visits_log_".$date.".doc";
+				$headers = array(
+				    "Content-type"=>"text/html",
+				    "Content-Disposition"=>"attachment;Filename=".$fileName
+				);
+				$content = View::make('reports.mreportlog')
+								->with('meetings', $meetings)
+								->withInput(Input::all());
+		    	return Response::make($content,200, $headers);
+			}
+			else{
 
 		return View::make('reports.meetingreport')->with('meetings', $meetings);
 	}
+}
+
+	public function detailed()
+	{
+		$meetings = Meeting::orderBy('start_time','DESC')->get();
+		//
+		$datefrom = Input::get('datefrom');
+		$dateto = Input::get('dateto');
+		$thematicArea = Input::get('thematicArea_id');
+		
+		
+		
+		if($datefrom != '' or $thematicArea){
+			$meetings = Meeting::detailedfilter($datefrom,$dateto,$thematicArea);
+		}
+		else{
+		$meetings = '';
+		}
+
+		
+
+		if(Input::has('word')){
+				$date = date("Ymdhi");
+				$fileName = "daily_visits_log_".$date.".doc";
+				$headers = array(
+				    "Content-type"=>"text/html",
+				    "Content-Disposition"=>"attachment;Filename=".$fileName
+				);
+				$content = View::make('reports.exportLog')
+								->with('meetings', $meetings)
+								->withInput(Input::all());
+		    	return Response::make($content,200, $headers);
+			}
+			else{
+
+		return View::make('reports.detailed')->with('meetings', $meetings);
+	}
+}
 
 	public function editactions($id)
 	{
@@ -403,7 +543,7 @@ public function updateminutes($id)
 	{
 		$meetings = Meeting::find($id);
 		
-		// $meetings->action_status_id = 1;
+		$meetings->action_status_id = 2;
     	
     	$actions = Input::get('action');
 		$names = Input::get('name');

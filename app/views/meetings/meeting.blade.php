@@ -33,7 +33,7 @@ else { el.hide();}
 			
 {{ Form::open(array('url' => 'meetings', 'id' => 'form-create-meetings','files'=>true, 'autocomplete' => 'off')) }}
 
-
+			<input type="hidden" name="_token" value="{{ Session::token() }}"><!--to be removed function for csrf_token -->
 
 <div class="panel panel-info">
 	<div class="panel-heading"><strong>Meeting Information</strong></div>
@@ -44,8 +44,8 @@ else { el.hide();}
 			{{ Form::label('category', 'Meeting Type', array('class' => 'col-sm-2')) }}
 			{{ Form::select('category', [
 					'0' => '----Select category----',
-					'1' => 'Internal',
-					'2' => 'External'], 
+					'Internal' => 'Internal',
+					'External' => 'External'], 
 					Input::old('category'), array('id' => 'category', 'class' => 'form-control col-sm-4')) }}
 			
 		</div> 
@@ -218,7 +218,7 @@ else { el.hide();}
 			{{ Form::label('agenda', 'Meeting Agenda', array('class' => 'col-sm-2')) }}
 			{{ Form::textarea('agenda[]', '', array('size' => '10x1','class' => 'form-control col-sm-4')) }}
 			</div>
-			{{ Form::button("<span class='glyphicon glyphicon-delete'></span> ".'Remove', ['class' => 'remove-reason btn-normal']) }}
+			{{ Form::button("<span class='glyphicon glyphicon-delete'></span> Remove", ['class' => 'remove-reason btn-normal']) }}
 					
 			</div>
 		</div>

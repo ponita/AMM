@@ -43,7 +43,7 @@ else { el.hide();}
 			
 {{ Form::open(array('url' => 'event', 'id' => 'form-create-event','files'=>true, 'autocomplete' => 'off')) }}
 
-
+			<input type="hidden" name="_token" value="{{ Session::token() }}"><!--to be removed function for csrf_token -->
 
 <div class="panel panel-info">
 	<div class="panel-heading"><strong>Activity Information</strong></div>
@@ -52,7 +52,7 @@ else { el.hide();}
 		
 		<div class="form-group">
 			{{ Form::hidden('user_id', Auth::user()->id) }}
-			{{ Form::label('type', 'Type', array('class' => 'col-sm-2 col-sm-offset-1')) }}
+			{{ Form::label('type', 'Type', array('class' => 'col-sm-2')) }}
 			{{ Form::select('type', [
 					'0' =>'---Select a type---',
 					'Training' => 'Training',
@@ -60,6 +60,10 @@ else { el.hide();}
 					'Outreach' => 'Outreach',
 					'Support Supervision' => 'Support Supervision'], 
 					Input::old('type'), array('id' => 'type', 'class' => 'form-control col-sm-4')) }}
+
+			{{ Form::label('uid', 'Unique ID', array('class' => 'col-sm-2 col-sm-offset-1')) }}
+			{{ Form::text('uid', 'Auto generated upon succesfull save!',
+						array('class' => 'form-control col-sm-4', 'readonly' =>'true')) }}
 			
 		</div>
 
@@ -68,7 +72,7 @@ else { el.hide();}
 			{{ Form::text('name', Input::old('name'), array('size' => '10x1','class' => 'form-control col-sm-10')) }}			
 
 
-			{{Form::label('thematicarea', 'Thematic Area', array('class' => 'col-sm-2'))}}
+			{{Form::label('thematicarea', 'Thematic Area', array('class' => 'col-sm-2 col-sm-offset-1'))}}
 			{{ Form::select('thematicarea', $thematicAreas, Input::old('thematicarea'),
 					['class' => 'form-control col-sm-4']) }}
 					
@@ -89,9 +93,9 @@ else { el.hide();}
 			{{ Form::label('location', 'Location', array('class' => 'col-sm-2')) }}
 			{{ Form::select('location', [
 					'0' => '----Select Location----',
-					'1' => 'Butabika Headquaters',
-					'2' => 'Field Activity InCountry',
-					'3' => 'Field Activity Foreign'], 
+					'Butabika Headquaters' => 'Butabika Headquaters',
+					'Field Activity InCountry' => 'Field Activity InCountry',
+					'Field Activity Foreign' => 'Field Activity Foreign'], 
 					Input::old('location'), array('id' => 'location', 'class' => 'form-control col-sm-4')) }}
 			
 			{{ Form::label('premise', 'Venue', array('class' => 'col-sm-1 col-sm-offset-1')) }}
@@ -109,24 +113,24 @@ else { el.hide();}
 			</div>
 
 			<div class="form-group">
-			{{ Form::label('country', 'Country', array('class' => 'col-sm-2 col-sm-offset-1')) }}
+			{{ Form::label('country', 'Country', array('class' => 'col-sm-2')) }}
 			{{ Form::select('country', $country, Input::old('country'), array('class' => 'form-control col-sm-4')) }}
+			
+			{{Form::label('funder', 'Funding Source', array('class' => 'col-sm-2 col-sm-offset-1')) }}
+			{{ Form::select('funder', $funders, Input::old('funder'),
+					['class' => 'form-control col-sm-4']) }}
 			</div>
 
 		<div class="form-group">
-			{{Form::label('funder', 'Funding Source', array('class' => 'col-sm-2')) }}
-			{{ Form::select('funder', $funders, Input::old('funder'),
+			
+			{{Form::label('organiser', 'Organiser', array('class' => 'col-sm-2')) }}
+			{{ Form::select('organiser', $organisers, Input::old('organiser'),
 					['class' => 'form-control col-sm-4']) }}
 
-			{{Form::label('organiser', 'Organiser', array('class' => 'col-sm-2 col-sm-offset-1')) }}
-			{{ Form::select('organiser', $organisers, Input::old('organiser'),
-					['class' => 'form-control col-sm-4']) }}	
+			{{Form::label('co_organiser', 'Co/Organiser', array('class' => 'col-sm-2 col-sm-offset-1')) }}
+			{{ Form::text('co_organiser', Input::old('co_organiser'), array('class' => 'form-control col-sm-4')) }}	
 		</div>
 
-		<div class="form-group">
-			{{Form::label('co_organiser', 'Co/Organiser', array('class' => 'col-sm-2 col-sm-offset-1')) }}
-			{{ Form::text('co_organiser', Input::old('co_organiser'), array('class' => 'form-control col-sm-4')) }}
-		</div>
 
 		<div class="form-group">
 

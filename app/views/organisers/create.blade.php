@@ -30,6 +30,10 @@
 					{{ Form::text('name', Input::old('name'), array('class' => 'form-control')) }}
 				</div>
 				<div class="form-group">
+					{{ Form::label('cadre', Lang::choice('Designation',1)) }}
+					{{ Form::text('cadre', Input::old('cadre'), array('class' => 'form-control')) }}
+				</div>
+				<div class="form-group">
 					{{ Form::label('email', Lang::choice('messages.email',1)) }}
 					{{ Form::text('email', Input::old('email'), array('class' => 'form-control')) }}
 				</div>

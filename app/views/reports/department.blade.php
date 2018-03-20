@@ -83,7 +83,7 @@
 
 	<hr>
 
-<?php if($events){ ?>
+<!-- <?php if($events){ ?> -->
 <div class="panel panel-primary">
 	<div class="panel-heading ">
 		<span class="glyphicon glyphicon-dashboard"></span>
@@ -91,6 +91,7 @@
 	</div>
 	
 	<div class="panel-body">
+		
 		<table class="table table-striped table-hover table-condensed search-table">
 			<thead>
 				<tr>

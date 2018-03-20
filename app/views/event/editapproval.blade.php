@@ -57,8 +57,8 @@
       </div>
       
       <div class="row  view-striped">
-        <div class="col-sm-2"><strong>Department</strong></div>
-        <div class="col-sm-4">{{ $event->thematicarea->name }}
+        <div class="col-sm-1"><strong>Department</strong></div>
+        <div class="col-sm-3">{{ $event->thematicarea->name }}
           </div>
         
         <div class="col-sm-1"><strong>Type</strong></div>
@@ -79,7 +79,10 @@
 
       <div class="row view-striped">
         <div class="col-sm-2"><strong>Health Region</strong></div>
-        <div class="col-sm-4" style="">{{ $event->healthregion->name }}</div>
+        <div class="col-sm-4" style="">
+          @if ($event->healthregion_id)
+          {{ $event->healthregion->name }}
+        @endif</div>
         
         <div class="col-sm-2"><strong>District</strong></div>
         <div class="col-sm-4">

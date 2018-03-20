@@ -24,7 +24,7 @@
 
 
      <!-- <a class="btn btn-sm btn-info" href="javascript:printSpecial('UGANDA NATIONAL HEALTH LABORATORY SERVICES - ACTIVITIES REPORTING <br> -->
-     <a class="btn btn-sm btn-info" href="{{ URL::route('meetings.print', array($meetings->id)) }}" href="javascript:printSpecial('UGANDA NATIONAL HEALTH LABORATORY SERVICES - ACTIVITIES REPORTING <br> 
+     <a class="btn btn-sm btn-info" href="{{ URL::route('meetings.print', array($meetings->status_id)) }}" href="javascript:printSpecial('UGANDA NATIONAL HEALTH LABORATORY SERVICES - ACTIVITIES REPORTING <br> 
   ACTIVITY STATUS/DETAILS')" target="_blank">
       <span class="glyphicon glyphicon-print"></span> PRINT
     </a> 
@@ -50,11 +50,14 @@
       </div>
     
     <div class="row view-striped">
-        <div class="col-sm-2"><strong>Registered by</strong></div>
-        <div class="col-sm-4">{{ $meetings->user->name }}</div>
+        <div class="col-sm-1"><strong>Registered by</strong></div>
+        <div class="col-sm-3">{{ $meetings->user->name }}</div>
+
+        <div class="col-sm-1"><strong>Type</strong></div>
+        <div class="col-sm-3">{{ $meetings->category }}</div>
         
-        <div class="col-sm-2"><strong>Approval Status</strong></div>
-        <div class="col-sm-4">{{ $meetings->approval_status }} 
+        <div class="col-sm-1"><strong>Approval Status</strong></div>
+        <div class="col-sm-3">{{ $meetings->approval_status }} 
       @if ($meetings->approval_status) ({{ $meetings->approvedby }} / {{ $meetings->approvedon }})
       @endif
       </div>
@@ -123,6 +126,7 @@
         </div>
       </div>
 
+         <div class="row view-striped">
 <div class="col-sm-6"><strong>Action Points</strong><br>
       
                       <table>
@@ -146,6 +150,7 @@
 </table>
 
         </div>
+      </div>
 
       <div class="row view-striped">
         <div class="col-sm-2"><strong>Attached Minutes</strong></div>

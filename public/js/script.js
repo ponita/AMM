@@ -585,14 +585,26 @@ $(function(){
 	 * Disable country select field  based on location selected
 	 */
 	 $("#location").on('change', function() {
-    	if(this.value === "3" || this.value === "null") {
+    	if(this.value === "Field Activity Foreign" || this.value === "null") {
             $("#premise").prop("disabled", true);
-    		$("#district").prop("disabled", true);
+            $("#district").prop("disabled", true);
+    		$("#healthregion").prop("disabled", true);
     	} else{
             $("#premise").prop("disabled", false);
+            $("#healthregion").prop("disabled", false);
     		$("#district").prop("disabled", false);
     	}
 	});
+
+     $("#location").on('change', function() {
+        if(this.value === "Butabika Headquaters" || this.value === "Field Activity InCountry") {
+            $("#country").prop("disabled", true);
+            
+        } else{
+            $("#country").prop("disabled", false);
+            
+        }
+    });
 
 	/**
 	 * Display other (specify) text field when other is selected during specimen refferal storage condition selection
@@ -801,8 +813,8 @@ $(function(){
 	});
 
 
-/**Rejecting a Specimen
-     * - Allow for selection of multiple rejection reasons
+/**Adding action points
+     * - Allow for selection of multiple action points
      */
     $(document).ready(function () {
       var rejectReason = $('#action-point');
@@ -825,6 +837,92 @@ $(function(){
       });  
       
       $('#action-point').on('click', 'button.remove-reason', function () {
+        $(this).parent().remove();
+      }); 
+    });
+
+
+/**Addition of lessons learnt
+     * - Allow for selection of multiple lessons learnt
+     */
+    $(document).ready(function () {
+      var rejectReason = $('#lesson-point');
+      var reasonRow = rejectReason.children(":first");
+      var reasonRowTemp = reasonRow.clone();
+      reasonRow.find('button.remove-reason').remove();
+      
+      // nb can't use .length for inputCount as we are dynamically removing from middle of collection
+      var inputCount = 1; 
+
+      $('#add-lesson').click(function () {
+        var newRow = reasonRowTemp.clone();
+        inputCount++;
+        newRow.find('select.rejectionReason').attr('placeholder', 'Select '+inputCount);
+        rejectReason.append(newRow);
+
+        //make a call for calender
+        $( '.standard-datepicker').datetimepicker({ dateFormat: "yy-mm-dd hh:ii" });
+        
+      });  
+      
+      $('#lesson-point').on('click', 'button.remove-reason', function () {
+        $(this).parent().remove();
+      }); 
+    });
+
+
+/**Addition of recommendation
+     * - Allow for selection of multiple recommendations
+     */
+    $(document).ready(function () {
+      var rejectReason = $('#rec-point');
+      var reasonRow = rejectReason.children(":first");
+      var reasonRowTemp = reasonRow.clone();
+      reasonRow.find('button.remove-reason').remove();
+      
+      // nb can't use .length for inputCount as we are dynamically removing from middle of collection
+      var inputCount = 1; 
+
+      $('#add-rec').click(function () {
+        var newRow = reasonRowTemp.clone();
+        inputCount++;
+        newRow.find('select.rejectionReason').attr('placeholder', 'Select '+inputCount);
+        rejectReason.append(newRow);
+
+        //make a call for calender
+        $( '.standard-datepicker').datetimepicker({ dateFormat: "yy-mm-dd hh:ii" });
+        
+      });  
+      
+      $('#rec-point').on('click', 'button.remove-reason', function () {
+        $(this).parent().remove();
+      }); 
+    });
+
+    /**Addition of challenges
+     * - Allow for selection of multiple challengess
+     */
+    $(document).ready(function () {
+      var rejectReason = $('#challenge-point');
+      var reasonRow = rejectReason.children(":first");
+      var reasonRowTemp = reasonRow.clone();
+      reasonRow.find('button.remove-reason').remove();
+      
+      // nb can't use .length for inputCount as we are dynamically removing from middle of collection
+      var inputCount = 1; 
+
+      $('#add-challenge').click(function () {
+        var newRow = reasonRowTemp.clone();
+        inputCount++;
+        newRow.find('select.rejectionReason').attr('placeholder', 'Select '+inputCount);
+        rejectReason.append(newRow);
+
+        //make a call for calender
+        $( '.standard-datepicker').datetimepicker({ dateFormat: "yy-mm-dd hh:ii" });
+        
+      });  
+      
+      $('#challenge-point').on('click', 'button.remove-reason', function () {
         $(this).parent().remove();
       }); 
     });

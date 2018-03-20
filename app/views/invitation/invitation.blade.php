@@ -44,6 +44,12 @@ else { el.hide();}
 		
 
 			<div class="form-group">
+			{{ Form::label('ref_no', 'Unique ID', array('class' => 'col-sm-2')) }}
+			{{ Form::text('ref_no', 'Auto generated upon succesfull save!',
+						array('class' => 'form-control col-sm-4', 'readonly' =>'true')) }}
+		</div>
+
+		<div class="form-group">
 			{{ Form::hidden('user_id', Auth::user()->id) }}
 			
 			{{ Form::label('date', 'Date', array('class' => 'col-sm-2')) }}
@@ -51,7 +57,7 @@ else { el.hide();}
 		
 		</div>
 
-		<div class="form-group">
+		<div class="form-group" style="text-transform: uppercase;">
 			{{ Form::label('reference', 'RE:', array('class' => 'col-sm-2')) }}
 			{{ Form::text('reference', Input::old('reference'), array('class' => 'form-control col-sm-4')) }}
 

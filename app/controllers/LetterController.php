@@ -68,7 +68,11 @@ class LetterController extends \BaseController {
 		$appointment->save();
 
     	// }
-
+		$appointment->ref_no = $appointment->getUids();
+				$appointment->save();
+				$uuid = new UidGenerator; 
+				$uuid->save();
+			$url = Session::get('SOURCE_URL');
 
 
 
@@ -131,7 +135,7 @@ class LetterController extends \BaseController {
 		$html = View::make('letters.print')->with('appointment', $appointment);
 		// dd($appointment);
 
-		$pdf = new MYPDF;
+		$pdf = new YOURPDF;
 		$pdf->AddPage();
 		$pdf->SetFont('', '', 10);
 		$pdf->writeHTML($html, true, false, true, false, '');

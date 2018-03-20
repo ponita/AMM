@@ -410,13 +410,17 @@ Route::group(array("before" => "auth"), function()
             "as"   => "reports.daily.log",
             "uses" => "ReportController@dailyLog"
         ));
-        Route::any("/reports/department/department", array(
+        Route::any("/reports.department", array(
         "as"   => "reports.department",
         "uses" => "EventController@department"
         ));
-        Route::any("/reports/meetingreport/meetingreport", array(
+        Route::any("/reports.meetingreport", array(
         "as"   => "reports.meetingreport",
         "uses" => "MeetingController@meetingreport"
+         ));
+        Route::any("/reports.detailed", array(
+        "as"   => "reports.detailed",
+        "uses" => "MeetingController@detailed"
          ));
         Route::get('reports/dropdown', array(
             "as"    =>  "reports.dropdown",
@@ -784,6 +788,16 @@ Route::group(array("before" => "auth"), function()
         "uses" => "EventController@updatelessons"
     ));
 
+     Route::any("/event/{id}/reportings", array(
+        "as"   => "event.reportings",
+        "uses" => "EventController@reportings"
+    ));
+
+    Route::any("/event/{id}/updatereportings", array(
+        "as"   => "event.updatereportings",
+        "uses" => "EventController@updatereportings"
+    ));
+
     Route::any("/event/{id}/editrecommendations", array(
         "as"   => "event.editrecommendations",
         "uses" => "EventController@editrecommendations"
@@ -804,11 +818,12 @@ Route::group(array("before" => "auth"), function()
         "uses" => "EventController@updateactions"
     ));
 
-    Route::any("/event/eventfilter/eventfilter", array(
+    Route::any("/event.eventfilter", array(
         "as"   => "event.eventfilter",
         "uses" => "EventController@eventfilter"
     ));
 
+   
     Route::any("/event/{id}/addreport", array(
         "as"   => "event.addreport",
         "uses" => "EventController@addreport"
@@ -819,28 +834,54 @@ Route::group(array("before" => "auth"), function()
         "uses" => "EventController@updatereport"
     ));
 
-     Route::any("/event/report/report", array(
+     Route::any("/event.report", array(
         "as"   => "event.report",
         "uses" => "EventController@report"
     ));
 
+     Route::any("/event.calender", array(
+        "as"   => "event.calender",
+        "uses" => "EventController@calender"
+    ));
+
+     Route::any("/event/Unapproved/{approval_status_id}", array(
+        "as"   => "event.Unapproved",
+        "uses" => "EventController@statusapproval"
+    ));
+
+      Route::get("/event/pending/{approval_status_id}/{action_status_id}", array(
+        "as"   => "event.pending",
+        "uses" => "EventController@pending"
+        ));
+    
+    Route::get("/event/unattached/{status_id}/{approval_status_id}", array(
+        "as"   => "event.unattached",
+        "uses" => "EventController@unattached"
+        ));
+
+     Route::any("/event/complete/{status_id}/{action_status_id}", array(
+            "as"   => "event.complete",
+            "uses" => "EventController@complete"
+        ));
+
+//Meeting, invitation and memo management
     Route::resource('invitation', 'InvitationController');
 
      Route::resource('letters', 'LetterController');
 
      Route::resource('meetings', 'MeetingController');
 
-    Route::any("/letters/letter/letter", array(
+    Route::any("/letters.letter", array(
         "as"   => "letters.letter",
         "uses" => "LetterController@letter"
     ));
 
-    Route::any("/invitation/invitation/invitation", array(
+    Route::any("/invitation.invitation", array(
         "as"   => "invitation.invitation",
         "uses" => "InvitationController@invitation"
     ));
 
-    Route::any("/meetings/meeting/meeting", array(
+    Route::any("/meetings.meeting", array(
         "as"   => "meetings.meeting",
         "uses" => "MeetingController@create"
     ));
@@ -850,7 +891,7 @@ Route::group(array("before" => "auth"), function()
         "uses" => "MeetingController@show"
     ));
 
-    Route::any("/meetings/meetingindex/meetingindex", array(
+    Route::any("/meetings.meetingindex", array(
         "as"   => "meetings.meetingindex",
         "uses" => "MeetingController@index"
     ));
@@ -881,7 +922,7 @@ Route::group(array("before" => "auth"), function()
         "uses" => "MeetingController@edit"
     ));
 
-    Route::any("/meetings/report/report", array(
+    Route::any("/meetings.report", array(
         "as"   => "meetings.report",
         "uses" => "MeetingController@report"
     ));
@@ -894,6 +935,31 @@ Route::group(array("before" => "auth"), function()
     Route::any("/meetings/print/{print}", array(
         "as"   => "meetings.print",
         "uses" => "MeetingController@print"
+    ));
+
+   
+    Route::any("/meeting/comp/{status_id}/{action_status_id}", array(
+        "as"   => "meeting.comp",
+        "uses" => "MeetingController@statuses"
+    ));
+
+    Route::any("/meeting/pending/{action_status_id}", array(
+        "as"   => "meeting.pending",
+        "uses" => "MeetingController@statuses"
+    ));
+
+    Route::any("/meeting/unattached/{status_id}", array(
+        "as"   => "meeting.unattached",
+        "uses" => "MeetingController@unattached"
+    ));
+
+     Route::any("/meeting/internal/{category}", array(
+        "as"   => "meeting.internal",
+        "uses" => "MeetingController@meetingtypes"
+    ));
+      Route::any("/meeting/external/{category}", array(
+        "as"   => "meeting.external",
+        "uses" => "MeetingController@meetingtypes"
     ));
 
     Route::any("/event/print/{print}", array(
@@ -910,7 +976,7 @@ Route::any("/meetings/{id}/editapproval", array(
         "as"   => "meetings.updateapproval",
         "uses" => "MeetingController@updateapproval"
     ));
-       Route::any("/letters/letter_index/letter_index", array(
+       Route::any("/letters.letter_index", array(
         "as"   => "letters.letter_index",
         "uses" => "LetterController@index"
     ));
@@ -940,7 +1006,7 @@ Route::any("/meetings/{id}/editapproval", array(
         "uses" => "LetterController@print"
     ));
 
-          Route::any("/invitation/invitation_index/invitation_index", array(
+          Route::any("/invitation.invitation_index", array(
         "as"   => "invitation.invitation_index",
         "uses" => "InvitationController@index"
     ));
@@ -958,7 +1024,7 @@ Route::any("/meetings/{id}/editapproval", array(
         "uses" => "InvitationController@updateapproval"
     ));
 
-             Route::any("/invitation/invitation_approval/invitation_approval", array(
+             Route::any("/invitation.invitation_approval", array(
         "as"   => "invitation.invitation_approval",
         "uses" => "InvitationController@invitation_approval"
     ));
@@ -968,13 +1034,13 @@ Route::any("/meetings/{id}/editapproval", array(
         "uses" => "InvitationController@print"
     ));
 
-             Route::any("/letters/letter_approval/letter_approval", array(
+             Route::any("/letters.letter_approval", array(
         "as"   => "letters.letter_approval",
         "uses" => "LetterController@letter_approval"
     ));   
 
 
-             Route::any("/event/team/team", array(
+             Route::any("/event.team", array(
         "as"   => "event.team",
         "uses" => "EventController@team"
     )); 
@@ -1007,5 +1073,10 @@ Route::any("/meetings/{id}/editapproval", array(
             "uses" => "FunderController@delete"
         ));
 
-      
+      Route::get('mail', function(){
+            Mail::send('/meetings/mail', array('name' => 'Ponita'), function($message){
+                $message->to('poniagusto@gmail.com','Ponita')->subject('Hello My frnd');
+            });
+
+        });
 });

@@ -96,7 +96,11 @@ class InvitationController extends \BaseController {
         	$appointment->save();
     	}
 
-
+    	$appointment->ref_no = $appointment->getUuidsd();
+				$appointment->save();
+				$uuid = new UuiddGenerator; 
+				$uuid->save();
+			$url = Session::get('SOURCE_URL');
 
 
 		return Redirect::to('invitation')->with('message', 'Successfully registered an activity with ID No '.$appointment->id);
@@ -161,7 +165,7 @@ public function editapproval($id)
 		$html = View::make('invitation.print')->with('appointment', $appointment);
 		// dd($event);
 
-		$pdf = new MYPDF;
+		$pdf = new YOURPDF;
 		$pdf->AddPage();
 		$pdf->SetFont('', '', 10);
 		$pdf->writeHTML($html, true, false, true, false, '');

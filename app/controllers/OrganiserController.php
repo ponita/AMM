@@ -48,6 +48,7 @@ class OrganiserController extends \BaseController {
 			$organisers->name = Input::get('name');
 			$organisers->telephoneNo = Input::get('telephoneNo');
 			$organisers->email = Input::get('email');
+			$organisers->cadre = Input::get('cadre');
 			$organisers->description = Input::get('description');
 			try{
 				$organisers->save();
@@ -111,6 +112,7 @@ class OrganiserController extends \BaseController {
 			$organisers->name = Input::get('name');
 			$organisers->telephoneNo = Input::get('telephoneNo');
 			$organisers->email = Input::get('email');
+			$organisers->cadre = Input::get('cadre');
 			$organisers->description = Input::get('description');
 			$organisers->save();
 
