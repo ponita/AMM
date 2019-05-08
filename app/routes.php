@@ -24,14 +24,20 @@ Route::group(array("before" => "guest"), function()
         "uses" => "InterfacerController@receiveLabRequest"
     ));
     Route::any('/', array(
+        "as" => "user.dashboard",
+        "uses" => "UserController@dashboard"
+    ));
+    
+    
+});
+
+Route::any('/login', array(
         "as" => "user.login",
         "uses" => "UserController@loginAction"
     ));
-    
-});
 /* Routes accessible AFTER logging in */
 Route::group(array("before" => "auth"), function()
-{
+{ 
     Route::any('/home', array(
         "as" => "user.home",
         "uses" => "UserController@homeAction"
@@ -414,6 +420,10 @@ Route::group(array("before" => "auth"), function()
         "as"   => "reports.department",
         "uses" => "EventController@department"
         ));
+        Route::get("/reports_download/", array(
+        "as"   => "reports.download",
+        "uses" => "MeetingController@download"
+    ));
         Route::any("/reports.meetingreport", array(
         "as"   => "reports.meetingreport",
         "uses" => "MeetingController@meetingreport"
@@ -748,15 +758,54 @@ Route::group(array("before" => "auth"), function()
 
     //Bike Management
     Route::resource('bike', 'BikeController');
+    
+//Hub manageement
+    Route::resource('hubs', 'HubController');
+    Route::get("/hubs/{id}/delete", array(
+            "as"   => "hubs.delete",
+            "uses" => "HubController@delete"
+        ));
+
+    //Emergency Samples manageement
+    Route::resource('emergencySamples', 'EmergencySamplesController');
+    Route::get("/emergencySamples/{id}/delete", array(
+            "as"   => "emergencySamples.delete",
+            "uses" => "EmergencySamplesController@delete"
+        ));
+
+    Route::any("/emergencySamples.create", array(
+        "as"   => "emergencySamples.create",
+        "uses" => "EmergencySamplesController@create"
+    ));
+
+    Route::any("/emergencySamples.index", array(
+        "as"   => "emergencySamples.index",
+        "uses" => "EmergencySamplesController@index"
+    ));
+
+    Route::any("/emergencySamples/{id}/show", array(
+        "as"   => "emergencySamples.show",
+        "uses" => "EmergencySamplesController@show"
+    ));
 
     //Events/Activities Reporting
     Route::resource('event', 'EventController');
 
-    // Route for downloading Activity/Event reports
-    Route::get('/attachments', 'EventController@downloadAttachment');
+
+    Route::post("/event/workplans", array(
+        "as"   => "event.workplans",
+        "uses" => "EventController@workplans"
+    ));
+
+    Route::post("/event/strategy", "EventController@strategy");
+
+    Route::post('event/facilitiesforhub', 'EventController@facilitiesForHub');
+
 
     // Route for downloading Activity/Meeting reports
     Route::get('/attachment2', 'MeetingController@downloadAttachment');
+    Route::get('/attachments', 'EventController@downloadAttachment');
+    Route::get('/attachment1', 'InvitationController@downloadAttachment');
 	
 	Route::any("/event/{id}/editapproval", array(
         "as"   => "event.editapproval",
@@ -786,6 +835,16 @@ Route::group(array("before" => "auth"), function()
     Route::any("/event/{id}/updatelessons", array(
         "as"   => "event.updatelessons",
         "uses" => "EventController@updatelessons"
+    ));
+
+    Route::any("/event/{id}/solution", array(
+        "as"   => "event.solution",
+        "uses" => "EventController@solution"
+    ));
+
+    Route::any("/event/{id}/updatesolution", array(
+        "as"   => "event.updatesolution",
+        "uses" => "EventController@updatesolution"
     ));
 
      Route::any("/event/{id}/reportings", array(
@@ -839,6 +898,31 @@ Route::group(array("before" => "auth"), function()
         "uses" => "EventController@report"
     ));
 
+     Route::any("/event.create", array(
+        "as"   => "event.create",
+        "uses" => "EventController@create"
+    ));
+
+Route::any("/event.store", array(
+        "as"   => "event.store",
+        "uses" => "EventController@store"
+    ));
+
+     Route::any("/event.edit", array(
+        "as"   => "event.edit",
+        "uses" => "EventController@edit"
+    ));
+
+     Route::any("/event/{id}/update", array(
+        "as"   => "event.update",
+        "uses" => "EventController@update"
+    ));
+
+     Route::any("/event.strategicPlan", array(
+        "as"   => "event.strategicPlan",
+        "uses" => "EventController@strategicPlan"
+    ));
+
      Route::any("/event.calender", array(
         "as"   => "event.calender",
         "uses" => "EventController@calender"
@@ -881,6 +965,16 @@ Route::group(array("before" => "auth"), function()
         "uses" => "InvitationController@invitation"
     ));
 
+    Route::any("/invitation/{id}/attachment", array(
+        "as"   => "invitation.attachment",
+        "uses" => "InvitationController@attachment"
+    ));
+
+    Route::any("/invitation/{id}/updateattachment", array(
+        "as"   => "invitation.updateattachment",
+        "uses" => "InvitationController@updateattachment"
+    ));
+
     Route::any("/meetings.meeting", array(
         "as"   => "meetings.meeting",
         "uses" => "MeetingController@create"
@@ -894,6 +988,11 @@ Route::group(array("before" => "auth"), function()
     Route::any("/meetings.meetingindex", array(
         "as"   => "meetings.meetingindex",
         "uses" => "MeetingController@index"
+    ));
+
+    Route::post("/meetings.workplanlist", array(
+        "as"   => "meetings.workplanlist",
+        "uses" => "MeetingController@workplanlist"
     ));
 
     Route::any("/meetings/{id}/addminutes", array(
@@ -981,6 +1080,11 @@ Route::any("/meetings/{id}/editapproval", array(
         "uses" => "LetterController@index"
     ));
 
+       Route::any("/letters.report", array(
+        "as"   => "letters.report",
+        "uses" => "LetterController@report"
+    ));
+
        Route::any("/letters/{id}/editapproval", array(
         "as"   => "letters.editapproval",
         "uses" => "LetterController@editapproval"
@@ -1045,11 +1149,22 @@ Route::any("/meetings/{id}/editapproval", array(
         "uses" => "EventController@team"
     )); 
 
+    //           Route::any("/event.fullcalender", array(
+    //     "as"   => "event.fullcalender",
+    //     "uses" => "EventController@fullcalender"
+    // )); 
               Route::resource('thematicAreas', 'ThematicareasController');
 
         Route::get("/thematicAreas/{id}/delete", array(
             "as"   => "thematicAreas.delete",
             "uses" => "ThematicareasController@delete"
+        ));
+
+         Route::resource('unhlsWorkplan', 'UnhlsWorkplanController');
+
+        Route::get("/unhlsWorkplan/{id}/delete", array(
+            "as"   => "unhlsWorkplan.delete",
+            "uses" => "UnhlsWorkplanController@delete"
         ));
 
          Route::resource('organisers', 'OrganiserController');
@@ -1072,11 +1187,94 @@ Route::any("/meetings/{id}/editapproval", array(
             "as"   => "funders.delete",
             "uses" => "FunderController@delete"
         ));
+         Route::resource('action', 'ActionPointController');
 
-      Route::get('mail', function(){
-            Mail::send('/meetings/mail', array('name' => 'Ponita'), function($message){
-                $message->to('poniagusto@gmail.com','Ponita')->subject('Hello My frnd');
-            });
+        Route::any("/action/{id}/delete", array(
+            "as"   => "action.delete",
+            "uses" => "ActionPointController@delete"
+        ));
 
-        });
+        Route::resource('maction', 'MActionPointController');
+
+        Route::any("/maction/{id}/delete", array(
+            "as"   => "maction.delete",
+            "uses" => "MActionPointController@delete"
+        ));
+
+          Route::resource('leave', 'LeaveController');
+        Route::get("/leave/{id}/delete", array(
+            "as"   => "leave.delete",
+            "uses" => "LeaveController@delete"
+        ));
+        Route::post("/leavsearch", array(
+            "as"   => "search",
+            "uses" => "LeaveController@search"
+        ));
+
+        //  Route::any("/leave/{id}/show", array(
+        // "as"   => "leave.show",
+        // "uses" => "LeaveController@show"
+        // ));
+
+        Route::any("/leave/{id}/supervisor", array(
+        "as"   => "leave.supervisor",
+        "uses" => "LeaveController@supervisor"
+        )); 
+
+         Route::any("/leave/{id}/updatesupervisor", array(
+        "as"   => "leave.updatesupervisor",
+        "uses" => "LeaveController@updatesupervisor"
+        ));   
+          Route::any("/leave/{id}/manager", array(
+        "as"   => "leave.manager",
+        "uses" => "LeaveController@manager"
+        ));
+
+          Route::any("/leave/{id}/updatemanager", array(
+        "as"   => "leave.updatemanager",
+        "uses" => "LeaveController@updatemanager"
+        ));
+
+         Route::any("/leave/{id}/head", array(
+        "as"   => "leave.head",
+        "uses" => "LeaveController@head"
+        ));
+
+          Route::any("/leave/{id}/updatehead", array(
+        "as"   => "leave.updatehead",
+        "uses" => "LeaveController@updatehead"
+        ));   
+           Route::any("/leave.create", array(
+        "as"   => "leave.create",
+        "uses" => "LeaveController@create"
+        ));   
+
+        Route::any("/leave.report", array(
+        "as"   => "leave.report",
+        "uses" => "LeaveController@report"
+         ));
+        Route::any("/leave.transfer", array(
+        "as"   => "leave.transfer",
+        "uses" => "LeaveController@transfer"
+         ));
+
+        Route::any("/leave/print/{print}", array(
+        "as"   => "leave.print",
+        "uses" => "LeaveController@print"
+    ));
+
+         Route::resource('template', 'TemplateController');
+        Route::get("/template/{id}/delete", array(
+            "as"   => "template.delete",
+            "uses" => "TemplateController@delete"
+        ));
+// Route::get('test/', function(){
+//            $thematicareaId = 2;
+//            echo 'pic data';
+
+//         $department =Department::where('thematicArea_id', $thematicareaId)->lists('name','id');
+//         print_r($department);
+//         exit();
+//         });
+ 
 });

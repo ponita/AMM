@@ -26,13 +26,16 @@ class CreateMeetings extends Migration {
 		    $table->string('co_organiser');
 		    $table->integer('approval_status_id');
 		    $table->integer('action_status_id');
-			$table->string('approvedby');
+		    $table->string('approvedby');
 			$table->timestamp('approvedon');
 			$table->string('venue')->nullable();			
 			$table->integer('participants_no')->unsigned()->nullable();	
 			$table->integer('organiser_id')->unsigned()->nullable();		
+			$table->integer('department_id')->unsigned()->nullable();		
+			$table->integer('workplan_id')->unsigned()->nullable();		
 			$table->string('objective');
             $table->integer('status_id')->unsigned()->default(0);
+			$table->string('chairperson')->nullable();		
 			$table->string('email');
 			$table->string('minutes');		
 			$table->integer('user_id')->unsigned();
@@ -47,7 +50,7 @@ class CreateMeetings extends Migration {
 
 			$table->increments('id');
 			$table->integer('meeting_id')->nullable();
-			$table->string('targetAudience');
+			$table->integer('targetAudience');
 			$table->timestamps();
 			$table->softDeletes();
  
@@ -59,6 +62,7 @@ class CreateMeetings extends Migration {
 		
 			$table->increments('id');
 			$table->integer('meeting_id');
+		    $table->integer('action_status_id');
 			$table->text('action');
 			$table->string('name');
 			$table->dateTime('date');
@@ -73,7 +77,7 @@ class CreateMeetings extends Migration {
 		{
 		
 			$table->increments('id');
-			$table->integer('meeting_id');
+			$table->integer('meeting_id')->nullable();
 			$table->text('agenda');
 
 			$table->timestamps();

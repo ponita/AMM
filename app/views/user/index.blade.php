@@ -52,12 +52,15 @@
 							<span class="glyphicon glyphicon-eye-open"></span>
 							{{ trans('messages.view') }}
 						</a>
-
+           			
+           			@if(Auth::user()->can('edit_info'))
+ 			
 						<!-- edit this user (uses the edit method found at GET /user/{id}/edit -->
 						<a class="btn btn-sm btn-info" href="{{ URL::to("user/" . $user->id . "/edit") }}" >
 							<span class="glyphicon glyphicon-edit"></span>
 							{{ trans('messages.edit') }}
 						</a>
+						@endif
 						<!-- delete this user (uses the delete method found at GET /user/{id}/delete -->
 						<button class="btn btn-sm btn-danger delete-item-link {{($user == User::getAdminUser()) ? 'disabled': ''}}"
 							data-toggle="modal" data-target=".confirm-delete-modal"	

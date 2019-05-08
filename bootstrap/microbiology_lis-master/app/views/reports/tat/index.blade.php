@@ -211,23 +211,7 @@
 				text: <?php echo "'Time Taken (" . ($show_in_hours?'Hours':'Days') . ")'"; ?>
 			 },
 		  },
-		  tooltip: {
-			 formatter: function() {
-			 	dhVal = parseInt(<?php echo ($show_in_hours)?"1":"24"; ?>);
-			 	tVal = this.y * dhVal;
-			 	hrs = Math.floor(tVal);
-			 	mins = Math.round((tVal - hrs)*60);
-			 	yshow = "";
-			 	if(hrs < 1){
-			 		yshow = mins + " Minutes";
-			 	}else if(mins == 0){
-			 		yshow = hrs + " Hours";
-			 	}else{
-			 		yshow = hrs + " Hours " + mins + " Minutes";
-			 	}
-			   return '<b>'+ this.series.name +'</b><br/>' + Highcharts.dateFormat('%e. %b', this.x) +': '+ yshow;
-			 }
-		  },
+		  
 		  series: []
 	   };
 

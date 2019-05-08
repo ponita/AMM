@@ -78,9 +78,20 @@
         
         </div>
 
-       
+       <div class="row view-striped">
+       <div class="col-sm-6"><strong>Copied to</strong><br>
+          <ul>
+            @if($appointment->copied)
+          @foreach ($appointment->copied as $ck)
+          <li>{{$ck->copied}}</li> 
+          @endforeach
+          @endif
+          </ul>
 
-      <div class="row view-striped">
+        </div>
+      </div>
+
+      <!-- <div class="row view-striped">
         <div class="col-sm-2"><strong>Yours</strong></div>
         <div class="col-sm-4" style="">{{ $appointment->name }}</div>
         
@@ -89,7 +100,7 @@
         <div class="row view-striped">
         <div class="col-sm-4" style="">{{ $appointment->title }}</div>
         
-      </div>
+      </div> -->
       
       <div class="row view-striped">
         <div class="col-sm-2"><strong>ED's Recommendation</strong><br></div>

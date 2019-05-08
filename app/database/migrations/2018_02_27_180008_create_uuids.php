@@ -30,6 +30,12 @@ class CreateUuids extends Migration {
 			$table->integer('counter')->unsigned();
 		});
 
+		Schema::create('uidd', function(Blueprint $table)
+		{
+			$table->increments('id');
+			$table->integer('counter')->unsigned();
+		});
+
 	}
 
 
@@ -43,6 +49,7 @@ class CreateUuids extends Migration {
 		Schema::dropIfExists('uuids');
 		Schema::dropIfExists('uids');
 		Schema::dropIfExists('uuidsd');
+		Schema::dropIfExists('uidd');
 	}
 
 }

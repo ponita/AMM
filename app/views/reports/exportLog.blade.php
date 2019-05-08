@@ -48,7 +48,9 @@
 					<td>{{ date('h:m:i', strtotime($meetings->start_time)) }}</td>
 					<td>{{ $meetings->name }}</td>
 					<td>{{ $meetings->venue }}</td>
-					<td>{{ $meetings->organiser->name }}</td>
+					<td>@if ($meetings->organiser_id)
+          {{ $meetings->organiser->name }}
+        @endif</td>
 					<td><ol>
           @foreach ($meetings->agenda as $agenda)
           <li>{{$agenda->agenda}}</li>
@@ -62,7 +64,7 @@
 				        <th align="center">date</th>
 				        <th align="center">location</th>
 				    </tr>
-				    @foreach($meetings->action as $action)
+				    @foreach($meetings->maction as $action)
 				    <tr>
 				        <td>{{ $action['action'] }}</td>
 				        <td align="center">{{ $action['name'] }}</td>

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
-use log;
+//use log;
 
 class Letter extends \Eloquent 
 {
@@ -11,6 +11,11 @@ public function user()
 	{
 		return $this->belongsTo('User', 'user_id', 'id');
 	}
+
+ public function copied()
+    {
+        return $this->hasMany('UNHLSLettersCopied','letter_id','id');
+    }
 
 	public function getUids(){
     	

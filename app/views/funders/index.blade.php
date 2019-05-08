@@ -26,7 +26,7 @@
 				<tr>
 					<th>{{ Lang::choice('messages.name',1) }}</th>
 					<th>{{ trans('messages.description') }}</th>
-					<th></th>
+					<th>Action</th>
 				</tr>
 			</thead>
 			<tbody>

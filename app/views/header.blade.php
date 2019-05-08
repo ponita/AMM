@@ -3,7 +3,7 @@
 
         <header class="navbar navbar-fixed-top"  style="background-color: black;" role="banner">
             <div class="container-fluid">
-                <div style="float:left" ><h4 style="color: white;"> CPHL/UNHLS HLIMS COORDINATION SUPPORT SYSTEM</h4>
+                <div style="float:left" ><h4 style="color: white;"> NHLDS COORDINATION SYSTEM</h4>
                 </div>
                 <div style="float:right">
                 @if (Auth::check())
@@ -15,7 +15,10 @@
 							<span class="navbar_el_icon ion-person"></span> <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-right">
-                            <li><a href='{{ URL::to("user/".Auth::user()->id."/edit") }}'>{{trans('messages.edit-profile')}}</a></li>
+                            <li>
+                    @if(Auth::user()->can('edit_password'))
+                                <a href='{{ URL::to("user/".Auth::user()->id."/edit") }}'>{{trans('messages.edit-profile')}}</a>
+                            @endif</li>
                             <li class="divider"></li>
                             <li><a href="{{ URL::route("user.logout") }}">{{trans('messages.logout')}}</a></li>
                         </ul>

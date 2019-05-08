@@ -9,4 +9,9 @@ class UuiddGenerator extends \Eloquent {
     protected $table = 'uuidsd';
 
     public $timestamps = false;
+
+    public function thematicarea()
+	{
+		return $this->belongsTo('ThematicAreas','thematicArea_id');
+	}
 }

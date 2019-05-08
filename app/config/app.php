@@ -108,6 +108,7 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Zizaco\Entrust\EntrustServiceProvider',
 		'Way\Generators\GeneratorsServiceProvider'
+		// 'Makzumi\Calendar\CalendarServiceProvider'
 
 	),
 
@@ -176,6 +177,7 @@ return array(
 		'View'            => 'Illuminate\Support\Facades\View',
 		'SoftDeletingTrait'     => 'Illuminate\Database\Eloquent\SoftDeletingTrait',
 		'Entrust'         => 'Zizaco\Entrust\EntrustFacade'
+		// 'Calender'		  => 'Makzumi\Calendar\CalendarServiceProvider'
 	),
 
 );

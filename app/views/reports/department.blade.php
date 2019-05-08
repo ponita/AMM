@@ -54,7 +54,7 @@
 	</div> 
 
 <div class="row">
-<div class="col-md-6">
+<!-- <div class="col-md-6">
 	    	
 		        <div class="form-group">
 		        	{{ Form::label('type', Lang::choice('Type',1)) }}
@@ -62,15 +62,20 @@
 		            {{ Form::select('type', array(0 => '-- All --')+UNHLSEvent::all()->sortBy('type')->lists('type','id'),
 		            	isset($input['type'])?$input['type']:0, array('class' => 'form-control col-sm-4')) }}
 		        </div>
-        </div>
+        </div> -->
 
         <div class="col-md-6">
 	    	
 		        <div class="form-group">
-		        	{{ Form::label('thematicArea_id', Lang::choice('Department',1)) }}
+		        	{{ Form::label('department', Lang::choice('Department',1)) }}
+		        	<!-- {{ Form::label('thematicArea_id', Lang::choice('Department',1)) }} -->
 		       
-		            {{ Form::select('thematicArea_id', array(0 => '-- All --')+ThematicAreas::all()->sortBy('thematicArea_id')->lists('name','id'),
-		            	isset($input['thematicArea_id'])?$input['thematicArea_id']:0, array('class' => 'form-control col-sm-4')) }}
+		            <!-- {{ Form::select('thematicArea_id', array(0 => '-- All --')+ThematicAreas::all()->sortBy('thematicArea_id')->lists('name','id'),
+		            	isset($input['thematicArea_id'])?$input['thematicArea_id']:0, array('class' => 'form-control col-sm-4')) }} -->
+		       {{ Form::select('department', [
+                    '0' =>'---Select Section---',
+                     'Finance & Accounts' => 'Finance & Accounts', 'Data' => 'Data','Sample Reception' => 'Sample Reception', 'Logistics/Stores' => 'Logistics/Stores', 'EID Lab' => 'EID Lab', 'Viral Load' => 'Viral Load', 'SickleCell' =>'SickleCell', 'Microbiology' => 'Microbiology','Executive Director' => 'Executive Director', 'ICT' =>'ICT', 'Results QC' =>'Results QC', 'Records' =>'Records','Engineering' =>'Engineering', 'Bio Repository' =>'Bio Repository'], 
+                    Input::old('department'), array('class' => 'form-control')) }}
 		        </div>
 		
 
@@ -100,7 +105,7 @@
 					<th>Date</th>
 					<th>Type</th>
 					<th>Department</th>
-					<th>Days/Hours</th>
+					<th>Duration</th>
 					
 					
 				</tr>
@@ -111,11 +116,13 @@
 						{{(Session::get('activeevent') == $event->id)?"class='info'":""}}
 					@endif
 				>
-					<td>{{ $event->id }}</td>
+					<td></td>
 					<td>{{ $event->name }}</td>
 					<td>{{ date('d', strtotime($event->start_date)) }}-{{ date('d M Y', strtotime($event->end_date)) }}</td>
 					<td>{{ $event->type }}</td>
-					<td>{{ $event->thematicarea->name }}</td>
+					<td>
+						{{ $event->department }}
+					</td>
 					
 					<td>
 						<?php
@@ -126,7 +133,37 @@
 						$diff = date_diff($date1,$date2);
 
 						//count days
-						echo ' '.$diff->format("%d:%h");
+						echo ' '.$diff->format("%d:%h").'days';
+						?>
+					</td>
+					
+				</tr>
+			@endforeach
+			</tbody>
+			<tbody>
+			@foreach($meetings as $key => $meetings)
+				<tr  @if(Session::has('activemeetings'))
+						{{(Session::get('activemeetings') == $meetings->id)?"class='info'":""}}
+					@endif
+				> 
+					<td></td>
+					<td>{{ $meetings->name }}</td>
+					<td>{{ date('d', strtotime($meetings->start_time)) }}-{{ date('d M Y', strtotime($meetings->end_time)) }}</td>
+					<td>{{ $meetings->category }}</td>
+					<td>
+						{{ $meetings->department}}
+					</td>
+					
+					<td>
+						<?php
+						$date1 = date_create($meetings->start_time);
+						$date2 = date_create($meetings->end_time);
+
+						//difference between two dates
+						$diff = date_diff($date1,$date2);
+
+						//count days
+						echo ' '.$diff->format("%h:%i").'hrs';
 						?>
 					</td>
 					

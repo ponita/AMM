@@ -20,10 +20,10 @@
     	<div class="col-sm-2">
 	    	<div class="row">
 				<div class="col-sm-2">
-				    {{ Form::label('datefrom', trans('messages.from')) }}
+				    {{ Form::label('start_time', trans('messages.from')) }}
 				</div>
 				<div class="col-sm-2">
-				    {{ Form::text('datefrom', isset($input['datefrom'])?$input['datefrom']:date('Y-m-d'), 
+				    {{ Form::text('start_time', isset($input['start_time'])?$input['start_time']:date('Y-m-d'), 
 			                array('class' => 'form-control standard-datepicker')) }}
 		        </div>
 			</div>
@@ -31,20 +31,22 @@
 		<div class="col-sm-2">
 	    	<div class="row">
 				<div class="col-sm-2">
-				    {{ Form::label('dateto', trans('messages.to')) }}
+				    {{ Form::label('end_time', trans('messages.to')) }}
 				</div>
 				<div class="col-sm-2">
-				    {{ Form::text('dateto', isset($input['dateto'])?$input['dateto']:date('Y-m-d'), 
+				    {{ Form::text('end_time', isset($input['end_time'])?$input['end_time']:date('Y-m-d'), 
 			                array('class' => 'form-control standard-datepicker')) }}
 		        </div>
 			</div>
 		</div>
 		<div class="col-md-4">
 		        <div class="form-group">
-		        	{{ Form::label('thematicArea_id', Lang::choice('Department',1)) }}
+		        	{{ Form::label('department', Lang::choice('Department',1)) }}
 		       
-		            {{ Form::select('thematicArea_id', array(0 => '-- All --')+ThematicAreas::all()->sortBy('thematicArea_id')->lists('name','id'),
-		            	isset($input['thematicArea_id'])?$input['thematicArea_id']:0, array('class' => 'form-control col-sm-4')) }}
+		            {{ Form::select('department', [
+                    '0' =>'---Select Section---',
+                     'Finance & Accounts' => 'Finance & Accounts', 'Data' => 'Data','Sample Reception' => 'Sample Reception', 'Logistics/Stores' => 'Logistics/Stores', 'EID Lab' => 'EID Lab', 'Viral Load' => 'Viral Load', 'SickleCell' =>'SickleCell', 'Microbiology' => 'Microbiology','Executive Director' => 'Executive Director', 'ICT' =>'ICT', 'Results QC' =>'Results QC', 'Records' =>'Records','Engineering' =>'Engineering', 'Bio Repository' =>'Bio Repository'], 
+                    Input::old('department'), array('class' => 'form-control col-sm-4')) }}
 		        </div>
 		 </div>
 		<div class="col-sm-3">
@@ -100,7 +102,9 @@
 					<td>{{ date('h:m:i', strtotime($meetings->start_time)) }}</td>
 					<td>{{ $meetings->name }}</td>
 					<td>{{ $meetings->venue }}</td>
-					<td>{{ $meetings->organiser->name }}</td>
+					<td>@if ($meetings->organiser_id)
+          {{ $meetings->organiser->name }}
+        @endif</td>
 					<td><ol>
           @foreach ($meetings->agenda as $agenda)
           <li>{{$agenda->agenda}}</li>
@@ -113,13 +117,24 @@
 				        <th align="center">Person responsible</th>
 				        <th align="center">date</th>
 				        <th align="center">location</th>
+				        <th align="center">status</th>
 				    </tr>
-				    @foreach($meetings->action as $action)
+				    @foreach($meetings->maction as $maction)
 				    <tr>
-				        <td>{{ $action['action'] }}</td>
-				        <td align="center">{{ $action['name'] }}</td>
-				        <td align="center">{{ $action['date'] }}</td>
-				        <td align="center">{{ $action['location'] }} </td>
+				        <td>{{ $maction['action'] }}</td>
+				        <td align="center">{{ $maction['name'] }}</td>
+				        <td align="center">{{ $maction['date'] }}</td>
+				        <td align="center">{{ $maction['location'] }} </td>
+				        <td align="center">
+				        <?php 
+				        if($maction->action_status_id == 0){
+								echo '<span style="color:#FF0000;">Pending</span>';
+						}
+						else{
+							echo "Done";
+						}
+						?>
+					</td>
 				    </tr>
 				    @endforeach
 

@@ -5,8 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">      
         <link rel="stylesheet" href="{{ URL::asset('css/ionicons.min.css') }}">  
         <link rel="stylesheet" href="{{ URL::asset('css/style.css') }}">
-        <!--<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:400&subset=latin-ext,latin" rel="stylesheet" type="text/css">
-        --><link rel="shortcut icon" href="{{ URL::asset('i/favicon.png') }}" >
+       <!-- <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:400&subset=latin-ext,latin" rel="stylesheet" type="text/css">-->
+        <link rel="shortcut icon" href="{{ URL::asset('i/favicon.png') }}" >
         <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/ui-lightness/jquery-ui-min.css') }}" />
         <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/bootstrap.min.css') }}" />
         <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/bootstrap-theme.min.css') }}" />
@@ -22,8 +22,7 @@
         <script type="text/javascript" src="{{ URL::asset('js/jquery.dataTables.js') }}"></script>
         <script type="text/javascript" src="{{ URL::asset('js/dataTables.bootstrap.js') }}"></script>
         <script type="text/javascript" src="{{ URL::asset('js/script.js') }} "></script>
-		<!-- print special by justus --><script type="text/javascript" src="{{ URL::asset('js/print_special.js') }} "></script>
-        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
+        <!-- print special by justus --><script type="text/javascript" src="{{ URL::asset('js/print_special.js') }} "></script>
 
         <script type="text/javascript" src="{{ URL::asset('js/validator.min.js') }} "></script>
         <script type="text/javascript" src="{{ URL::asset('js/stockcard.js') }} "></script>   
@@ -35,7 +34,7 @@
         <script src="{{ URL::asset('js/jquery.easypiechart.min.js') }}"></script>
         <script src="{{ URL::asset('js/dashboard.js') }}"></script>
         <script src="{{ URL::asset('js/bootstrap-datetimepicker.min.js') }}"></script>
-
+        <script type="text/javascript" src="{{asset('js/tinymce/tinymce.min.js')}}"></script>
         <!-- jQuery barcode script -->
         <script type="text/javascript" src="{{ asset('js/jquery-barcode-2.0.2.js') }} "></script>
         <title>{{ Config::get('kblis.name') }} </title>
@@ -49,17 +48,13 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
-                            @yield("content")                
+                            @yield("content")
                         </div>
                     </div>
                 </div>            
             </div>
         </div>
-
-        <!-- side navigation -->
-
-
-
-        @include("footer")
+      
+   @include("footer")
     </body>
 </html>

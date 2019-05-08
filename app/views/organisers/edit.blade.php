@@ -31,15 +31,15 @@
 					{{ Form::text('name', Input::old('name'), array('class' => 'form-control')) }}
 				</div>
 				<div class="form-group">
-					{{ Form::label('cadre', Lang::choice('messages.cadre',1)) }}
+					{{ Form::label('cadre', 'Cadre') }}
 					{{ Form::text('cadre', Input::old('cadre'), array('class' => 'form-control')) }}
 				</div>
 				<div class="form-group">
-					{{ Form::label('email', Lang::choice('messages.email',1)) }}
+					{{ Form::label('email', 'Email') }}
 					{{ Form::text('email', Input::old('email'), array('class' => 'form-control')) }}
 				</div>
 				<div class="form-group">
-					{{ Form::label('telephoneNo', Lang::choice('messages.telephoneNo',1)) }}
+					{{ Form::label('telephoneNo', 'Tel No.') }}
 					{{ Form::text('telephoneNo', Input::old('telephoneNo'), array('class' => 'form-control')) }}
 				</div>
 				<div class="form-group">

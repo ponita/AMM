@@ -24,11 +24,13 @@ class CreateInvitations extends Migration {
 		   	$table->text('body');
 		    $table->text('output');	
 		   	$table->string('venue');
+		   	$table->string('minutes');
 		    $table->dateTime('start_date')->nullable();
 		    $table->dateTime('end_date')->nullable();
 			$table->string('attachment');		
 			$table->integer('user_id')->unsigned();
 			 $table->string('approval_status');
+		    $table->integer('approval_status_id');
 			$table->string('approvedby');
 			$table->text('comment')->nullable();
 			$table->timestamp('approvedon');

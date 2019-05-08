@@ -1,15 +1,43 @@
  <!--@extends("layout")-->
 @section("content")
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-105243767-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-105243767-2');
+</script>
+
 <div>
 	<ol class="breadcrumb">
 	  <li><a href="{{{URL::route('user.home')}}}">{{trans('messages.home')}}</a></li>
 	  <li class="active">appointments</li>
 	</ol>
 </div>
-<!--
-<div class='container-fluid'>
 
-</div>-->
+
+<div class='container-fluid'>
+<ul class="nav navbar-nav navbar-left">
+
+    <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">
+      <span class="ion-chatbubbles">
+    <font size="3">  Unapproved <span class="badge badge-danger"> {{ $count = Invitation::where('approval_status_id', '=', '0')->count()}}</font></span>
+ </span>
+        </a>
+    </li>
+
+    <li><a href="#">
+      <span class="ion-chatbubbles">
+    <font size="3">  Unsubmitted Reports<span class="badge badge-warning"> {{ $count = Invitation::where('approval_status_id', '=', '1')->count()}}</font></span>
+ </span>
+        </a>
+    </li>
+
+</ul>
+</div>
 
 
 @if (Session::has('message'))
@@ -57,6 +85,7 @@
 						{{(Session::get('activeappointment') == $appointment->id)?"class='info'":""}}
 					@endif
 				>
+                                @if(Auth::user()->can('view_invitation'))
 					
 					<td>{{ $appointment->ref_no }}</td>
 					<td>{{$appointment->date }}</td>
@@ -79,7 +108,7 @@
            			@endif
            		</td>
 					
-
+           		
            			<!-- <td>
 						 <div class="dropdown">
                                 @if(Auth::user()->can('view_invitation'))
@@ -104,7 +133,6 @@
 					</td> -->
 
 					<td>
-                                @if(Auth::user()->can('view_invitation'))
 						<a class="btn btn-sm btn-success"
                                 href="{{ URL::route('invitation.showinvitation', $appointment->id) }}"
                                 id="view-details-{{$appointment->id}}-link" 
@@ -114,11 +142,16 @@
                             </a>
                             @endif
     				
-                                @if(Auth::user()->can('approve_invitation'))
+                                @if(Auth::user()->can('approve_invitation') && ($appointment->approval_status_id == 0))
                    		<a class="btn btn-sm btn-warning" 
                             href="{{ URL::to("invitation/" . $appointment->id . "/editapproval") }}" >
                             <span class="glyphicon glyphicon-edit"></span>
                             Approve</a>
+                            @elseif (($appointment->approval_status_id == 1))
+                            <a class="btn btn-sm btn-info" 
+                            href="{{ URL::to("invitation/" . $appointment->id . "/attachment") }}" >
+                            <span class="glyphicon glyphicon-edit"></span>
+                            Attach Report</a>
                             @endif
 
                     </td>

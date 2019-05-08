@@ -58,7 +58,7 @@
                     </div>
                 {{ Form::close() }}
                 <div class="smaller-text alone foot">
-                    <p><a href="i/guide.pdf">User Guide</a></p>
+                    <p><a href="/pictures/Activity Module Guideline.docx">User Guide</a></p>
                     <p>
                         {{ Config::get('kblis.name') }} 
                     </p>

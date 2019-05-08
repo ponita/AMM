@@ -12,7 +12,7 @@
                    
 
           </th>
-          <th colspan="4"><img class="img-circle" src="public/i/coat_of_arms_of_uganda.png" height="80" width="80" align="right"></th>
+          <th colspan="4"><img class="img-circle" src="{{public_path().'/i/coat_of_arms_of_uganda.png'}}" height="80" width="80" align="right"></th>
           <th colspan="4" align="left"> 
             CENTRAL PUBLIC HEALTH<br>
              LABORATORIES<br>

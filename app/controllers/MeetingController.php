@@ -21,11 +21,13 @@ class MeetingController extends \BaseController {
 
 			$input = Input::except('_token');
 		}
-		$meetings = Meeting::orderBy('start_time','ASC')->get();
+		$meetings = Meeting::orderBy('start_time','DESC')->get();
+		$meetingsss = Meeting::where('approval_status_id', '=', '0')->orderBy('start_time','DESC')->get();
 
 		// $meetingss = Meeting::find($id);		
 		
 		return View::make('meetings.meetingindex')->with('meetings', $meetings)
+													->with('meetingsss', $meetingsss)
 													->withInput($input);
 	}
 
@@ -48,9 +50,14 @@ public function meetingtypes($type)
 							->where('category',$type)
 							->orderBy('start_time','ASC')->get();
 
+
+		$meetingsss = Meeting::where('approval_status_id',0)
+							->where('category',$type)
+							->orderBy('start_time','ASC')->get();
 		// $meetingss = Meeting::find($id);		
 		
 		return View::make('meetings.meetingindex')->with('meetings', $meetings)
+													->with('meetingsss', $meetingsss)
 													->withInput($input);
 	}
 
@@ -73,9 +80,13 @@ public function meetingtypes($type)
 								->where('approval_status_id',1)
 								->orderBy('start_time','ASC')->get();
 
+		$meetingsss = Meeting::where('action_status_id', $action)
+								->where('approval_status_id',1)
+								->orderBy('start_time','ASC')->get();						
 		// $meetingss = Meeting::find($id);		
 		
 		return View::make('meetings.meetingindex')->with('meetings', $meetings)
+													->with('meetingsss', $meetingsss)
 													->withInput($input);
 	}
 
@@ -97,10 +108,13 @@ public function meetingtypes($type)
 		$meetings = Meeting::where('status_id',$status_id)
 								->where('approval_status_id',1)
 								->orderBy('start_time','ASC')->get();
-
+		$meetingsss = Meeting::where('status_id',$status_id)
+								->where('approval_status_id',1)
+								->orderBy('start_time','ASC')->get();
 		// $meetingss = Meeting::find($id);		
 		
 		return View::make('meetings.meetingindex')->with('meetings', $meetings)
+												->with('meetingsss', $meetingsss)
 													->withInput($input);
 	}
 
@@ -112,9 +126,33 @@ public function meetingtypes($type)
 public function report()
 	{
 		//
+		$events = UNHLSEvent::orderBy('start_date','DESC')->get();
 		$meetings = Meeting::orderBy('start_time','DESC')->get();		
 		
-		return View::make('meetings.report')->with('meetings', $meetings);
+		return View::make('meetings.report')->with('meetings', $meetings)
+											->with('events',$events);
+	}
+
+	public function workplans()
+	{
+		$departmentId =Input::get('department_id');
+
+		$workplan = DepartmentWorkplan::where('department_id', $departmentId)->get();
+
+		return View::make('event.workplanList')
+			->with('workplan', $workplan);
+	}
+
+	public function strategy()
+	{
+
+		$thematicareaId =Input::get('thematicArea_id');
+		//$thematicareaId = $id;
+		
+		$departments = Department::where('thematicArea_id', $thematicareaId)->get();
+
+		return View::make('event.strategyList')
+			->with('departments', $departments);
 	}
 
 	/**
@@ -128,11 +166,20 @@ public function report()
 		$organisers =['Select organiser']+ Organiser::lists('name','id');
 
 		$thematicAreas =['Select department']+ ThematicAreas::lists('name','id');
+		
+		$departments =['Select department']+ Department::lists('name','id');
 
+		$departmentworkplan = ['Select workplan']+DepartmentWorkplan::orderBy('workplan')->lists('workplan','id');
+		
+		$audiencedata = AudienceData::orderBy('name')->get();
+		
 		$agenda = MeetingAgenda::lists('agenda','id');
 		//
 		return View::make('meetings.meeting')->with('organisers', $organisers)
+										->with('audiencedata', $audiencedata)
 											->with('agenda', $agenda)
+											->with('departmentworkplan', $departmentworkplan)
+										->with('departments', $departments)
 										->with('thematicAreas', $thematicAreas);
 
 
@@ -160,9 +207,11 @@ public function report()
 
 		if ($validator->fails()) {
 
-			return Redirect::back()->withErrors($validator)->withInput(Input::all());
+			return Redirect::route('meetings.meeting')
+                ->withErrors($validator)
+                ->withInput(Input::except('agenda'));
 		}
-		else {
+		else { 
 			// store
 
 		$meetings = new Meeting;
@@ -170,19 +219,26 @@ public function report()
 		$meetings->user_id = Input::get('user_id');
 		$meetings->name = Input::get('name');
 		$meetings->category = Input::get('category');
-		$meetings->thematicArea_id = Input::get('thematicarea');
+		$meetings->department = Input::get('department');
+		$meetings->department_id = Input::get('department_id');
+		$meetings->workplan_id = Input::get('workplan');
 		$meetings->organiser_id = Input::get('organiser');
 		$meetings->start_time = Input::get('start_time');
 		$meetings->end_time = Input::get('end_time');
 		$meetings->venue = Input::get('venue');
 		$meetings->objective = Input::get('objective');
 		$meetings->participants_no = Input::get('participants_no');
+		$meetings->user->name = Auth::user()->email;
 		$meetings->status_id = 1;
 		$meetings->approval_status_id = 0;
 		$meetings->action_status_id = 1;
-		 
+		 $meetings->save();
 
-		$meetings->save();
+		 
+		// $meetings->serial_no = $meetings->getUidd();
+		// 		$meetings->save();
+		// 		$uidd = new UiddGenerator; 
+		// 	$uidd->save();
 
 		$agendas = Input::get('agenda');
 		foreach($agendas as $ag) {
@@ -200,6 +256,22 @@ public function report()
 			$targetAudience->save();			# code...
 		}
 
+	// 	if ($meetings->category == 'Internal') {
+	// 	 	$emails = ['ritaneragu@gmail.com','lunyolosarah@gmail.com','poniagusto@gmail.com','sandykagame@gmail.com','pronam@gmail.com','sewyisaac@yahoo.co.uk'];
+	// 	Mail::send('meetings.approval',
+	// 				array('user_id'=>Input::get('user_id'),'name'=>Input::get('name')),
+	// 				function($message) use ($emails){
+	// 					$message->to($emails)->subject('System Alerts');
+	// 				});
+	// 	}else{
+	// 	 	$emails = ['naidarayaan@gmail.com','nambozosusan@gmail.com','poniagusto@gmail.com','sula2050@gmail.com','sndidde@gmail.com'];
+		
+	// 	Mail::send('meetings.approval',
+	// 				array('user_id'=>Input::get('user_id'),'name'=>Input::get('name')),
+	// 				function($message) use ($emails){
+	// 					$message->to($emails)->subject('System Alerts');
+	// 				});
+	// }
 	//	saving the attached report
 		// if (Input::hasFile('minutes')) {
   //       	$file = Input::file('minutes');
@@ -212,17 +284,26 @@ public function report()
   //       	$meetings->minutes = $filename;
   //       	$meetings->save();
   //   	}
+		// 		$email = $meetings->user->email = Input::get('chairperson');
 
+		
+		// Mail::send('meetings.mailer', array('email' => $email), function($message) use ($email){
+		// 		$message->from('poniagusto@gmail.com', 'ACTIVITY MODULE NOTIFICATIONS');
+		// 	$message->to($email, $email)->subject('Message sent to the secretariat desk');
 
+		// });
+		
 
 
 		return Redirect::to('meetings')->with('message', 'Successfully registered an activity with ID No '.$meetings->id)
 								->with('message', 'Successfully registered an activity with ID No '.$agenda->meeting_id)
 								->with('message', 'Successfully registered an activity with ID No '.$targetAudience->meeting_id);
-
+			
 	
 		}
 	}
+
+
 
 	/**
 	 * Display the specified resource.
@@ -272,11 +353,17 @@ public function report()
 		$meetings = Meeting::find($id);
 		$districts = District::orderBy('name')->lists('name','id');
 		$organisers = Organiser::orderBy('name')->lists('name','id');
+		$audiencedata = AudienceData::orderBy('name')->get();
+		// $departments =['Select department']+ Department::lists('name','id');
+		$departmentworkplan = ['Select workplan']+DepartmentWorkplan::orderBy('workplan')->lists('workplan','id');
 
 		$thematicAreas = ThematicAreas::orderBy('name')->lists('name','id');
 		
 		return View::make('meetings.m_edit')->with('meetings', $meetings)->with('districts', $districts)
 										->with('organisers', $organisers)
+										->with('audiencedata', $audiencedata)
+										// ->with('departments', $departments)
+										->with('departmentworkplan', $departmentworkplan)
 										->with('thematicAreas', $thematicAreas);
 	}
 
@@ -309,8 +396,11 @@ public function report()
 
 		$meetings->user_id = Input::get('user_id');
 		$meetings->name = Input::get('name');
+		$meetings->chairperson = Input::get('chairperson');
 		$meetings->category = Input::get('category');
 		$meetings->thematicArea_id = Input::get('thematicarea');
+		$meetings->department = Input::get('department');
+		// $meetings->workplan_id = Input::get('workplan');
 		$meetings->organiser_id = Input::get('organiser');
 		$meetings->start_time = Input::get('start_time');
 		$meetings->end_time = Input::get('end_time');
@@ -329,13 +419,7 @@ public function report()
 		$agenda->save();
 		}
 
-	// $audiences = Input::get('targetAudience');
-	// 	foreach ($audiences as $aud) {
-	// 		$targetAudience = new TargetAudience;
-	// 		$targetAudience->meeting_id = $meetings->id;
-	// 		$targetAudience->targetAudience=$aud;
-	// 		$targetAudience->save();			# code...
-	// 	}
+	
 
 		//saving the attached report
 		// if (Input::hasFile('minutes')) {
@@ -351,13 +435,14 @@ public function report()
   //   	}
 		return Redirect::to('meetings')->with('message', 'Successfully updated meetings information for ID No '.$meetings->id)
 								->with('message', 'Successfully registered an activity with ID No '.$agenda->meeting_id);
-								// ->with('message', 'Successfully registered an activity with ID No '.$targetAudience->meeting_id);
 	
 		}
 	}
 
 		public function print($id)
 			{
+				// return View::make('reportHeader');
+
 				$meetings = Meeting::find($id);
 		// Log::info($meetings);
 			
@@ -373,12 +458,12 @@ public function report()
 				// ->with('previousmeetings', $previousmeetings);
 
 				$html = View::make('meetings.print')->with('meetings', $meetings);
-				// dd($meetings);
 
 				$pdf = new MYPDF;
 				$pdf->AddPage();
 				$pdf->SetFont('', '', 10);
-				$pdf->writeHTML($html, true, false, true, false, '');
+				$pdf->writeHTML($html, true, false, false, false, '');
+				
 				return $pdf->output($meetings->id.'.pdf');
 				// return $html;
 			}
@@ -441,6 +526,9 @@ public function updateminutes($id)
         	$filename = 'Minutes'.$meetings->id . '_' . $file->getClientOriginalName();
         	$uploadSuccess = $file->move($destinationPath, $filename);
 
+
+// dd($uploadSuccess);
+
         	//$meetings->report_path = $destinationPath .'\\'. $filename;
         	$meetings->minutes = $filename;
         	$meetings->status_id = 2;
@@ -449,20 +537,20 @@ public function updateminutes($id)
 		return Redirect::to('meetings')->with('message', 'Successfully uploaded minutes information for ID No '.$meetings->id);
 	
 		}
-	public function meeting()
-	{
-		// $meetings = Meeting::find($id);
+	// public function meeting()
+	// {
+	// 	// $meetings = Meeting::find($id);
 		
-		return View::make('meetings.meeting');
-	}
+	// 	return View::make('meetings.meeting');
+	// }
 
 	public function meetingreport()
 	{
 		//
 		$datefrom = Input::get('datefrom');
 		$dateto = Input::get('dateto');
-		$name = Input::get('name');
-		$thematicArea = Input::get('thematicArea_id');
+		// $name = Input::get('name');
+		$thematicArea = Input::get('department');
 		
 		
 
@@ -470,7 +558,7 @@ public function updateminutes($id)
 		
 		
 		if($datefrom != '' or $name){
-			$meetings = Meeting::reportfilter($datefrom,$dateto,$name,$thematicArea);
+			$meetings = Meeting::reportfilters($datefrom,$dateto,$thematicArea);
 		}
 		else{
 		$meetings = '';
@@ -498,9 +586,9 @@ public function updateminutes($id)
 	{
 		$meetings = Meeting::orderBy('start_time','DESC')->get();
 		//
-		$datefrom = Input::get('datefrom');
-		$dateto = Input::get('dateto');
-		$thematicArea = Input::get('thematicArea_id');
+		$datefrom = Input::get('start_time');
+		$dateto = Input::get('end_time');
+		$thematicArea = Input::get('department');
 		
 		
 		
@@ -531,6 +619,74 @@ public function updateminutes($id)
 	}
 }
 
+public function download(){
+		$test_date_fro = Input::get('start_time');
+		$test_date_to = Input::get('end_time');
+		if(!empty($test_date_fro) and !empty($test_date_to)){
+			$this->csv_download($test_date_fro, $test_date_to);
+		}else{
+			return View::make('reports.download');
+		};
+	}
+
+private function csv_download($fro, $to){
+		$meetings = Meeting::leftjoin('unhls_meeting_actions as ac', 'ac.meeting_id', '=', 'unhls_meetings.id')
+							->leftjoin('unhls_meeting_agenda as pr', 'pr.meeting_id', '=', 'unhls_meetings.id')
+						->select('unhls_meetings.*','pr.agenda', 'ac.action','ac.date','ac.location','ac.name')
+						->from('unhls_meetings')
+						->where('start_time','>=',$fro)
+						->where('end_time','<=',$to)
+						->get();
+		header('Content-Type: text/csv; charset=utf-8');
+		header("Content-Disposition: attachment; filename=Report_date_$fro"."_$to.csv");
+		$output = fopen('php://output', 'w');
+		$headers = array(
+				'Date',
+				'Time',
+				'Title',
+				'Venue',
+				'Organiser',
+				'Agenda',
+				'Action Points'
+				
+				);
+
+		fputcsv($output, $headers);
+		foreach ($meetings as $meeting) {
+			$row=array(
+				$meeting->start_time,
+					 date('h:m:i', strtotime($meeting->start_time)),
+					 $meeting->name,
+					 $meeting->venue,
+					 $meeting->organiser->name
+					
+    //       @foreach ($meeting->agenda as $agenda)
+    //       <li>{{$agenda->agenda}}</li>
+    //       @endforeach,				
+				// <table class="table table-condensed table-bordered" BORDER="1" CELLPADDING="0" CELLSPACING="0" width="100%">
+				//     <tr>
+				//         <th align="center">Action Point</th>
+				//         <th align="center">Person responsible</th>
+				//         <th align="center">date</th>
+				//         <th align="center">location</th>
+				//     </tr>
+				//     @foreach($meeting->action as $action)
+				//     <tr>
+				//         <td>{{ $action['action'] }}</td>
+				//         <td align="center">{{ $action['name'] }}</td>
+				//         <td align="center">{{ $action['date'] }}</td>
+				//         <td align="center">{{ $action['location'] }} </td>
+				//     </tr>
+				//     @endforeach
+
+				// </table>
+				);
+			fputcsv($output, $row);	
+		}
+		fclose($output);
+
+	}
+
 	public function editactions($id)
 	{
 		$meetings = Meeting::find($id);
@@ -543,26 +699,37 @@ public function updateminutes($id)
 	{
 		$meetings = Meeting::find($id);
 		
+		$meetings->chairperson = Input::get('chairperson');
 		$meetings->action_status_id = 2;
     	
-    	$actions = Input::get('action');
+    	$mactions = Input::get('action');
 		$names = Input::get('name');
 		$dates = Input::get('date');
 		$locations = Input::get('location');
-		foreach ($actions as $k=>$ac) {
-			$action = new UNHLSMeetingAction;
-			$action->meeting_id = Input::get('meeting_id');
-			$action->action = $ac;
-			$action->name = $names[$k];
-			$action->date = $dates[$k];
-			$action->location =$locations[$k];
-			$action->save();			# code...
+		foreach ($mactions as $k=>$ac) {
+			$maction = new UNHLSMeetingAction;
+			$maction->meeting_id = Input::get('meeting_id');
+			$maction->action = $ac;
+			$maction->name = $names[$k];
+			$maction->date = $dates[$k];
+			$maction->location =$locations[$k];
+			$maction->save();			# code...
 		}
 
+
+		if (Input::hasFile('plist')) {
+        	$file = Input::file('plist');
+        	$destinationPath = public_path().'\attachment2';
+        	//$filename = str_random(3) . '_' . $file->getClientOriginalName();
+        	$filename = 'List'.$meetings->id . '_' . $file->getClientOriginalName();
+        	$uploadSuccess = $file->move($destinationPath, $filename);
+        	$meetings->plist = $filename;
+
+        }
 		$meetings->save();
 
 
-		return Redirect::to('meetings')->with('message', 'Successfully updated recommendations for for ID No '.$action->meeting_id);
+		return Redirect::to('meetings')->with('message', 'Successfully updated recommendations for for ID No '.$maction->meeting_id);
 									
 	}
 

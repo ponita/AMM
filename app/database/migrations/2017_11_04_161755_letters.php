@@ -27,6 +27,7 @@ class Letters extends Migration {
 		   	$table->string('receiver')->nullable();
 		   	$table->dateTime('date')->nullable();
 		   	 $table->string('approval_status');
+		    $table->integer('approval_status_id');
 			$table->string('approvedby');
 			$table->text('comment')->nullable();
 			$table->timestamp('approvedon');
@@ -34,6 +35,15 @@ class Letters extends Migration {
 			$table->softDeletes();
             $table->timestamps();
 		});	
+
+		Schema::create('unhls_letters_copied', function($table){
+
+			 $table->increments('id');
+			 $table->integer('letter_id');
+			 $table->text('copied');
+			 $table->timestamps();
+			 $table->softDeletes();
+		});
 	}
 
 	/**
@@ -44,6 +54,7 @@ class Letters extends Migration {
 	public function down()
 	{
 		Schema::drop('unhls_letters');
+		Schema::drop('unhls_letters_copied');
 	}
 
 }

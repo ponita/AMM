@@ -27,9 +27,9 @@
       {{ Form::hidden('approvedby', Auth::user()->name) }}
       {{ Form::label('approvalstatus', 'Approval Status', array('class' => 'col-sm-2')) }}
       {{ Form::select('approvalstatus', [
-          'Not Updated' => 'Not Updated',
           'Approved' => 'Approved',
-          'Not Approved' => 'Not Approved'], 
+          'Not Updated' => 'Not Updated',
+          'Not Approved' => 'Cancelled'], 
           Input::old('approvalstatus'), array('id' => 'approvalstatus', 'class' => 'form-control col-sm-4')) }}
 
      
@@ -58,7 +58,9 @@
       
       <div class="row  view-striped">
         <div class="col-sm-1"><strong>Department</strong></div>
-        <div class="col-sm-3">{{ $event->thematicarea->name }}
+        <div class="col-sm-3">
+          {{ $event->department }}
+       
           </div>
         
         <div class="col-sm-1"><strong>Type</strong></div>
@@ -94,10 +96,14 @@
 
       <div class="row view-striped">
         <div class="col-sm-2"><strong>Funding Source</strong></div>
-        <div class="col-sm-4" style="">{{ $event->funder->name }}</div>
+        <div class="col-sm-4" style=""> @if ($event->funders_id)
+        {{ $event->funder->name }}
+      @endif</div>
         
         <div class="col-sm-2"><strong>Organiser</strong></div>
-        <div class="col-sm-4">{{ $event->organiser->name }}</div>
+        <div class="col-sm-4"> @if ($event->organiser_id)
+        {{ $event->organiser->name }}
+      @endif</div>
       </div>
 
       <div class="row view-striped">
@@ -111,61 +117,7 @@
         <div class="col-sm-2"><strong>Participants</strong></div>
         <div class="col-sm-4">{{ $event->participants_no }}</div>
       </div>
-
-      <div class="row view-striped">
-        <div class="col-sm-6"><strong>Objectives</strong><br>
-          <ul>
-          @foreach ($event->objective as $objective)
-          <li>{{$objective->objective}}</li>
-          @endforeach
-          </ul>
-
-        </div>
-
-        <div class="col-sm-6"><strong>Lessons Learned</strong><br>
-          <ul>
-          @foreach ($event->lesson as $lesson)
-          <li>{{$lesson->lesson}}</li>
-          @endforeach
-          </ul>
-
-        </div>
-      </div>
-
-      <div class="row view-striped">
-        <div class="col-sm-6"><strong>Recommendations</strong><br>
-          <ul>
-          @foreach ($event->recommendation as $recommendation)
-          <li>{{$recommendation->recommendation}}</li>
-          @endforeach
-          </ul>
-
-        </div>
-
-        <div class="col-sm-6"><strong>Action Points</strong><br>
-          <ul>
-          @foreach ($event->action as $action)
-          <li>{{$action->action}}</li>
-          @endforeach
-          </ul>
-
-        </div>
-      </div>
-
-      <div class="row view-striped">
-        <div class="col-sm-2"><strong>Activity Report</strong></div>
-        <div class="col-sm-4" style="">
-          @if ($event->report_filename)
-          <a href="{{ URL::to( 'attachments/' . $event->report_filename) }}"
-            target="_blank">{{ $event->report_filename }}</a>
-          @else
-          Pending
-          @endif
-        </div>
-        
-        <div class="col-sm-2"><strong></strong></div>
-        <div class="col-sm-4"></div>
-      </div>	
+	
 	
 	</div>
 </div>

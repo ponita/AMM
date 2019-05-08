@@ -35,6 +35,8 @@
 					<div class=""><strong>{{ $meetings->name }}: From {{ $meetings->start_time }} to {{ $meetings->end_time }}</strong></div>
 				</div>
 
+				
+
 				<div class="row view-striped">
 					<strong>Actions</strong><br>
 					
@@ -47,7 +49,7 @@
         <th>date</th>
         <th>location</th>
     </tr>
-    @foreach($meetings->action as $action)
+    @foreach($meetings->maction as $action)
     <tr>
         <td>{{ $action['action'] }}</td>
         <td>{{ $action['name'] }}</td>
@@ -61,6 +63,15 @@
 
 			</div>
 			</div>
+
+			<div class="form-group">
+			{{ Form::label('chairperson', 'Meeting chaired by', array('class' => 'col-sm-2')) }}
+			{{ Form::textarea('chairperson', Input::old('chairperson'), array('size' => '10x1','class' => 'form-control col-sm-10')) }}
+		</div>
+		<div class="form-group">
+			{{ Form::label('plist', 'Paticipant list', array('class' => 'col-sm-2')) }}
+			{{ Form::file('plist', Input::old('plist'), array('size' => '10x1','class' => 'form-control col-sm-10')) }}
+		</div>
 
 		<div id="action-point">
 			<div class="row">

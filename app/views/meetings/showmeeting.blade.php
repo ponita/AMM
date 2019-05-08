@@ -24,7 +24,7 @@
 
 
      <!-- <a class="btn btn-sm btn-info" href="javascript:printSpecial('UGANDA NATIONAL HEALTH LABORATORY SERVICES - ACTIVITIES REPORTING <br> -->
-     <a class="btn btn-sm btn-info" href="{{ URL::route('meetings.print', array($meetings->status_id)) }}" href="javascript:printSpecial('UGANDA NATIONAL HEALTH LABORATORY SERVICES - ACTIVITIES REPORTING <br> 
+     <a class="btn btn-sm btn-info" href="{{ URL::route('meetings.print', array($meetings->id)) }}" href="javascript:printSpecial('UGANDA NATIONAL HEALTH LABORATORY SERVICES - ACTIVITIES REPORTING <br> 
   ACTIVITY STATUS/DETAILS')" target="_blank">
       <span class="glyphicon glyphicon-print"></span> PRINT
     </a> 
@@ -88,12 +88,31 @@
       
       <div class="row  view-striped">
         <div class="col-sm-2"><strong>Organiser</strong></div>
-        <div class="col-sm-4">{{ $meetings->organiser->name }}</div>
+        <div class="col-sm-4">@if ($meetings->organiser_id)
+          {{ $meetings->organiser->name }}
+        @endif</div>
 
         <div class="col-sm-2"><strong>Department</strong></div>
-        <div class="col-sm-4">{{ $meetings->thematicarea->name}}</div>
+        <div class="col-sm-4">
+            {{ $meetings->department }}
+          </div>
         
       </div>
+
+       <!-- <div class="row  view-striped">
+        <div class="col-sm-2"><strong>Strategic Plan</strong></div>
+        <div class="col-sm-4">
+           @if($meetings->department_id)
+          {{ $meetings->department->name }}
+        @endif
+          </div>
+        
+        <div class="col-sm-2"><strong>Workplan</strong></div>
+        <div class="col-sm-4">
+         @if($meetings->workplan_id)
+          {{ $meetings->workplan->workplan }}
+        @endif</div>
+        </div> -->
 
       <div class="row view-striped">
         <div class="col-sm-2"><strong>Target Audience</strong>
@@ -110,6 +129,9 @@
       </div>
 
       <div class="row view-striped">
+        <div class="col-sm-2"><strong>Chair person</strong><br></div>
+          <div class="col-sm-4">{{ $meetings->chairperson }}</div>
+          
         <div class="col-sm-2"><strong>Main Objective</strong><br></div>
           <div class="col-sm-4">{{ $meetings->objective }}</div>
 
@@ -124,6 +146,8 @@
           @endforeach
           </ol>
         </div>
+
+        
       </div>
 
          <div class="row view-striped">
@@ -138,9 +162,9 @@
     </tr>
   <?php
     $i = 0;
-    foreach ($meetings->action as $action) {
+    foreach ($meetings->maction as $maction) {
         echo "<tr>";
-        echo "<td>" . $action['action'] . "</td><td>" . strtolower(trim(($action['name']))) . "</td><td>" . strtolower(trim($action['date'])) . "</td><td>" . strtolower(trim(($action['location']))) . "</td>";
+        echo "<td>" . $maction['action'] . "</td><td>" . strtolower(trim(($maction['name']))) . "</td><td>" . strtolower(trim($maction['date'])) . "</td><td>" . strtolower(trim(($maction['location']))) . "</td>";
         echo "</tr>";
 
         $i++;
@@ -158,6 +182,16 @@
           @if ($meetings->minutes)
           <a href="{{ URL::to( 'attachment2/' . $meetings->minutes) }}"
             target="_blank">{{ $meetings->minutes }}</a>
+          @else
+          Pending
+          @endif
+        </div>
+
+        <div class="col-sm-2"><strong>Paticipant list</strong></div>
+        <div class="col-sm-4" style="">
+          @if ($meetings->plist)
+          <a href="{{ URL::to( 'attachment2/' . $meetings->plist) }}"
+            target="_blank">{{ $meetings->plist }}</a>
           @else
           Pending
           @endif

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
-use log;
+//use log;
 
 class Meeting extends \Eloquent 
 {
@@ -29,7 +29,7 @@ public function agenda()
     {
         return $this->hasMany('MeetingAgenda','meeting_id','id');
 	}
-public function action()
+public function maction()
     {
         return $this->hasMany('UNHLSMeetingAction','meeting_id','id');
 	}
@@ -37,28 +37,33 @@ public function thematicarea()
 	{
 		return $this->belongsTo('ThematicAreas','thematicArea_id','id');
 	}
+public function department()
+	{
+		return $this->belongsTo('Department', 'department_id', 'id');
+	}
+public function workplan()
+	{
+		return $this->belongsTo('DepartmentWorkplan', 'workplan_id', 'id');
+	}
 public function organiser()
 	{
 		return $this->belongsTo('Organiser','organiser_id','id');
 	}
 //Filters for reports
 
-	public static function reportfilter($datefrom,$dateto,$name,$thematicArea)
+	public static function reportfilters($datefrom,$dateto,$thematicArea)
 	{
-		return Meeting::Where(function ($query) use ($datefrom,$dateto,$name,$thematicArea){
-			$query->orWhere('name','LIKE','%$name%');
-		})
-		->orWhere(function ($query) use ($datefrom,$dateto,$name,$thematicArea){
+		return Meeting::Where(function ($query) use ($datefrom,$dateto,$thematicArea){
 			$query->where('start_time','>=',$datefrom)
 					->where('start_time','<=',$dateto);
 					
 		})
-		->orWhere(function ($query) use ($datefrom,$dateto,$name,$thematicArea){
+		->orWhere(function ($query) use ($datefrom,$dateto,$thematicArea){
 			$query->where('end_time','>=',$datefrom)
 					->where('end_time','<=',$dateto);
 					
 		})
-		->orWhere(function ($query) use ($datefrom,$dateto,$name,$thematicArea){
+		->orWhere(function ($query) use ($datefrom,$dateto,$thematicArea){
 			$query->where('thematicArea_id','=',$thematicArea);
 					
 					
@@ -86,6 +91,24 @@ public function organiser()
 		
 		->get();
 	}
+
+public function getUidd(){
+    	
+    	$registrationDate = strtotime($this->created_at);
+    	$year = date('Y', $registrationDate);
+    	$Month = date('m', $registrationDate);
+    	$Day = date('d', $registrationDate);
+    	$autoNum = DB::table('uidd')->max('id')+1;
+        $name = preg_split("/\s+/", $this->thematicArea_id);
+        $initials = null;
+        $ulin ='';
+
+    	foreach ($name as $n){
+    		$initials .= $n[0];
+
+    	}
+    	return $year.'/'.$Month.'/'.$Day.'/'.$autoNum;
+    }
 
 	/**
 	 * Helper function: check if the Test status is PENDING

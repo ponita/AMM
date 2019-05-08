@@ -586,25 +586,140 @@ $(function(){
 	 */
 	 $("#location").on('change', function() {
     	if(this.value === "Field Activity Foreign" || this.value === "null") {
-            $("#premise").prop("disabled", true);
             $("#district").prop("disabled", true);
     		$("#healthregion").prop("disabled", true);
+            $("#hub").prop("disabled", true);
+
     	} else{
-            $("#premise").prop("disabled", false);
+            $("#district").prop("disabled", false);
             $("#healthregion").prop("disabled", false);
-    		$("#district").prop("disabled", false);
+            $("#hub").prop("disabled", false);
+            
     	}
 	});
 
      $("#location").on('change', function() {
-        if(this.value === "Butabika Headquaters" || this.value === "Field Activity InCountry") {
+        if(this.value === "Butabika Headquaters" || this.value === "null") {
+            $("#district").prop("disabled", true);
+            $("#healthregion").prop("disabled", true);
             $("#country").prop("disabled", true);
+            // $("#hub").prop("disabled", true);
+            // $("#facility").prop("disabled", true);
+            
+        } else{
+            $("#district").prop("disabled", false);
+            $("#healthregion").prop("disabled", false);
+            $("#country").prop("disabled", false);
+            // $("#hub").prop("disabled", false);
+            // $("#facility").prop("disabled", false);
+        }
+    });
+
+     $("#location").on('change', function() {
+        if(this.value === "Field Activity InCountry" || this.value === "null") {
+            $("#country").prop("disabled", true);
+            $("#hub").prop("disabled", true);
+            $("#facility").prop("disabled", true);
             
         } else{
             $("#country").prop("disabled", false);
-            
+            $("#hub").prop("disabled", false);
+            $("#facility").prop("disabled", false);
         }
     });
+
+
+
+
+
+
+    // $('#department').on('change', function(e) {
+    //     // todo: this code is almost the same as below, make a reusable one
+    //     console.log(e);
+    //     var departmentId = e.target.value;
+    //     $.get('/json-workplan?departmentId=' +departmentId, function(data){
+    //         console.log(data);
+    //         $('#workplan').empty();
+    //         $('#workplan').append('<option value="0" selected="true">===Workplan===</option>');
+            
+    //         $.each(data, function(index, workplanObj){
+    //             $('#workplan').append('<option value="'+ workplanObj.id +'">'+ workplanObj.name +'</option>');
+    //            })
+    //         });
+    //     });
+
+   
+       
+
+    /**
+     *Create List of workplans in the create page
+     */
+     /**
+    *Fetch tests for selected Lab category when requesting
+     */
+    $('#thematicarea').on('change', function() {
+        // todo: this code is almost the same as below, make a reusable one
+        var thematicareaId = $('#thematicarea').val();
+        var departmentId = $('.department').val();
+
+        if (thematicareaId != 0) {
+            $.ajax({
+                type: 'POST',
+                url: "/event/strategy",
+                data: {
+                    thematicArea_id: thematicareaId
+                },
+                success: function(department){
+                    $('#department').empty();
+                    $('#department').empty();
+                    $('#department').append(department);
+                }
+            });
+        }
+    });
+
+    // 
+
+     $('.department').on('change', function() {
+        // todo: this code is almost the same as below, make a reusable one
+        var departmentId = $('.department').val();
+        var workplanId = $('.workplan').val();
+        if (departmentId != 0 && workplanId != 0) {
+            $.ajax({
+                type: 'POST',
+                url: "/event/workplans",
+                data: {
+                    department_id: departmentId,
+                    workplan_id: workplanId
+                },
+                success: function(workplan){
+                    $('.workplan-list').empty();
+                    $('.workplan-list').append(workplan);
+                }
+            });
+        }
+    });
+
+     $('.strategicplan').on('change', function() {
+        // todo: this code is almost the same as below, make a reusable one
+        var departmentId = $('.department').val();
+        var workplanId = $('.workplan').val();
+        if (departmentId != 0 && workplanId != 0) {
+            $.ajax({
+                type: 'POST',
+                url: "/meetings/workplanlist",
+                data: {
+                    department_id: departmentId,
+                    workplan_id: workplanId
+                },
+                success: function(workplan){
+                    $('.workplan-list').empty();
+                    $('.workplan-list').append(workplan);
+                }
+            });
+        }
+    });
+
 
 	/**
 	 * Display other (specify) text field when other is selected during specimen refferal storage condition selection
@@ -817,6 +932,24 @@ $(function(){
      * - Allow for selection of multiple action points
      */
     $(document).ready(function () {
+        tinymce.init({
+            selector: "textarea.htmleditor",
+            theme: "modern",
+            height : 100,
+            width :500,
+            plugins: [
+                "advlist autolink lists link charmap preview hr anchor pagebreak",
+                "searchreplace wordcount visualblocks visualchars code fullscreen",
+                "insertdatetime nonbreaking save table contextmenu directionality",
+                "emoticons paste textcolor colorpicker textpattern"
+            ],
+            toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify",
+            toolbar2: "preview forecolor backcolor emoticons | bullist numlist outdent indent link",
+            image_advtab: true
+        });
+        });
+       
+     $(document).ready(function () {
       var rejectReason = $('#action-point');
       var reasonRow = rejectReason.children(":first");
       var reasonRowTemp = reasonRow.clone();
@@ -923,6 +1056,34 @@ $(function(){
       });  
       
       $('#challenge-point').on('click', 'button.remove-reason', function () {
+        $(this).parent().remove();
+      }); 
+    });
+
+    /**Addition of copies
+     * - Allow for selection of multiple copies
+     */
+    $(document).ready(function () {
+      var rejectReason = $('#copy-point');
+      var reasonRow = rejectReason.children(":first");
+      var reasonRowTemp = reasonRow.clone();
+      reasonRow.find('button.remove-reason').remove();
+      
+      // nb can't use .length for inputCount as we are dynamically removing from middle of collection
+      var inputCount = 1; 
+
+      $('#add-copy').click(function () {
+        var newRow = reasonRowTemp.clone();
+        inputCount++;
+        newRow.find('select.rejectionReason').attr('placeholder', 'Select '+inputCount);
+        rejectReason.append(newRow);
+
+        //make a call for calender
+        $( '.standard-datepicker').datetimepicker({ dateFormat: "yy-mm-dd hh:ii" });
+        
+      });  
+      
+      $('#copy-point').on('click', 'button.remove-reason', function () {
         $(this).parent().remove();
       }); 
     });
@@ -1201,7 +1362,8 @@ $(function(){
 
 	function UIComponents(){
 		/* Datepicker */
-        $( '.standard-datepicker').datetimepicker({ dateFormat: "yy-mm-dd hh:ii" });
+        $( '.standard-datepicker').datetimepicker({ dateFormat: "Y/m/d H:i:s" });
+        $( '.datepicker').datetimepicker({ dateFormat: "yy-mm-dd" });
         
 	}
 

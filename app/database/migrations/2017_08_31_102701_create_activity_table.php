@@ -35,6 +35,9 @@ class CreateActivityTable extends Migration {
 			$table->string('location')->nullable();			
 			$table->string('premise')->nullable();	
 			$table->integer('district_id')->unsigned()->nullable();
+			$table->integer('hub_id')->unsigned()->nullable();
+			$table->integer('department_id')->unsigned()->nullable();
+			$table->integer('workplan_id')->unsigned()->nullable();
 			$table->integer('country_id')->unsigned()->nullable();
 			$table->integer('funders_id')->unsigned()->nullable();
 			$table->integer('organiser_id')->unsigned()->nullable();
@@ -57,6 +60,7 @@ class CreateActivityTable extends Migration {
 			$table->increments('id');
 			$table->integer('event_id');
 			$table->text('action');
+		    $table->integer('action_status_id');
 			$table->string('name');
 			$table->dateTime('date');
 			$table->string('location');
@@ -75,6 +79,18 @@ class CreateActivityTable extends Migration {
 			$table->softDeletes();
 
 			});
+
+		Schema::create('unhls_action_solution', function($table){
+
+			$table->increments('id');
+			$table->integer('event_action_id')->nullable();
+			$table->integer('meeting_action_id')->nullable();
+			$table->text('solution');
+			$table->timestamps();
+			$table->softDeletes();
+
+			});
+
 		Schema::create('unhls_events_challenges', function($table){
 
 			$table->increments('id');
@@ -110,13 +126,61 @@ class CreateActivityTable extends Migration {
 
 			$table->increments('id');
 			$table->integer('event_id')->nullable();
-			$table->integer('meeting_id')->nullable();
-			$table->string('audience');
+			$table->integer('audience');
 			$table->timestamps();
 			$table->softDeletes();
  
 
 		}); 
+
+		Schema::create('event_facilities', function($table)
+		{
+
+			$table->increments('id');
+			$table->integer('event_id')->nullable();
+			$table->integer('facility_id')->nullable();
+			$table->string('facility');
+			$table->timestamps();
+			$table->softDeletes();
+ 
+
+		}); 
+
+		Schema::create('event_hubs', function($table)
+		{
+
+			$table->increments('id');
+			$table->integer('event_id')->nullable();
+			$table->string('hub'); 
+			$table->timestamps();
+			$table->softDeletes();
+ 
+
+		}); 
+
+		Schema::create('unhls_hubs', function($table)
+				{
+
+					$table->increments('id');
+					$table->integer('facility_id')->nullable();
+					$table->string('name');
+					$table->timestamps();
+					$table->softDeletes();
+		 
+
+		});
+
+		Schema::create('hub_facilities', function($table)
+				{
+
+					$table->increments('id');
+					$table->integer('hub_id')->nullable();
+					$table->string('facilityId')->nullable();
+					$table->timestamps();
+					$table->softDeletes();
+		 
+
+		});
 
 		Schema::create('unhls_funders', function(Blueprint $table)
         {
@@ -177,10 +241,15 @@ class CreateActivityTable extends Migration {
 		Schema::drop('unhls_events_lessons');
 		Schema::drop('unhls_events_challenges');
 		Schema::drop('unhls_events_actions');
+		Schema::drop('unhls_action_solution');
 		Schema::drop('unhls_healthregions');
 		Schema::drop('unhls_thematicareas');
 		Schema::drop('unhls_organisers');
 		Schema::drop('unhls_funders');
+		Schema::drop('hub_facilities');
+		Schema::drop('event_hubs');
+		Schema::drop('unhls_hubs');
+		Schema::drop('event_facilities');
 		Schema::drop('unhls_audience');
 	
 	}

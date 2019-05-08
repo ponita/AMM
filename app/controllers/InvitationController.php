@@ -27,9 +27,9 @@ class InvitationController extends \BaseController {
         $path=public_path().'/attachment1/'.$attachment;
         //return response()->download($path);
         return Response::download($path);
-}
+	}
 
-
+	
 	/**
 	 * Show the form for creating a new resource.
 	 * GET /protocal/create
@@ -51,8 +51,8 @@ class InvitationController extends \BaseController {
 	{
 	$rules = array(
 		//	'patient_number' => 'required|unique:patients,patient_number',
-			// 'user_id' => 'required',
-			// 'name' => 'required',
+			'user_id' => 'required',
+		
 			'date' => 'required',
 			// 'end_date' => 'required',
 
@@ -61,7 +61,9 @@ class InvitationController extends \BaseController {
 
 		if ($validator->fails()) {
 
-			return Redirect::back()->withErrors($validator)->withInput(Input::all());
+			return Redirect::route('invitation.invitation')
+                ->withErrors($validator)
+                ->withInput(Input::except('name'));
 		}
 		else {
 			// store
@@ -78,6 +80,7 @@ class InvitationController extends \BaseController {
 		$appointment->venue = Input::get('venue');
 		$appointment->start_date = Input::get('start_date');
 		$appointment->end_date = Input::get('end_date');
+		$appointment->approval_status_id = 0;
 		
 		
 
@@ -263,6 +266,7 @@ public function editapproval($id)
 		$appointment->approval_status = Input::get('approvalstatus');
 		$appointment->approvedby = Input::get('approvedby');
 		$appointment->comment = Input::get('comment');
+		$appointment->approval_status_id = 1;
 		$appointment->approvedon = \Carbon\Carbon::now()->toDateTimeString();
 		
 		$appointment->save();
@@ -271,7 +275,42 @@ public function editapproval($id)
 		}
 	}
 
+		public function attachment($id)
+	{
+		$appointment = Invitation::find($id);
 
+
+		return View::make('invitation.attachment')->with('appointment', $appointment);
+	}
+
+	public function updateattachment($id)
+	{
+		$appointment = Invitation::find($id);
+		
+		if (Input::hasFile('minutes')) {
+        	$file = Input::file('minutes');
+        	$destinationPath = public_path().'\attachment1';
+        	$filename = 'Invitation'.$appointment->id . '_' . $file->getClientOriginalName();
+        	$uploadSuccess = $file->move($destinationPath, $filename);
+
+   // dd($uploadSuccess);
+        	//$appointment->report_path = $destinationPath .'\\'. $filename;
+        	$appointment->minutes = $filename;
+		
+		$appointment->approval_status_id = 2;
+        	$appointment->save();
+    	}
+
+    	//Fire of entry saved/edited event
+		// Event::fire('test.saved', array($id));
+
+		// $input = Session::get('TESTS_FILTER_INPUT');
+		// Session::put('fromRedirect', 'true');
+
+		return Redirect::to('invitation')->with('message', 'Successfully updated event information for ID No '.$appointment->id);
+									// ->withInput($input);
+	
+		}
 	
 
 	

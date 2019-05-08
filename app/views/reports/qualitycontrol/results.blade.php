@@ -218,9 +218,7 @@ function createLJChart(chartdata, chartdivid){
 			}
 			]
         },
-        tooltip: {
-            valueSuffix: ' '+chartdata.controlUnit 
-        },
+       
         legend: {
             layout: 'vertical',
             align: 'right',

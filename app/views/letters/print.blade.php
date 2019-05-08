@@ -1,11 +1,22 @@
     <!DOCTYPE html>
     <html>
     <head>
+      <div id="topcorner"><b>{{$appointment->ref_no}}</b></div>
       <title></title>
+      <div id="topcorner"><b>{{$appointment->ref_no}}</b></div>
+        
     </head>
     
     
     <style type="text/css">
+    .topcorner{
+   position:absolute;
+   top:0;
+   right:0;
+  }
+  ul {
+  list-style-type: none;
+}
     table {
       padding: 2px;
     }
@@ -13,6 +24,7 @@
     <?php
     $testedBy = '';
     ?>
+      <div id="topcorner"><b>{{$appointment->ref_no}}</b></div>
 
     <body>
     <table>
@@ -48,10 +60,20 @@
   </div >
 </div>
         <tr>
-          <td colspan="3">{{ $appointment->name }}</td>
+          <td colspan="3">Dr. Nabadda Suzan</td>
         </tr>
           <tr>
-          <td colspan="3">{{ $appointment->title }}</td>
+          <td colspan="3">Head, Laboratory Services-CPHL/MOH</td>
+          </tr>
+         
+          <tr>
+            <td colspan="2"><b>CC:</b><ul>
+              @if($appointment->copied)
+          @foreach ($appointment->copied as $copied)
+          <li>{{$copied->copied}}</li>
+          @endforeach
+          @endif
+          </ul></td>
           </tr>
 </table>
     </body>

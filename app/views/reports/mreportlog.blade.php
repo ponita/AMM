@@ -45,7 +45,9 @@
 				> 
 					<td>{{ $meetings->id }}</td>
 					<td>{{ $meetings->name }}</td>
-					<td>{{ $meetings->thematicarea->name}}</td>
+					<td>@if($meetings->thematicArea_id)
+						{{ $meetings->thematicarea->name }}
+					@endif</td>
 					<td>{{ $meetings->organiser->name }}</td>
 					<td>{{ date('d', strtotime($meetings->start_time)) }}-{{ date('d M Y', strtotime($meetings->end_time)) }}</td>
 					

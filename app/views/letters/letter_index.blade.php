@@ -1,15 +1,35 @@
 <!--@extends("layout")-->
 @section("content")
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-105243767-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-105243767-2');
+</script>
+
 <div>
 	<ol class="breadcrumb">
 	  <li><a href="{{{URL::route('user.home')}}}">{{trans('messages.home')}}</a></li>
 	  <li class="active">Memo</li>
 	</ol>
 </div>
-<!--
-<div class='container-fluid'>
 
-</div>-->
+<div class='container-fluid'>
+<ul class="nav navbar-nav navbar-left">
+
+    <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">
+      <span class="ion-chatbubbles">
+    <font size="3">  Unapproved <span class="badge badge-danger"> {{ $count = Letter::where('approval_status_id', '=', '0')->count()}}</font></span>
+ </span>
+        </a>
+    </li>
+
+</ul>
+</div>
 
 
 @if (Session::has('message'))
@@ -50,6 +70,7 @@
 						{{(Session::get('activeappointment') == $appointment->id)?"class='info'":""}}
 					@endif
 				>
+                                @if(Auth::user()->can('view_memo'))
 					
 					<td>{{ $appointment->ref_no }}</td>
 					<td>{{ $appointment->ref }}</td>
@@ -65,7 +86,6 @@
 				
 
 					<td align="center">
-                                @if(Auth::user()->can('view_memo'))
 						<a class="btn btn-sm btn-success"
                                 href="{{ URL::route('letters.showletter', $appointment->id) }}"
                                 id="view-details-{{$appointment->id}}-link" 
@@ -75,14 +95,14 @@
                             </a>
                                @endif
 
-                                @if(Auth::user()->can('edit_memo'))
+                                @if(Auth::user()->can('edit_memo') && ($appointment->approval_status_id == 0))
                         <a class="btn btn-sm btn-info" 
                             href="{{ URL::to("letters/" . $appointment->id . "/editletter") }}" >
                             <span class="glyphicon glyphicon-edit"></span>
                             Edit</a>
                                
                             @endif
-                                @if(Auth::user()->can('approve_memo'))
+                                @if(Auth::user()->can('approve_memo') && ($appointment->approval_status_id == 0))
                    		<a class="btn btn-sm btn-warning" 
                             href="{{ URL::to("letters/" . $appointment->id . "/editapproval") }}" >
                             <span class="glyphicon glyphicon-edit"></span>

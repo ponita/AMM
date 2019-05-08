@@ -75,7 +75,7 @@
     <tr>
         <th class="warning" align="center">Action</th>
         <th align="center">Person responsible</th>
-        <th align="center">date</th>
+        <th align="center">Deadline</th>
         <th align="center">location</th>
     </tr>
     @foreach($event->action as $action)

@@ -84,14 +84,40 @@
       
       <div class="row  view-striped">
         <div class="col-sm-2"><strong>Department</strong></div>
-        <div class="col-sm-4">{{ $event->thematicarea->name }}
+        <div class="col-sm-4">
+           <!-- @if($event->thematicArea_id) -->
+          {{ $event->department }}
+        <!-- @endif -->
           </div>
         
         <div class="col-sm-2"><strong>Type</strong></div>
         <div class="col-sm-4">{{ $event->type }}</div>
         </div>
 
-       
+       <!-- <div class="row  view-striped">
+        <div class="col-sm-2"><strong>Strategic Plan</strong></div>
+        <div class="col-sm-4">
+           @if($event->department_id)
+          {{ $event->department->name }}
+        @endif
+          </div>
+        
+        <div class="col-sm-2"><strong>Workplan</strong></div>
+        <div class="col-sm-4">
+         @if($event->workplan_id)
+          {{ $event->workplan->workplan }}
+        @endif</div>
+        </div> -->
+
+       <!--  <div class="row  view-striped">
+        <div class="col-sm-2"><strong>Hub</strong></div>
+        
+        
+        
+        <div class="col-sm-8"><strong>Facility</strong>
+        </div>
+      </div> -->
+        
 
       <div class="row view-striped">
         <div class="col-sm-2"><strong>Location</strong></div>
@@ -122,10 +148,14 @@
 
       <div class="row view-striped">
         <div class="col-sm-2"><strong>Funding Source</strong></div>
-        <div class="col-sm-2" style="">{{ $event->funder->name}}</div>
+        <div class="col-sm-2" style="">@if($event->funders_id)
+          {{ $event->funder->name}}
+        @endif</div>
         
         <div class="col-sm-2"><strong>Organiser</strong></div>
-        <div class="col-sm-2">{{ $event->organiser->name }}/{{ $event->organiser->telephoneNo}}</div>
+        <div class="col-sm-2">@if($event->organiser_id)
+          {{ $event->organiser->name }}/{{ $event->organiser->telephoneNo}}
+        @endif</div>
 
         <div class="col-sm-2"><strong>Co-organiser</strong></div>
         <div class="col-sm-2">{{ $event->co_organiser }}</div>
@@ -142,8 +172,8 @@
         </div>
         <!-- <div class="col-sm-4" style="">{{ $event->audience }}</div> -->
         
-        <div class="col-sm-2"><strong>Participants</strong></div>
-        <div class="col-sm-4">{{ $event->participants_no }}</div>
+        <div class="col-sm-4"><strong>Participants</strong></div>
+        <div class="col-sm-2">{{ $event->participants_no }}</div>
       </div>
 
       <div class="row view-striped">
@@ -225,15 +255,22 @@
         <div class="col-sm-2"><strong>Activity Report</strong></div>
         <div class="col-sm-4" style="">
           @if ($event->reports)
-          <a href="{{ URL::to( 'attachment2/' . $event->reports) }}"
+          <a href="{{ URL::to( 'attachments/' . $event->reports) }}"
             target="_blank">{{ $event->reports }}</a>
           @else
           Pending
           @endif
         </div>
         
-        <div class="col-sm-2"><strong></strong></div>
-        <div class="col-sm-4"></div>
+        <div class="col-sm-2"><strong>Paticipant List</strong></div>
+        <div class="col-sm-4" style="">
+          @if ($event->report_filename)
+          <a href="{{ URL::to( 'attachments/' . $event->report_filename) }}"
+            target="_blank">{{ $event->report_filename }}</a>
+          @else
+          Pending
+          @endif
+        </div>
       </div>
     
     <div class="row view-striped">

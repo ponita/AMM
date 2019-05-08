@@ -40,7 +40,7 @@ class UserController extends Controller {
 
     public function logoutAction(){
         Auth::logout();
-        return Redirect::route("user.login");
+        return Redirect::route("user.dashboard");
     }
 
     public function homeAction(){
@@ -48,7 +48,38 @@ class UserController extends Controller {
     }
 
 	public function dashboard(){
-        return View::make("user.dashboard");
+        $fromRedirect = Session::pull('fromRedirect');
+
+        $date2 = new DateTime();
+        $handle = curl_init();
+        
+        curl_setopt($handle, CURLOPT_URL, "http://localhost/CheckinAPI/?cmd=GetCheckinuser");
+        curl_setopt($handle,CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($handle,CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+         $response = curl_exec($handle);
+         curl_close($handle);
+         $actualdata = (array)json_decode($response);
+     
+        $events = UNHLSEvent::where('start_date','<=',$date2)->orderBy('start_date','DESC')->get();
+        $upcoming = UNHLSEvent::where('start_date','>',$date2)->orderBy('start_date','DESC')->get();
+        $appointment = Letter::orderBy('ref_no','DESC')->get();     
+        $meetings = Meeting::where('end_time','<=',$date2)->orderBy('start_time','DESC')->get();
+        $mupcoming = Meeting::where('start_time','>',$date2)->orderBy('start_time','DESC')->get();
+        $leave = LeaveForm::where('h_approval_status','=','Approved')->orderBy('date_from','DESC')->get();
+        $template = Templte::orderBy('id')->get();
+
+
+        
+        return View::make("user.dashboard")
+                                        ->with('upcoming', $upcoming)
+                                        ->with('events', $events)
+                                        ->with('appointment', $appointment)
+                                        ->with('mupcoming', $mupcoming)
+                                        ->with('leave', $leave)
+                                        ->with('template', $template)
+                                        ->with('actualdata', $actualdata)
+                                        ->with('meetings', $meetings);
+                                        //return View::make("user.dashboard");
     }
 
 

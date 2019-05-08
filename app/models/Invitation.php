@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
-use log;
+//use log;
 
 class Invitation extends \Eloquent
  {

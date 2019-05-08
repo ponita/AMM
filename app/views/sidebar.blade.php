@@ -18,13 +18,23 @@
 							<h4 class="panel_heading panel_heading_first">REPORTS</h4>
 							<ul>
 							<li>
-								<a href="{{ URL::route('event.report')}}">
-								<span class="glyphicon glyphicon-tag"></span> Activity</a>
+							<a href="{{ URL::route('meetings.report')}}">
+								<span class="glyphicon glyphicon-tag"></span>Events</a>
 							</li>
 							<li>
-							<a href="{{ URL::route('meetings.report')}}">
-								<span class="glyphicon glyphicon-tag"></span> Meeting</a>
+								<a href="{{ URL::route('letters.report')}}">
+								<span class="glyphicon glyphicon-tag"></span>Outgoing Letters</a>
 							</li>
+							<li>
+								<a href="{{ URL::route('leave.report')}}">
+								<span class="glyphicon glyphicon-tag"></span>Leave List</a>
+							</li>
+							<li>
+								<a href="{{ URL::route('event.report')}}">
+								<span class="glyphicon glyphicon-tag"></span> UNHLS Workplan Summary</a>
+							</li>
+							
+							
 						</ul>
 
 							<h4 class="panel_heading panel_heading_first">FILTERS</h4>
@@ -33,13 +43,22 @@
 							<a href="{{ URL::route('reports.department')}}">
 								<span class="glyphicon glyphicon-tag"></span>Activities</a>
 							</li>
-							<li>
+							<!-- <li>
 							<a href="{{ URL::route('reports.meetingreport')}}">
 								<span class="glyphicon glyphicon-tag"></span>Meetings</a>
-							</li>
+							</li> -->
 							<li>
 							<a href="{{ URL::route('reports.detailed')}}">
 								<span class="glyphicon glyphicon-tag"></span>Detailed</a>
+							</li>
+							<!-- <li>
+								<a href="#">
+								<a href="{{ URL::route('event.strategicPlan')}}">
+								<span class="glyphicon glyphicon-tag"></span>UNHLS WOKPLAN</a>
+							</li> -->
+							<li>
+							<a href="{{ URL::route('reports.download')}}">
+								<span class="glyphicon glyphicon-tag"></span>Download</a>
 							</li>
 							<li>
 							<a href="#">
@@ -79,7 +98,7 @@
 					@endif
 							<li>
 								<a href="{{ URL::route('event.Unapproved')}}">
-								<span class="glyphicon glyphicon-list"></span>Not approved</a>
+								<span class="glyphicon glyphicon-list"></span>Not approved </a>
 							</li>
 							<li>
 								<a href="{{ URL::route('event.pending')}}">
@@ -161,28 +180,59 @@
 						<div class="side_inner ps-ready ps-container" style="height: 620px;">
 							<h4 class="panel_heading panel_heading_first">MEMO & INVITATIONS</h4>
 							<ul>
-							
         @if(Auth::user()->can('manage_memo'))
+							
 							<li>
 								<a href="{{ URL::route('letters.letter')}}">
 								<span class="glyphicon glyphicon-plus-sign"></span>New Memo</a>
 							</li>
-							@endif
+							
 							<li>
 								<a href="{{ URL::route('letters.letter_index')}}">
 								<span class="glyphicon glyphicon-list"></span> List of Memo</a>
 							</li>
-    @if(Auth::user()->can('manage_invitation'))
+							@endif
 							<li>
 								<a href="{{ URL::route('invitation.invitation')}}">
 								<span class="glyphicon glyphicon-plus-sign"></span>New Invitation</a>
 							</li>
-							@endif
+							
+    @if(Auth::user()->can('manage_invitation'))
+							
 							<li>
 								<a href="{{ URL::route('invitation.invitation_index')}}">
 								<span class="glyphicon glyphicon-list"></span> List of Invitations</a>
 							
 							</li>
+							@endif
+							</ul>
+
+						<div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px; width: 215px; display: none;"><div class="ps-scrollbar-x" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; right: 3px; height: 620px; display: none;"><div class="ps-scrollbar-y" style="top: 0px; height: 0px;"></div></div></div>
+					</div>
+				</li>
+
+				<li class="nav_trigger">
+					<a href="#">
+					<span class="glyphicon glyphicon-send"></span>
+						
+						<span class="nav_title">LEAVE FORM</span>
+					</a>
+					<div class="sub_panel" style="left: -220px;">
+						<div class="side_inner ps-ready ps-container" style="height: 620px;">
+							<h4 class="panel_heading panel_heading_first">LEAVE </h4>
+							<ul>
+        @if(Auth::user()->can('view_leave_form'))
+							
+							<li>
+								<a href="{{ URL::route('leave.create')}}">
+								<span class="glyphicon glyphicon-plus-sign"></span>Leave form</a>
+							</li>
+							
+							<li>
+								<a href="{{ URL::route('leave.index')}}">
+								<span class="glyphicon glyphicon-list"></span> Leave List</a>
+							</li>
+							@endif
 							</ul>
 
 						<div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px; width: 215px; display: none;"><div class="ps-scrollbar-x" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; right: 3px; height: 620px; display: none;"><div class="ps-scrollbar-y" style="top: 0px; height: 0px;"></div></div></div>
@@ -207,6 +257,10 @@
 								<span class="glyphicon glyphicon-tag"></span> Thematic Areas</a>
 							</li>
 							<li>
+								<a href="{{ URL::route('unhlsWorkplan.index')}}">
+								<span class="glyphicon glyphicon-tag"></span> UNHLS Workplan</a>
+							</li>
+							<li>
 							<a href="{{ URL::route('healthregion.index')}}">
 								<span class="glyphicon glyphicon-tag"></span> Health Region</a>
 							</li>
@@ -218,6 +272,23 @@
 								<a href="{{ URL::route('funders.index')}}">
 								<span class="glyphicon glyphicon-tag"></span> Funder</a>
 							</li>
+							<li>
+								<a href="{{ URL::route('hubs.index')}}">
+								<span class="glyphicon glyphicon-tag"></span> Hubs</a>
+							</li>
+							<li>
+								<a href="{{ URL::route('action.index')}}">
+								<span class="glyphicon glyphicon-tag"></span> Action Points</a>
+							</li>
+
+							<li>
+								<a href="{{ URL::route('template.index')}}">
+								<span class="glyphicon glyphicon-tag"></span>Report Templates</a>
+							</li>
+							<!-- <li>
+								<a href="{{ URL::route('maction.index')}}">
+								<span class="glyphicon glyphicon-tag"></span>  meeting Action Points</a>
+							</li> -->
 							</ul>
 
 						<div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px; width: 215px; display: none;"><div class="ps-scrollbar-x" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; right: 3px; height: 620px; display: none;"><div class="ps-scrollbar-y" style="top: 0px; height: 0px;"></div></div></div>

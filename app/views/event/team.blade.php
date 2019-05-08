@@ -22,7 +22,7 @@ else { el.hide();}
 			<span class="glyphicon glyphicon-user"></span>
 			TEAM
 		</div>
-		
+		 
 
 <div class="panel panel-info">
 	<div class="panel-heading" align="center"><strong>SENIOR MANAGEMENT</strong></div>
@@ -49,7 +49,7 @@ else { el.hide();}
 	<em>SLA</em>
 	</div >
 <div class="col-md-6" style="text-align:center;">
-		<img class="img-circle" src="{{asset("/pictures/download.jpg")}}">
+		<img class="img-circle" src="{{asset("/pictures/guma.jpg")}}">
 		<h3><strong>Gaspard Guma</strong></h3>
 		<em>Senior TA</em>
 	</div >
@@ -57,24 +57,24 @@ else { el.hide();}
 </div > 
 
 <div class="row">
-	<div class="col-md-3" style="text-align:center;">
-	<img class="img-circle" src="{{asset("/pictures/download.jpg")}}">
+	<div class="col-md-4" style="text-align:center;">
+	<img class="img-circle" src="{{asset("/pictures/amato.png")}}">
 
 		<h3><strong>Amato Ojwiya</strong></h3>
 	<em>STA </em>
 	</div >
-	<div class="col-md-3" style="text-align:center;">
+	<!-- <div class="col-md-3" style="text-align:center;">
 		<img class="img-circle" src="{{asset("/pictures/download.jpg")}}">
 		<h3><strong>Dr. Nakakawa Agnes</strong></h3>
 		<em>TA</em>
-	</div >
+	</div > -->
 	<div class="col-md-3" style="text-align:center;">
-		<img class="img-circle" src="{{asset("/pictures/download.png")}}">
+		<img class="img-circle" src="{{asset("/pictures/sendagire.jpg")}}">
 			<h3><strong>Dr. Hakim Sendagire</strong></h3>
 		<em>TA</em>
 	</div >
-	<div class="col-md-3" style="text-align:center;">
-		<img class="img-circle" src="{{asset("/pictures/download.jpg")}}">
+	<div class="col-md-4" style="text-align:center;">
+		<img class="img-circle" src="{{asset("/pictures/henry.jpg")}}">
 	<h3><strong>Dr. Kajumbula Henry</strong></h3>
 	<em>TA</em>
 	</div>
@@ -82,23 +82,23 @@ else { el.hide();}
 
 <div class="row">
 	<div class="col-md-3" style="text-align:center;">
-	<img class="img-circle" src="{{asset("/pictures/download.jpg")}}">
+	<img class="img-circle" src="{{asset("/pictures/charles.jpg")}}">
 
 		<h3><strong>Charles Kiyaga</strong></h3>
 	<em>ASLM-Program manager</em>
 	</div >
 	<div class="col-md-3" style="text-align:center;">
-		<img class="img-circle" src="{{asset("/pictures/download.jpg")}}">
+		<img class="img-circle" src="{{asset("/pictures/Kalyesubula.png")}}">
 		<h3><strong>Dr. Kalyesubula Simon</strong></h3>
 		<em>M&E</em>
 	</div >
 	<div class="col-md-3" style="text-align:center;">
-		<img class="img-circle" src="{{asset("/pictures/download.png")}}">
+		<img class="img-circle" src="{{asset("/pictures/ogwok.png")}}">
 			<h3><strong>Patrick Ogwok</strong></h3>
 		<em>QA</em>
 	</div >
 	<div class="col-md-3" style="text-align:center;">
-		<img class="img-circle" src="{{asset("/pictures/download.jpg")}}">
+		<img class="img-circle" src="{{asset("/pictures/bakunda.png")}}">
 	<h3><strong>Bakunda Kamaranzi</strong></h3>
 	<em>Training Coordinator</em>
 	</div>
@@ -106,13 +106,13 @@ else { el.hide();}
 
 <div class="row">
 	<div class="col-md-3" style="text-align:center;">
-	<img class="img-circle" src="{{asset("/pictures/download.jpg")}}">
+	<img class="img-circle" src="{{asset("/pictures/nyegenye.jpg")}}">
 
 		<h3><strong>Wilson Nyegenye</strong></h3>
 	<em>Logistics Coordinator</em>
 	</div >
 	<div class="col-md-3" style="text-align:center;">
-		<img class="img-circle" src="{{asset("/pictures/download.jpg")}}">
+		<img class="img-circle" src="{{asset("/pictures/murungi.jpg")}}">
 		<h3><strong>Dr.Murungi Miriam</strong></h3>
 		<em>M&E VL</em>
 	</div >
@@ -122,7 +122,7 @@ else { el.hide();}
 		<em>VL Coordinator</em>
 	</div >
 	<div class="col-md-3" style="text-align:center;">
-		<img class="img-circle" src="{{asset("/pictures/download.jpg")}}">
+		<img class="img-circle" src="{{asset("/pictures/nico.jpg")}}">
 	<h3><strong>Dr. Nanyeenya Nicholas</strong></h3>
 	<em>Sickle Cell coordinator</em>
 	</div>
@@ -146,7 +146,7 @@ else { el.hide();}
 		<em>Lab manager</em>
 	</div >
 	<div class="col-md-3" style="text-align:center;">
-		<img class="img-circle" src="{{asset("/pictures/sula.jpg")}}">
+		<img class="img-circle" src="{{asset("/pictures/ikoba.png")}}">
 	<h3><strong>Ikoba Sulaiman</strong></h3>
 	<em>Operation Manager</em>
 	</div>
@@ -165,7 +165,7 @@ else { el.hide();}
 		<em>Biomedical Enginner</em>
 	</div >
 	<div class="col-md-3" style="text-align:center;">
-		<img class="img-circle" src="{{asset("/pictures/download.png")}}">
+		<img class="img-circle" src="{{asset("/pictures/akello.png")}}">
 			<h3><strong>Akello Patricia</strong></h3>
 		<em>Accreditation Officer</em>
 	</div >
@@ -184,17 +184,17 @@ else { el.hide();}
 	<em>Operation/Logistics</em>
 	</div >
 	<div class="col-md-3" style="text-align:center;">
-		<img class="img-circle" src="{{asset("/pictures/download.jpg")}}">
+		<img class="img-circle" src="{{asset("/pictures/kamusiime.png")}}">
 		<h3><strong>Kamusiime Diana</strong></h3>
 		<em>Office Manager</em>
 	</div >
 	<div class="col-md-3" style="text-align:center;">
-		<img class="img-circle" src="{{asset("/pictures/download.png")}}">
+		<img class="img-circle" src="{{asset("/pictures/aidah.jpg")}}">
 			<h3><strong>Namakula Aidah</strong></h3>
 		<em>Operation/Logistics</em>
 	</div >
 	<div class="col-md-3" style="text-align:center;">
-		<img class="img-circle" src="{{asset("/pictures/download.jpg")}}">
+		<img class="img-circle" src="{{asset("/pictures/rita.png")}}">
 	<h3><strong>Eragu Rita</strong></h3>
 	<em>Program Secretary</em>
 	</div>
@@ -202,18 +202,18 @@ else { el.hide();}
 
 <div class="row">
 	<div class="col-md-3" style="text-align:center;">
-	<img class="img-circle" src="{{asset("/pictures/download.jpg")}}">
+	<img class="img-circle" src="{{asset("/pictures/godfrey.jpg")}}">
 
 		<h3><strong>Mujuuzi Godfrey</strong></h3>
 	<em>Lab Advisor</em>
 	</div >
 	<div class="col-md-3" style="text-align:center;">
-		<img class="img-circle" src="{{asset("/pictures/download.jpg")}}">
+		<img class="img-circle" src="{{asset("/pictures/kitone.png")}}">
 		<h3><strong>Kitone Ivan</strong></h3>
 		<em>Stores Manager</em>
 	</div >
 	<div class="col-md-3" style="text-align:center;">
-		<img class="img-circle" src="{{asset("/pictures/download.png")}}">
+		<img class="img-circle" src="{{asset("/pictures/mugerwa.png")}}">
 			<h3><strong>Mugerwa Ibrahim</strong></h3>
 		<em>AMR Secretariate</em>
 	</div >
@@ -226,18 +226,18 @@ else { el.hide();}
 
 <div class="row">
 	<div class="col-md-3" style="text-align:center;">
-	<img class="img-circle" src="{{asset("/pictures/download.jpg")}}">
+	<img class="img-circle" src="{{asset("/pictures/nakidde.png")}}">
 
 		<h3><strong>Nakidde Rebecca</strong></h3>
 	<em>Hub Coordinator</em>
 	</div >
 	<div class="col-md-3" style="text-align:center;">
-		<img class="img-circle" src="{{asset("/pictures/download.jpg")}}">
+		<img class="img-circle" src="{{asset("/pictures/pimundu.png")}}">
 		<h3><strong>Pimundu Godfrey</strong></h3>
 		<em>Lab manager MicroB</em>
 	</div >
 	<div class="col-md-3" style="text-align:center;">
-		<img class="img-circle" src="{{asset("/pictures/download.png")}}">
+		<img class="img-circle" src="{{asset("/pictures/nabukenya.png")}}">
 			<h3><strong>Miriam Nabukenya</strong></h3>
 		<em>Data manager</em>
 	</div >

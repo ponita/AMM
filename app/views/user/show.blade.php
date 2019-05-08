@@ -12,10 +12,12 @@
 			<span class="glyphicon glyphicon-user"></span>
 			{{trans('messages.user-details')}}
 			<div class="panel-btn">
+           			@if(Auth::user()->can('edit_password'))
 				<a class="btn btn-sm btn-info" href="{{ URL::to("user/". $user->id ."/edit") }}">
 					<span class="glyphicon glyphicon-edit"></span>
 					{{trans('messages.edit')}}
 				</a>
+				@endif
 			</div>
 		</div>
 		<div class="panel-body">

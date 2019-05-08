@@ -354,7 +354,7 @@ Country::create(['name' => 'Zimbabwe']);
         $usersData = array(
             array(
                 "username" => "ublis_admin", "password" => Hash::make("password"), 
-                "email" => "", "name" => "UBLIS Administrator", "designation" => "Programmer"
+                "email" => "", "name" => "Web Administrator", "designation" => "Programmer"
                 
             ),
         );
@@ -366,36 +366,97 @@ Country::create(['name' => 'Zimbabwe']);
         $this->command->info('users seeded');
 
 
+        
+       /* Audience table */
+        $audiencedata = array(
+            array("id" => \Config::get('constants.AUDIENCE_ID'), 
+                'name' => \Config::get('constants.AUDIENCE_NAME')
+                ),
+            
+        );
 
-        // /* Audience table */
-        // $audiencedata = array(
-        //     array("audience" => "IPs"),
-        //     array("audience" => "Dev't Partners"),
-        //     array("audience" => "DHOs"),
-        //     array("audience" => "RRH Directors"),
-        //     array("audience" => "IP Lab Advisors"),
-        //     array("audience" => "Lab Incharges"),
-        //     array("audience" => "Medical Superintendents"),
-        //     array("audience" => "DLFPs"),
-        //     array("audience" => "Multi sectoral"),
-        //     array("audience" => "National stakeholders"),
-        //     array("audience" => "Regional Coordinators"),
-        //     array("audience" => "Hub Coordinators"),
-        //     array("audience" => "Top Management"),
-        //     array("audience" => "Senior Management"),
-        //     array("audience" => "M$E Focal Persons"),
-        //     array("audience" => "General Staff"),
-        //     array("audience" => "Departmental"),
+        foreach ($audiencedata as $audience)
+        {
+            $audience[] = AudienceData::create($audience);
+        }
+        $this->command->info('Audience seeded');
+
+            AudienceData::create(['name' => 'IPs']);
+            AudienceData::create(['name' => 'Devt Partners']);
+            AudienceData::create(['name' => 'DHOs']);
+            AudienceData::create(['name' => 'RRH Directors']);
+            AudienceData::create(['name' => 'IP Lab Advisors']);
+            AudienceData::create(['name' => 'Lab Incharges']);
+            AudienceData::create(['name' => 'Medical Superintendents']);
+            AudienceData::create(['name' => 'DLFPs']);
+            AudienceData::create(['name' => 'Multi sectoral']);
+            AudienceData::create(['name' => 'National stakeholders']);
+            AudienceData::create(['name' => 'Regional Coordinators']);
+            AudienceData::create(['name' => 'Hub Coordinators']);
+            AudienceData::create(['name' => 'Top Management']);
+            AudienceData::create(['name' => 'Senior Management']);
+            AudienceData::create(['name' => 'M$E Focal Persons']);
+            AudienceData::create(['name' => 'General Staff']);
+            AudienceData::create(['name' => 'Departmental']);
+            AudienceData::create(['name' => 'Hospital Directors']);
+            AudienceData::create(['name' => 'Others']);
+        
+        $this->command->info('Audience seeded');
+
+        /* Facilities table */
+        $facilitiesdata = array(
+            array("id" => \Config::get('constants.FACILITIES_ID'), 
+                'name' => \Config::get('constants.FACILITIES_NAME')
+                ),
+            
+        );
+
+        // foreach ($facilitiesdata as $facilities)
+        // {
+        //     $facilities[] = Facility::create($facilities);
+        // }
+        // $this->command->info('Facilities seeded');
+
+        //     Facility::create(['name' => 'IPs']);
+        //     Facility::create(['name' => 'Devt Partners']);
+        //     Facility::create(['name' => 'DHOs']);
+        //     Facility::create(['name' => 'RRH Directors']);
+        //     Facility::create(['name' => 'IP Lab Advisors']);
+        //     Facility::create(['name' => 'Lab Incharges']);
+        //     Facility::create(['name' => 'Medical Superintendents']);
+        //     Facility::create(['name' => 'DLFPs']);
+        //     Facility::create(['name' => 'Multi sectoral']);
+        //     Facility::create(['name' => 'National stakeholders']);
+        //     Facility::create(['name' => 'Regional Coordinators']);
+        //     Facility::create(['name' => 'Hub Coordinators']);
+        //     Facility::create(['name' => 'Top Management']);
+        //     Facility::create(['name' => 'Senior Management']);
+        //     Facility::create(['name' => 'M$E Focal Persons']);
+        //     Facility::create(['name' => 'General Staff']);
+        //     Facility::create(['name' => 'Departmental']);
+        //     Facility::create(['name' => 'Hospital Directors']);
+        //     Facility::create(['name' => 'Others']);
+        
+        // $this->command->info('Facilities seeded');
+
+        // /* Department table */
+        // $departmentdata = array(
+        //     array("id" => \Config::get('constants.AUDIENCE_ID'), 
+        //         'name' => \Config::get('constants.AUDIENCE_NAME')
+        //         ),
             
         // );
 
-        // foreach ($audiencedata as $audience)
+        // foreach ($departmentdata as $department)
         // {
-        //     $audience[] = Audience::create($audience);
+        //     $department[] = Department::create($department);
         // }
-        // $this->command->info('Audience seeded');
+        // $this->command->info('Department seeded');
+
+        //     Department::create(['name' => 'IPs']);
+           
         
-        
+        // $this->command->info('Department seeded'); 
      
 
         //        /* Test table */
@@ -629,6 +690,7 @@ Country::create(['name' => 'Zimbabwe']);
         
         /* Permissions table */
         $permissions = array(
+            // array("name" => "display_activities", "display_name" => "Can manage activity"),
             array("name" => "view_activities", "display_name" => "Can view activity details"),
             array("name" => "manage_activities", "display_name" => "Can add an activity"),
             array("name" => "edit_activity", "display_name" => "Can edit activity details"),
@@ -640,23 +702,36 @@ Country::create(['name' => 'Zimbabwe']);
             array("name" => "add_report", "display_name" => "Can attach report"),
             array("name" => "download_report", "display_name" => "Can download report"),
 
+            // array("name" => "display_meeting", "display_name" => "Can manage meeting"),
             array("name" => "view_meeting", "display_name" => "Can view meeting details"),
             array("name" => "manage_meeting", "display_name" => "Can add a meeting"),
             array("name" => "edit_meeting", "display_name" => "Can edit meeting details"),
             array("name" => "approve_meeting", "display_name" => "Can approve meeting"),
+            array("name" => "add_meeting_ap", "display_name" => "Add meeting actionpoints"),
             array("name" => "add_minutes", "display_name" => "Can attach minutes"),
             array("name" => "download_minutes", "display_name" => "Can download minutes"),
 
+            // array("name" => "display_memo", "display_name" => "Can manage memo"),
             array("name" => "view_memo", "display_name" => "Can view memo details"),
             array("name" => "manage_memo", "display_name" => "Can add a memo"),
             array("name" => "edit_memo", "display_name" => "Can edit memo details"), 
             array("name" => "approve_memo", "display_name" => "Can approve memo"),
             
+            // array("name" => "display_invitation", "display_name" => "Can manage invitation"),
             array("name" => "view_invitation", "display_name" => "Can view invitation details"),
             array("name" => "manage_invitation", "display_name" => "Can add an invitation"),
             array("name" => "approve_invitation", "display_name" => "Can approve invitation"),
             array("name" => "download_invitation", "display_name" => "Can download invitation"),
 
+            array("name" => "view_leave_form", "display_name" => "Can view leave pages"),
+            array("name" => "supervisor_leave_approval", "display_name" => "Supervisor approval of leave form"),
+            array("name" => "manager_leave_approval", "display_name" => "Manager approval of leave form"),
+            array("name" => "head_leave_approval", "display_name" => "Head approval of leave form"),
+            array("name" => "view_leave_details", "display_name" => "Can view Leave details"),
+            array("name" => "manage_templates", "display_name" => "Manage templates"),
+
+            array("name" => "edit_info", "display_name" => "Edit user info"),
+            array("name" => "edit_password", "display_name" => "Edit password"),
             array("name" => "manage_users", "display_name" => "Can manage users"),
             array("name" => "manage_configurations", "display_name" => "Can manage configurations"),
             array("name" => "view_reports", "display_name" => "Can view reports"),

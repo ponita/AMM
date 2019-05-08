@@ -234,7 +234,7 @@
 	// default tooltips, popovers init
 	tisa_tooltips_popovers = {
 		init: function() {
-			$('[data-toggle=tooltip]').tooltip({
+			jQuery('[data-toggle=tooltip]').tooltip({
 				container: "body"
 			})
 			$('[data-toggle=popover]').popover({

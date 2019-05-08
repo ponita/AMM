@@ -32,7 +32,7 @@
 			<div class="panel-body">
                 
 				<div class="row view-striped">
-					<div class=""><strong>{{ $event->name }}: From {{ $event->start_date }} to {{ $event->end_date }}</strong></div>
+					<div class=""><strong>{{ $event->name }}:</strong> From {{ $event->start_date }} to {{ $event->end_date }}</div>
 				</div>
 
 				<div class="row view-striped">

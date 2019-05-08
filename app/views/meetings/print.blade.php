@@ -81,15 +81,15 @@
     <tr>
         <th class="warning" align="center">Action</th>
         <th align="center">Person responsible</th>
-        <th align="center">date</th>
+        <th align="center">Deadline</th>
         <th align="center">location</th>
     </tr>
-    @foreach($meetings->action as $action)
+    @foreach($meetings->maction as $maction)
     <tr>
-        <td>{{ $action['action'] }}</td>
-        <td>{{ $action['name'] }}</td>
-        <td>{{ $action['date'] }}</td>
-        <td>{{ $action['location'] }} </td>
+        <td>{{ $maction['action'] }}</td>
+        <td>{{ $maction['name'] }}</td>
+        <td>{{ $maction['date'] }}</td>
+        <td>{{ $maction['location'] }} </td>
     </tr>
     @endforeach
 

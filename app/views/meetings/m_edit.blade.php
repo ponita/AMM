@@ -40,9 +40,10 @@
 		</div> 
 
 		<div class="form-group">
-			{{Form::label('thematicarea', 'Thematic Area', array('class' => 'col-sm-2'))}}
-			{{ Form::select('thematicarea', $thematicAreas, $meetings->thematicArea_id,
-					['class' => 'form-control col-sm-4']) }}
+			{{ Form::select('department', [
+                    '0' =>'---Select Section---',
+                     'Finance & Accounts' => 'Finance & Accounts', 'Data' => 'Data','Sample Reception' => 'Sample Reception', 'Logistics/Stores' => 'Logistics/Stores', 'EID Lab' => 'EID Lab', 'Viral Load' => 'Viral Load', 'SickleCell' =>'SickleCell', 'Microbiology' => 'Microbiology','Executive Director' => 'Executive Director', 'ICT' =>'ICT', 'Results QC' =>'Results QC', 'Records' =>'Records','Engineering' =>'Engineering', 'Bio Repository' =>'Bio Repository'], 
+                    Input::old('department'), array('class' => 'form-control')) }}
 		</div>
 
 		<div class="form-group">
@@ -87,86 +88,8 @@
 			{{ Form::select('organiser', $organisers, $meetings->organiser_id,
 					['class' => 'form-control']) }}		
 		</div>
-		<!-- <div class="form-group">
-			
-			{{ Form::label('targetAudience', 'Target Audience', array('class' => 'col-sm-2')) }}
-			
-			<div class="form-pane panel panel-default">
-			<div class="container-fluid">
-			<div class="form-group" list="targetAudience">
 		
-			<label>
-			<input type="checkbox" list="" name="targetAudience[]" id="audience" value="IPs">
-			IPs
-			</label>
-			<label>
-			<input type="checkbox"  name="targetAudience[]" id="optionsRadios2" value="Dev't Partners">
-			Dev't Partners
-			</label>
-			<label>
-			<input type="checkbox"  name="targetAudience[]" id="optionsRadios3" value="DHOs">
-			DHOs
-			</label>
-			<label>
-			<input type="checkbox"  name="targetAudience[]" id="optionsRadios4" value="RRH Directors">
-			RRH Directors
-			</label>
-			<label>
-			<input type="checkbox" name="targetAudience[]" id="optionsRadios5" value="IP Lab Advisors">
-			IP Lab Advisors
-			</label>
-			<label>
-			<input type="checkbox" name="targetAudience[]" id="optionsRadios6" value="Lab Incharges">
-			Lab Incharges
-			</label>
-			<label>
-			<input type="checkbox" list="" name="targetAudience[]" id="audience" value="Medical Superintendents">
-			Medical Superintendents
-			</label>
-			<label>
-			<input type="checkbox"  name="targetAudience[]" id="optionsRadios2" value="DLFPs">
-			DLFPs
-			</label>
-			<label>
-			<input type="checkbox"  name="targetAudience[]" id="optionsRadios3" value="Multi sectoral">
-			Multi sectoral
-			</label>
-			<label>
-			<input type="checkbox"  name="targetAudience[]" id="optionsRadios4" value="National stakeholders">
-			National stakeholders
-			</label>
-			<label>
-			<input type="checkbox" name="targetAudience[]" id="optionsRadios5" value="Regional Coordinators">
-			Regional Coordinators
-			</label>
-			<label>
-			<input type="checkbox" name="targetAudience[]" id="optionsRadios6" value="Hub Coordinators">
-			Hub Coordinators
-			</label>
-			<label>
-			<input type="checkbox" list="" name="targetAudience[]" id="audience" value="Top Management">
-			Top Management
-			</label>
-			<label>
-			<input type="checkbox"  name="targetAudience[]" id="optionsRadios2" value="Senior Management">
-			Senior Management
-			</label>
-			<label>
-			<input type="checkbox"  name="targetAudience[]" id="optionsRadios3" value="M$E Focal Persons">
-			M$E Focal Persons
-			</label>
-			<label>
-			<input type="checkbox"  name="targetAudience[]" id="optionsRadios4" value="General Staff">
-			General Staff
-			</label>
-			<label>
-			<input type="checkbox" name="targetAudience[]" id="optionsRadios5" value="Departmental">
-			Departmental
-			</label>
-		</div>
-		</div>
-	</div>
-		</div>	 -->
+		
 		
 		<div class="form-group">	
 			{{ Form::label('participants_no', 'No of Participants', array('class' => 'col-sm-2')) }}

@@ -95,9 +95,9 @@ color: #34495e;
 		</div >
 		<div class="col-md-3">
 		<div class="service">
-			<a href="{{ URL::route('user.index')}}">
-		<span style="color: orange" class="glyphicon glyphicon-cog" aria-hidden="true" background-color="red"></span>
-		<h3><strong>Access Control</strong></h3>
+			<a href="{{ URL::route('leave.create')}}">
+		<span style="color: orange" class="glyphicon glyphicon-send" aria-hidden="true" background-color="red"></span>
+		<h3><strong>Leave form</strong></h3>
 
 		</div >
 		</div >

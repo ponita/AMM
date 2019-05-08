@@ -43,13 +43,13 @@ else { el.hide();}
 	<div class="panel-body">				
 		
 
-			<div class="form-group">
+			<div class="col-lg-7">
 			{{ Form::label('ref_no', 'Unique ID', array('class' => 'col-sm-2')) }}
 			{{ Form::text('ref_no', 'Auto generated upon succesfull save!',
 						array('class' => 'form-control col-sm-4', 'readonly' =>'true')) }}
 		</div>
 
-		<div class="form-group">
+		<div class="col-lg-7">
 			{{ Form::hidden('user_id', Auth::user()->id) }}
 			
 			{{ Form::label('date', 'Date', array('class' => 'col-sm-2')) }}
@@ -57,20 +57,20 @@ else { el.hide();}
 		
 		</div>
 
-		<div class="form-group" style="text-transform: uppercase;">
+		<div class="col-lg-7">
 			{{ Form::label('reference', 'RE:', array('class' => 'col-sm-2')) }}
 			{{ Form::text('reference', Input::old('reference'), array('class' => 'form-control col-sm-4')) }}
 
 		</div>
 
-		<div class="form-group">
+		<div class="col-lg-7">
 			<!-- {{ Form::hidden('user_id', Auth::user()->id) }} -->
 			{{ Form::label('body', ' ', array('class' => 'col-sm-2')) }}
-			{{ Form::textarea('body', Input::old('body'), array('size' => '10x6','class' => 'form-control col-sm-10','placeholder' => 'Body')) }}
+			{{ Form::textarea('body', Input::old('body'), array('size' => '10x6','class' => 'htmleditor form-control col-sm-10','placeholder' => 'Body')) }}
 			
 		</div>
 
-		<div class="form-group">
+		<div class="col-lg-7">
 			{{ Form::label('objective', 'Objective', array('class' => 'col-sm-2')) }}
 			{{ Form::textarea('objective', Input::old('objective'), array('size' => '10x3','class' => 'form-control col-sm-10','placeholder' => 'Objective')) }}
 			
@@ -78,39 +78,39 @@ else { el.hide();}
 
 		
 
-		<div class="form-group">
+		<div class="col-lg-7">
 			{{ Form::label('output', 'Output ', array('class' => 'col-sm-2')) }}
 			{{ Form::textarea('output', Input::old('output'), array('size' => '10x3','class' => 'form-control col-sm-10','placeholder' => '')) }}
 			
 		</div>
 
-		<div class="form-group">
+		<div class="col-lg-7">
 			{{ Form::label('venue', 'Venue', array('class' => 'col-sm-2')) }}
 			{{ Form::text('venue', Input::old('venue'), array('class' => 'form-control col-sm-4')) }}
 
 		</div>
 
-		<div class="form-group">
+		<div class="col-lg-7">
 			{{ Form::label('start_date', 'Scheduled from', array('class' => 'col-sm-2')) }}
 			{{ Form::text('start_date', Input::old('start_date'), array('class' => 'form-control standard-datepicker col-sm-4')) }}
 
-			{{ Form::label('end_date', 'Scheduled to', array('class' => 'col-sm-2 col-sm-offset-1')) }}
+			{{ Form::label('end_date', 'Scheduled to', array('class' => 'col-sm-2 ')) }}
 			{{ Form::text('end_date', Input::old('end_date'), array('class' => 'form-control standard-datepicker col-sm-4')) }}
 
 		</div>
 
-		<div class="form-group">
+		<div class="col-lg-7">
 
 			{{ Form::label('name', 'Name', array('class' => 'col-sm-2')) }}
 			{{ Form::text('name', Input::old('name'), array('class' => 'form-control col-sm-4')) }}
 
-			{{ Form::label('title', 'Title ', array('class' => 'col-sm-offset-1')) }}
+			{{ Form::label('title', 'Title ', array('class' => 'col-sm-2')) }}
 			{{ Form::text('title', Input::old('title'), array('class' => 'form-control col-sm-4','placeholder' => 'Your title')) }}
 
 	 
         
 		</div>
-		<div class="form-group">
+		<div class="col-lg-7">
 			{{ Form::label('attachment', 'Attachment', array('class' => 'col-sm-2')) }}
 			{{ Form::file('attachment', Input::old('attachment'), array('class' => 'form-control col-sm-4')) }}
 

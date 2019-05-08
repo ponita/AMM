@@ -1,8 +1,12 @@
 <?php
 
+
+
 class EventController extends \BaseController {
 
+
 	/**
+
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
@@ -39,11 +43,26 @@ class EventController extends \BaseController {
 		
 		$fromRedirect = Session::pull('fromRedirect');
 
-		
-		$events = UNHLSEvent::orderBy('start_date','DESC')->get();
+        $date2 = new DateTime();
+     
+		$events = UNHLSEvent::where('start_date','<=',$date2)->orderBy('start_date','DESC')->get();
+		$upcoming = UNHLSEvent::where('start_date','>',$date2)->orderBy('start_date','DESC')->get();
+		$appointment = Letter::orderBy('ref_no','DESC')->get();		
+		$meetings = Meeting::where('end_time','<=',$date2)->orderBy('start_time','DESC')->get();
+		$mupcoming = Meeting::where('start_time','>',$date2)->orderBy('start_time','DESC')->get();
+		$leave = LeaveForm::where('h_approval_status','=','Approved')->orderBy('date_from','DESC')->get();
+		$template = Templte::orderBy('id')->get();
+
 
 		
-		return View::make('event.calender')->with('events', $events);
+		return View::make('event.calender')
+										->with('upcoming', $upcoming)
+										->with('events', $events)
+										->with('appointment', $appointment)
+										->with('mupcoming', $mupcoming)
+										->with('leave', $leave)
+										->with('template', $template)
+										->with('meetings', $meetings);
 
 										
 	}
@@ -159,10 +178,41 @@ public function complete()
  public function report()
 	{
 		//
-		$events = UNHLSEvent::orderBy('start_date','DESC')->get();		
-		
-		return View::make('event.report')->with('events', $events);
+		$events = UNHLSEvent::orderBy('start_date','DESC')->get();
+		$meetings = Meeting::orderBy('start_time','DESC')->get();		
+
+
+		return View::make('event.report')->with('events', $events)
+										->with('meetings', $meetings);
 	}
+
+	/**
+	 *Select all tests under a selected test Category - Test Menu
+	 *
+	 * @return Response
+	 */
+	public function workplans()
+	{
+		$departmentId =Input::get('department_id');
+
+		$workplan = DepartmentWorkplan::where('department_id', $departmentId)->get();
+
+		return View::make('event.workplanList')
+			->with('workplan', $workplan);
+	}
+
+	public function strategy()
+	{
+
+		$thematicareaId =Input::get('thematicArea_id');
+		//$thematicareaId = $id;
+		
+		$departments = Department::where('thematicArea_id', $thematicareaId)->get();
+
+		return View::make('event.strategyList')
+			->with('departments', $departments);
+	}
+	
 
 	/**
 	 * Show the form for creating a new resource.
@@ -173,8 +223,18 @@ public function complete()
 	{
 		//
 		//$districts = District::orderBy('name')->get();
-		$districts = District::orderBy('name')->lists('name','id');
+		$districts = ['Select District']+District::orderBy('name')->lists('name','id');
 
+		$audiencedata = AudienceData::orderBy('name')->get();
+		
+		$facilities = Facility::orderBy('name')->lists('name','id');
+
+		$departments = ['Select Strategic plan'];
+		
+		$departmentworkplan = ['Select workplan']+DepartmentWorkplan::orderBy('workplan')->lists('workplan','id');
+		
+		$hubs = ['Select Hub']+ Hub::orderBy('name')->lists('name','id');
+		
 		$country = Country::orderBy('name')->lists('name','id');
 
 		$healthregion =['Select Health region']+ Healthregion::orderBy('name')->lists('name', 'id');
@@ -185,15 +245,21 @@ public function complete()
 
 		$thematicAreas =['Select department']+ ThematicAreas::orderBy('name')->lists('name','id');
 
-	
+		$emptydropdown = array('' => 'Select One');
+		
 
 
 		return View::make('event.create')->with('districts', $districts)
 										->with('country', $country)
 										->with('healthregion', $healthregion)
 										->with('funders', $funders)
+										->with('facilities', $facilities)
+										->with('audiencedata', $audiencedata)
 										->with('organisers', $organisers)
-										
+										->with('hubs', $hubs)
+										->with('departments', $departments)
+										->with('departmentworkplan', $departmentworkplan)
+										->with('emptydropdown',$emptydropdown)
 										->with('thematicAreas', $thematicAreas);
 										
 	}
@@ -207,8 +273,10 @@ public function complete()
 	public function store()
 	{
 		//
-		$formdata = Input::all();
-	
+		// $formdata = Input::all();
+		// print_r(Input::all());
+		// exit();
+
 
 		$rules = array(
 		//	'patient_number' => 'required|unique:patients,patient_number',
@@ -216,13 +284,16 @@ public function complete()
 			'name' => 'required',
 			'start_date' => 'required',
 			'end_date' => 'required',
+			'audience' => 'required',
 
 		);
 		$validator = Validator::make(Input::all(), $rules);
 
 		if ($validator->fails()) {
 
-			return Redirect::back()->withErrors($validator)->withInput(Input::all());
+			return Redirect::route('event.create')
+                ->withErrors($validator)
+                ->withInput(Input::except('objective'));
 		}
 		else {
 			// store
@@ -232,6 +303,8 @@ public function complete()
 		$event->user_id = Input::get('user_id');
 		$event->name = Input::get('name');
 		$event->thematicArea_id = Input::get('thematicarea');
+		$event->department = Input::get('department');
+		$event->workplan_id = Input::get('workplan');
 		$event->type = Input::get('type');
 		$event->start_date = Input::get('start_date');
 		$event->end_date = Input::get('end_date');
@@ -243,7 +316,7 @@ public function complete()
 		$event->healthregion_id = Input::get('healthregion');
 		$event->funders_id = Input::get('funder');
 		$event->organiser_id = Input::get('organiser');
-		$event->audience_id = Input::get('audience_id');
+		// $event->audience_id = Input::get('audience_id');
 		$event->participants_no = Input::get('participants_no');
 		
 		$event->status_id = 0;
@@ -260,7 +333,27 @@ public function complete()
 		$objective->objective= $ob;
 		$objective->save();
 		} 
+
+		
+		// $hubs = Input::get('hub');
+		// foreach($hubs as $h) {
+		// 	$hub = new EventHub;
+		// 	$hub->event_id = $event->id;
+		// 	$hub->hub= $h;
+		// 	$hub->save();
+
+		// $facilitys = Input::get('facility_id');
+		// 	foreach($facilitys as $ob) {
+		// 		$evefacility = new EventFacility;
+		// 		$evefacility->event_id = $event->id;
+		// 		$evefacility->facility_id= $ob;
+		// 		$evefacility->hub_id =  $h;
+		// 		$evefacility->save();
+		// 	}
+		// }
 		 
+		 	
+
 		$audiences = Input::get('audience');
 		foreach ($audiences as $au) {
 			$audience = new Audience;
@@ -269,29 +362,40 @@ public function complete()
 			$audience->save();			# code...
 		}
 
+		// $emails = ['ritaneragu@gmail.com','lunyolosarah@gmail.com','naidarayaan@gmail.com','nambozosusan@gmail.com','sula2050@gmail.com','sndidde@gmail.com'];
+		//  Mail::send('event.approved',
+		// 			array('user_id'=>Input::get('user_id'),'name'=>Input::get('name')),
+		// 			function($message) use ($emails){
+		// 				$message->to($emails)->subject('System Alerts');
+		// 			});
+
 		// saving the attached report
-		if (Input::hasFile('report_path')) {
-        	$file = Input::file('report_path');
-        	$destinationPath = public_path().'\attachments';
-        	//$filename = str_random(3) . '_' . $file->getClientOriginalName();
-        	$filename = 'Report'.$event->id . '_' . $file->getClientOriginalName();
-        	$uploadSuccess = $file->move($destinationPath, $filename);
+		// if (Input::hasFile('report_path')) {
+  //       	$file = Input::file('report_path');
+  //       	$destinationPath = public_path().'\attachments';
+  //       	//$filename = str_random(3) . '_' . $file->getClientOriginalName();
+  //       	$filename = 'Report'.$event->id . '_' . $file->getClientOriginalName();
+  //       	$uploadSuccess = $file->move($destinationPath, $filename);
 
-        	//$event->report_path = $destinationPath .'\\'. $filename;
-        	$event->report_filename = $filename;
-        	$event->save();
-    	}
+  //       	//$event->report_path = $destinationPath .'\\'. $filename;
+  //       	$event->report_filename = $filename;
+  //       	$event->save();
+  //   	}
 
-    	$event->uid = $event->getUuid();
-				$event->save();
-				$uuid = new UuidGenerator; 
-				$uuid->save();
+   //  	$event->uid = $event->getUuid();
+			// 	$event->save();
+			// 	$uuid = new UuidGenerator; 
+		
+			
+			// $uuid->save();
 			$url = Session::get('SOURCE_URL');
 
 		return Redirect::to($url)->with('message', 'Successfully registered an activity with ID No '.$event->id)
 								->with('message', 'Successfully registered an activity with ID No '.$audience->event_id)
+								// ->with('message', 'Successfully registered an activity with ID No '.$hub->event_id)
 								->with('message', 'Successfully registered objectives for for ID No '.$objective->event_id);
 	
+		
 		}
 	}
 
@@ -385,7 +489,15 @@ public function complete()
 		$event = UNHLSEvent::find($id);
 		$districts = District::orderBy('name')->lists('name','id');
 
+		$audiencedata = AudienceData::orderBy('name')->get();
+
+		$facilities = Facility::orderBy('name')->get();
+		
 		$country = Country::orderBy('name')->lists('name','id');
+		
+		$departments = Department::orderBy('name')->lists('name','id');
+		
+		$hubs = Hub::orderBy('name')->lists('name','id');
 		
 		$healthregion = Healthregion::orderBy('name')->lists('name', 'id');
 
@@ -401,8 +513,11 @@ public function complete()
 															->with('country', $country)
 															->with('healthregion', $healthregion)
 															->with('funders', $funders)
+															->with('facilities', $facilities)
+															->with('audiencedata', $audiencedata)
 															->with('organisers', $organisers)
-															// ->with('audience', $audience)
+															->with('hubs', $hubs)
+															->with('departments', $departments)
 															->with('thematicAreas', $thematicAreas);
 	}
 
@@ -421,7 +536,6 @@ public function complete()
 		$rules = array(
 		//	'patient_number' => 'required|unique:patients,patient_number',
 			'user_id' => 'required',
-			'name' => 'required',
 			'start_date' => 'required',
 			'end_date' => 'required',
 
@@ -436,53 +550,33 @@ public function complete()
 		$event = UNHLSEvent::find($id);
 
 		$event->user_id = Input::get('user_id');
-		$event->name = Input::get('name');
-		$event->thematicArea_id = Input::get('thematicarea');
-		$event->type = Input::get('type');
+		// $event->thematicArea_id = Input::get('thematicarea');
+		// $event->type = Input::get('type');
 		$event->start_date = Input::get('start_date');
 		$event->end_date = Input::get('end_date');
+		// $event->department_id = Input::get('department');
 		$event->location = Input::get('location');
 		$event->premise = Input::get('premise');
-		$event->co_organiser = Input::get('co_organiser');
-		$event->district_id = Input::get('district');
-		$event->country_id = Input::get('country');
-		$event->healthregion_id = Input::get('healthregion');
-		$event->funders_id = Input::get('funders');
-		$event->organiser_id = Input::get('organiser');
-		$event->audience_id = Input::get('audience_id');
-		$event->participants_no = Input::get('participants_no');
+		
 		
 		$event->save();
 
-		// $objective = new UNHLSEventObjective;
-
-		// $objective->objective = Input::get('objective');
-
-		// $objective->save();
-
-		// $audiences = Input::get('audience');
-		// foreach ($audiences as $au) {
-		// 	$audience = new Audience;
-		// 	$audience->event_id = Input::get('event_id');
-		// 	$audience->audience=$au;
-		// 	$audience->save();			# code...
-		// }
+		
 
 		// saving the attached report
-		if (Input::hasFile('report_path')) {
-        	$file = Input::file('report_path');
-        	$destinationPath = public_path().'\attachments';
-        	//$filename = str_random(3) . '_' . $file->getClientOriginalName();
-        	$filename = 'Report'.$event->id . '_' . $file->getClientOriginalName();
-        	$uploadSuccess = $file->move($destinationPath, $filename);
+		// if (Input::hasFile('report_path')) {
+  //       	$file = Input::file('report_path');
+  //       	$destinationPath = public_path().'\attachments';
+  //       	//$filename = str_random(3) . '_' . $file->getClientOriginalName();
+  //       	$filename = 'Report'.$event->id . '_' . $file->getClientOriginalName();
+  //       	$uploadSuccess = $file->move($destinationPath, $filename);
 
-        	//$event->report_path = $destinationPath .'\\'. $filename;
-        	$event->report_filename = $filename;
-        	$event->save();
-    	}
+  //       	//$event->report_path = $destinationPath .'\\'. $filename;
+  //       	$event->report_filename = $filename;
+  //       	$event->save();
+  //   	}
 		return Redirect::to('event')->with('message', 'Successfully updated event information for ID No '.$event->id);
-									// ->with('message', 'Successfully updated event information for ID No '.$audience->event_id);
-									// ->with('message', 'Successfully updated objectives for for ID No '.$objective->event_id);
+									
 	
 		}
 	}
@@ -491,9 +585,15 @@ public function complete()
 	{
 		$event = UNHLSEvent::find($id);
 		
+		Mail::send('event.approved',
+					array('user_id'=>Input::get('user_id'),'name'=>Input::get('name')),
+					function($message){
+						$message->to('poniagusto10@gmail.com')->subject('Requisition approval notice');
+					});
+
 		return View::make('event.editapproval')->with('event', $event);
 	}
-
+ 
 	
 	public function addreport($id)
 	{
@@ -513,12 +613,14 @@ public function complete()
         	$filename = 'Report'.$event->id . '_' . $file->getClientOriginalName();
         	$uploadSuccess = $file->move($destinationPath, $filename);
 
+   //dd($uploadSuccess); 
         	//$event->report_path = $destinationPath .'\\'. $filename;
         	$event->reports = $filename;
 		
 		$event->status_id = 1;
         	$event->save();
     	}
+
 
     	//Fire of entry saved/edited event
 		// Event::fire('test.saved', array($id));
@@ -538,6 +640,13 @@ public function team()
 		return View::make('event.team');
 	}
 
+	// public function fullcalender()
+	// {
+	// 	$tasks = Calender::all();
+ //    	return view('event.fullcalender', compact('tasks'));
+	// 	// return View::make('event.fullcalender');
+	// }
+
 	public function updateapproval($id)
 	{
 		$rules = array(
@@ -548,7 +657,16 @@ public function team()
 		if ($validator->fails()) {
 
 			return Redirect::back()->withErrors($validator)->withInput(Input::all());
-		} else {
+		} 
+		// elseif ($event = UNHLSEvent::where('approval_status', '=', 'Not Approved')->find($id)) {
+		// 	$event->approval_status_id = 1;
+		// 	$event->action_status_id = 1;
+		// 	$event->status_id = 1;
+
+		// $event->save();
+		
+		// }
+		else {
 		// update
 		$event = UNHLSEvent::find($id);
 		$event->approvedby = Auth::user()->id;
@@ -603,6 +721,8 @@ return Redirect::to('event')->with('message', 'Successfully updated objectives f
 	}
 
 
+
+
 	public function reportings($id)
 	{
 		$event = UNHLSEvent::find($id);
@@ -655,6 +775,15 @@ public function updatereportings($id)
 			$action->location =$locations[$k];
 			$action->save();			# code...
 		}
+
+		if (Input::hasFile('report_filename')) {
+        	$file = Input::file('report_filename');
+        	$destinationPath = public_path().'\attachments';
+        	$filename = 'List'.$event->id . '_' . $file->getClientOriginalName();
+        	$uploadSuccess = $file->move($destinationPath, $filename);
+        	$event->report_filename = $filename;
+		
+    	}
 		
 		$event->save();
     	
@@ -665,9 +794,76 @@ public function updatereportings($id)
 									->with('message', 'Successfully updated recommendations for for ID No '.$action->event_id);
 	}
 
-	
+	public function download(){
+		$test_date_fro = Input::get('test_date_fro');
+		$test_date_to = Input::get('test_date_to');
+		if(!empty($test_date_fro) and !empty($test_date_to)){
+			$this->csv_download($test_date_fro, $test_date_to);
+		}else{
+			return View::make('reports.download');
+		}
+	}
 
+	private function csv_download($fro, $to){
+		$event = UNHLSEvent::leftjoin('poc_results as pr', 'pr.patient_id', '=', 'poc_tables.id')
+						->select('poc_tables.*','pr.results', 'pr.test_date')
+						->from('poc_tables')
+						->where('start_date','>=',$fro)
+						->where('end_date','<=',$to)
+						->get();
+		header('Content-Type: text/csv; charset=utf-8');
+		header("Content-Disposition: attachment; filename=Report_$fro"."_$to.csv");
+		$output = fopen('php://output', 'w');
+		$headers = array(
+				'Date',
+				'Time',
+				'Title',
+				'Venue',
+				'Organiser',
+				'Agenda',
+				'Action Points'
+				
+				);
 
+		fputcsv($output, $headers);
+		foreach ($event as $event) {
+			$row=array(
+				$event->gender,
+				$event->name,			
+				$event->premise,
+				$event->organiser->name,
+				$event->admission_date,
+				$event->action->action,
+				$event->entry_point,
+				$event->mother_name				
+				
+				);
+			fputcsv($output, $row);	
+		}
+		fclose($output);
+
+	}
+
+	public function strategicPlan()
+	{
+		//
+		$events = UNHLSEvent::orderBy('start_date','DESC')->get();
+		$meetings = Meeting::orderBy('start_time','DESC')->get();		
+		$departments =Department::with('thematicarea')->orderBy('name')->get();
+		
+		//dd(json_encode($departments));
+
+		$departmentworkplan = DepartmentWorkplan::with('department')->with('thematicarea')->orderBy('workplan')->get();
+		
+
+		$thematicAreas =ThematicAreas::orderBy('name')->get();
+
+		return View::make('event.strategicPlan')->with('events', $events)
+										->with('meetings', $meetings)
+										->with('departments', $departments)
+										->with('departmentworkplan', $departmentworkplan)
+										->with('thematicAreas', $thematicAreas);
+	}
 	
 
 
@@ -709,21 +905,23 @@ public function department()
 		//
 		$datefrom = Input::get('datefrom');
 		$dateto = Input::get('dateto');
-		$name = Input::get('name');
-		$type = Input::get('type');
-		$thematicArea = Input::get('thematicArea_id');
+		$thematicArea = Input::get('department');
+		$meetings = Meeting::orderBy('start_time','ASC')->get();
 
 		
 		
-		if($datefrom != '' or $name){
-			$events = UNHLSEvent::reportfilter($datefrom,$dateto,$name,$type,$thematicArea);
+		if($datefrom != '' or $thematicArea){
+			$events = UNHLSEvent::reportfilter($datefrom,$dateto,$thematicArea);
+			$meetings = Meeting::reportfilters($datefrom,$dateto,$thematicArea);
 		}
 		else{
 		$events = '';
+		$meetings = '';
 		}
 
 		
-		return View::make('reports.department')->with('events', $events);
+		return View::make('reports.department')->with('events', $events)
+												->with('meetings', $meetings);
 	}
 
 	

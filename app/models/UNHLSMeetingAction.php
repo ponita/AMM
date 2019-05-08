@@ -12,4 +12,9 @@ class UNHLSMeetingAction extends Eloquent
 		return $this->belongsTo('Meeting', 'meeting_id', 'id');
 	}
 
+	public function solution()
+    {
+        return $this->hasMany('UNHLSEventActionSolution','meeting_action_id','id');
+	}
+
 }

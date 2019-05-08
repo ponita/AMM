@@ -25,9 +25,8 @@
 			<thead>
 				<tr>
 					<th>{{ Lang::choice('messages.name',1) }}</th>
-					<th>{{ trans('messages.telephoneNo') }}</th>
-					<th>{{ trans('messages.description') }}</th>
-					<th></th>
+					<th>Telephone Number</th>
+					<th>Action</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -38,7 +37,7 @@
                         >
 
 					<td>{{ $value->name }}</td>
-					<td>{{ $value->description }}</td>
+					<td>{{ $value->telephoneNo }}</td>
 					
 					<td>
 

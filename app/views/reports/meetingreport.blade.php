@@ -56,11 +56,11 @@
 		<div class='row col-sm-12'>
 					
 
-			<div class="form-group">
+			<!-- <div class="form-group">
 			{{ Form::label('name', 'Search', array('class' => 'col-sm-1')) }}
 			{{ Form::text('name', Input::get('name'), array('placeholder' => 'Only one keyword', 'class' => 'form-control col-sm-4')) }}
 
-			</div>
+			</div> -->
 
 			<div class="col-md-6">
 	    	
@@ -111,7 +111,9 @@
 				> 
 					<td>{{ $meetings->id }}</td>
 					<td>{{ $meetings->name }}</td>
-					<td>{{ $meetings->thematicarea->name}}</td>
+					<td>@if($meetings->thematicArea_id)
+						{{ $meetings->thematicarea->name}}
+					@endif</td>
 					<td>{{ $meetings->organiser->name }}</td>
 					<td>{{ date('d', strtotime($meetings->start_time)) }}-{{ date('d M Y', strtotime($meetings->end_time)) }}</td>
 					

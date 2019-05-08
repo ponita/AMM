@@ -17,6 +17,14 @@ class LetterController extends \BaseController {
 		
 		return View::make('letters.letter_index')->with('appointment', $appointment);
 	}
+
+	public function report()
+	{
+		//
+		$appointment = Letter::orderBy('ref_no','DESC')->get();		
+		
+		return View::make('letters.report')->with('appointment', $appointment);
+	}
  
 
 
@@ -59,8 +67,9 @@ class LetterController extends \BaseController {
 		$appointment->receiver = Input::get('receiver');
 		$appointment->ref = Input::get('ref');
 		$appointment->body = Input::get('body');
-		$appointment->name = Input::get('name');
-		$appointment->title = Input::get('title');
+		// $appointment->name = Input::get('name');
+		// $appointment->title = Input::get('title');
+		$appointment->approval_status_id = 0;
 		
 		//$event->objective = Input::get('objective');
 		
@@ -68,6 +77,14 @@ class LetterController extends \BaseController {
 		$appointment->save();
 
     	// }
+    	$lettercopie = Input::get('copied');
+		foreach ($lettercopie as $chal) {
+			$copied = new UNHLSLettersCopied;
+			$copied->letter_id = $appointment->id;
+			$copied->copied=$chal;
+			$copied->save();			# code...
+		}
+
 		$appointment->ref_no = $appointment->getUids();
 				$appointment->save();
 				$uuid = new UidGenerator; 
@@ -76,7 +93,8 @@ class LetterController extends \BaseController {
 
 
 
-		return Redirect::to('letters')->with('message', 'Successfully registered an activity with ID No '.$appointment->id);
+		return Redirect::to('letters')->with('message', 'Successfully registered an activity with ID No '.$appointment->id)
+								->with('message', 'Successfully registered an activity with ID No '.$copied->letter_id);
 	
 		}	//
 	
@@ -90,10 +108,9 @@ class LetterController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		Log::info(".....1....");
-		Log::info($id);
+		
 		$appointment = Letter::find($id);
-		Log::info(".....2....");
+		
 
 		$firstInsertedId = DB::table('unhls_letters')->min('id');
 		$lastInsertedId = DB::table('unhls_letters')->max('id');
@@ -178,8 +195,8 @@ class LetterController extends \BaseController {
 		$appointment->receiver = Input::get('receiver');
 		$appointment->ref = Input::get('ref');
 		$appointment->body = Input::get('body');
-		$appointment->name = Input::get('name');
-		$appointment->title = Input::get('title');
+		// $appointment->name = Input::get('name');
+		// $appointment->title = Input::get('title');
 
 		
 		//$event->objective = Input::get('objective');
@@ -221,6 +238,7 @@ class LetterController extends \BaseController {
 		$appointment->approval_status = Input::get('approvalstatus');
 		$appointment->approvedby = Input::get('approvedby');
 		$appointment->comment = Input::get('comment');
+		$appointment->approval_status_id = 1;
 		$appointment->approvedon = \Carbon\Carbon::now()->toDateTimeString();
 		
 		$appointment->save();

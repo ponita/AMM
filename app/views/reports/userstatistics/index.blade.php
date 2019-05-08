@@ -85,10 +85,10 @@
                         >
 					<td>{{ $user->id }}</td>
 					<td>{{ $user->username }}</td>
-					<td>{{ $event->user->name }}</td>
+					<!-- <td>{{ $event->user->name }}</td>
 					<td>{{ $meetings->user->name }}</td>
 					<td>{{ $event->approvedby }}</td>
-					<td>{{ $meetings->approvedby }}</td>
+					<td>{{ $meetings->approvedby }}</td> -->
 					
 					
 				</tr>

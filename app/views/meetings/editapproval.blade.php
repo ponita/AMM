@@ -27,8 +27,8 @@
       {{ Form::hidden('approvedby', Auth::user()->name) }}
       {{ Form::label('approvalstatus', 'Approval Status', array('class' => 'col-sm-2')) }}
       {{ Form::select('approvalstatus', [
-          'posponed' => 'posponed',
           'Approved' => 'Approved',
+          'postponed' => 'postponed',
           'Not Approved' => 'Not Approved'], 
           Input::old('approvalstatus'), array('id' => 'approvalstatus', 'class' => 'form-control col-sm-4')) }}
 
@@ -74,10 +74,14 @@
       
       <div class="row  view-striped">
         <div class="col-sm-2"><strong>Organiser</strong></div>
-        <div class="col-sm-4">{{ $meetings->organiser->name }}</div>
+        <div class="col-sm-4">@if($meetings->organiser_id)
+          {{ $meetings->organiser->name }}
+        @endif</div>
 
         <div class="col-sm-2"><strong>Department</strong></div>
-        <div class="col-sm-4">{{ $meetings->thematicarea->name }}</div>
+        <div class="col-sm-4">
+            {{ $meetings->department }}
+          </div>
         
       </div>
 
@@ -110,6 +114,7 @@
           @endforeach
           </ol>
         </div>
+      </div>
 
       <div class="row view-striped">
         <div class="col-sm-2"><strong>Attached Minutes</strong></div>

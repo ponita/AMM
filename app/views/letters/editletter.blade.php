@@ -71,17 +71,17 @@ else { el.hide();}
 
 		<div class="form-group">
 			{{ Form::label('body', 'Body', array('class' => 'col-sm-2')) }}
-			{{ Form::textarea('body', Input::old('body'), array('size' => '10x6','class' => 'form-control col-sm-10','placeholder' => 'Body')) }}
+			{{ Form::textarea('body', Input::old('body'), array('size' => '10x6','class' => 'htmleditor form-control col-sm-10','placeholder' => 'Body')) }}
 			
 		</div>
 
 		
 
-		<div class="form-group">
+		<!-- <div class="form-group">
 			{{ Form::label('name', 'Your name', array('class' => 'col-sm-2')) }}
 			{{ Form::text('name', Input::old('name'), array('class' => 'form-control col-sm-4','placeholder' => 'Your Name')) }}
 
-		</div>
+		</div> -->
 
 		<!-- <div class="form-group">
 			{{ Form::label('report_path', 'Upload Invitation Letter', array('class' => 'col-sm-2')) }}

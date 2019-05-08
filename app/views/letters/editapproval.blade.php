@@ -27,7 +27,6 @@
       {{ Form::hidden('approvedby', Auth::user()->name) }}
       {{ Form::label('approvalstatus', 'Approval Status', array('class' => 'col-sm-2')) }}
       {{ Form::select('approvalstatus', [
-          'Not Updated' => 'Not Updated',
           'Approved' => 'Approved',
           'Cancelled' => 'Cancelled'], 
           Input::old('approvalstatus'), array('id' => 'approvalstatus', 'class' => 'form-control col-sm-4')) }}

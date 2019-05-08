@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
-use log;
+//use log;
 
 class UNHLSEvent extends Eloquent
 {
@@ -30,6 +30,25 @@ class UNHLSEvent extends Eloquent
 	{
 		return $this->belongsTo('Country', 'country_id', 'id');
 	}
+	public function unhlsfacilities()
+	{
+		return $this->hasMany('Facility', 'facility_id', 'id');
+	}
+	public function department()
+	{
+		return $this->belongsTo('Department', 'department_id', 'id');
+	}
+	public function workplan()
+	{
+		return $this->belongsTo('DepartmentWorkplan', 'workplan_id', 'id');
+	}
+
+	public function hub()
+	{
+		return $this->hasMany('Hub','hub_id','id');
+	}
+
+	
 
 	public function objective()
     {
@@ -61,6 +80,16 @@ class UNHLSEvent extends Eloquent
         return $this->hasMany('Audience','event_id','id');
 	}
 
+	public function eventfacility()
+    {
+        return $this->hasMany('EventFacility','event_id','id');
+	}
+
+	public function eventhub()
+    {
+        return $this->hasMany('EventHub','event_id','id');
+	}
+
 	public function audiencedata()
     {
         return $this->hasMany('AudienceData','event_id','id');
@@ -68,7 +97,7 @@ class UNHLSEvent extends Eloquent
 
 	public function thematicarea()
 	{
-		return $this->belongsTo('ThematicAreas','thematicArea_id');
+		return $this->belongsTo('ThematicAreas','thematicArea_id','id');
 	}
 
 	public function funder()
@@ -101,13 +130,13 @@ class UNHLSEvent extends Eloquent
 		return $this->belongsTo('User', 'approvedby', 'id');
 	}
 
-	public function getThematicarea()
-	{
-		$query = $this->db->get('unhls_thematicareas');
-		if($query->num_rows() > 0){
-			return $query->result();
-		}
-	}
+	// public function getThematicarea()
+	// {
+	// 	$query = $this->db->get('unhls_thematicareas');
+	// 	if($query->num_rows() > 0){
+	// 		return $query->result();
+	// 	}
+	// }
 
 
 	public function getType()
@@ -122,7 +151,8 @@ class UNHLSEvent extends Eloquent
     	
     	$registrationDate = strtotime($this->created_at);
     	$year = date('Y', $registrationDate);
-    	$Month = date('M', $registrationDate);
+    	$Month = date('m', $registrationDate);
+    	$Day = date('d', $registrationDate);
     	$autoNum = DB::table('uuids')->max('id')+1;
         $name = preg_split("/\s+/", $this->thematicArea_id);
         $initials = null;
@@ -132,7 +162,7 @@ class UNHLSEvent extends Eloquent
     		$initials .= $n[0];
 
     	}
-    	return $year.'/'.$Month.'/'.$initials.'/'.$autoNum;
+    	return $year.'/'.$Month.'/'.$Day.'/'.$autoNum;
     }
 
     
@@ -160,27 +190,20 @@ class UNHLSEvent extends Eloquent
 	
 //Filters for reports
 
-	public static function reportfilter($datefrom,$dateto,$name,$type,$thematicArea)
+	public static function reportfilter($datefrom,$dateto,$thematicArea)
 	{
-		return UNHLSEvent::Where(function ($query) use ($datefrom,$dateto,$name,$type,$thematicArea){
-			$query->orWhere('name','LIKE','%$name%');
-		})
-		->orWhere(function ($query) use ($datefrom,$dateto,$name,$type,$thematicArea){
+		return UNHLSEvent::Where(function ($query) use ($datefrom,$dateto,$thematicArea){
 			$query->where('start_date','>=',$datefrom)
 					->where('start_date','<=',$dateto);
 					
 		})
-		->orWhere(function ($query) use ($datefrom,$dateto,$name,$type,$thematicArea){
+		->orWhere(function ($query) use ($datefrom,$dateto,$thematicArea){
 			$query->where('end_date','>=',$datefrom)
 					->where('end_date','<=',$dateto);
 					
 		})
-		->orWhere(function ($query) use ($datefrom,$dateto,$name,$type,$thematicArea){
-			$query->where('type','=',$type);
-					
-					
-		})
-		->orWhere(function ($query) use ($datefrom,$dateto,$name,$type,$thematicArea){
+		
+		->orWhere(function ($query) use ($datefrom,$dateto,$thematicArea){
 			$query->where('thematicArea_id','=',$thematicArea);
 					
 					
@@ -197,52 +220,7 @@ class UNHLSEvent extends Eloquent
 	}
 
 
-	// 	public function isNotReceived()
-	// {
-	// 	if($this->event_status_id == UNHLSEvent::NOT_RECEIVED)
-	// 		return true;
-	// 	else 
-	// 		return false;
-	// }
-
-	// /**
-	//  * Helper function: check if the event status is PENDING
-	//  *
-	//  * @return boolean
-	//  */
-	// public function isPending()
-	// {
-	// 	if($this->event_status_id == UNHLSEvent::PENDING)
-	// 		return true;
-	// 	else 
-	// 		return false;
-	// }
-
-	// *
-	//  * Helper function: check if the event status is STARTED
-	//  *
-	//  * @return boolean
-	 
-	// public function isStarted()
-	// {
-	// 	if($this->event_status_id == UNHLSEvent::STARTED)
-	// 		return true;
-	// 	else 
-	// 		return false;
-	// }
-
-	// /**
-	//  * Helper function: check if the event status is COMPLETED
-	//  *
-	//  * @return boolean
-	//  */
-	// public function isCompleted()
-	// {
-	// 	if($this->event_status_id == UNHLSEvent::COMPLETED || $this->event_status_id == UNHLSEvent::VERIFIED)
-	// 		return true;
-	// 	else 
-	// 		return false;
-	// }
+	
 
 	public static function completevent($datefrom,$dateto,$name)
 	{
@@ -262,5 +240,8 @@ class UNHLSEvent extends Eloquent
 
 		->get();
 	}
+
+
+
 
 }

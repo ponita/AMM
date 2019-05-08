@@ -1,5 +1,16 @@
 <!--@extends("layout")-->
 @section("content")
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-105243767-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-105243767-2');
+</script>
+
 <div>
 	<ol class="breadcrumb">
 	  <li><a href="{{{URL::route('user.home')}}}">{{trans('messages.home')}}</a></li>
@@ -10,11 +21,42 @@
 <div class='container-fluid'>
 
 </div>-->
+<div class='container-fluid'>
+	<ul class="nav navbar-nav navbar-left">
 
+    <li><a href="{{ URL::route('event.Unapproved')}}">
+      <span class="ion-planet">
+    <font size="3">  Unapproved <span class="badge badge-danger"> {{ $count = UNHLSEvent::where('approval_status_id', '=', '0')->count()}}</font></span>
+ </span>
+        </a>
+    </li>
+
+    <li><a href="#">
+      <span class="ion-chatbubbles">
+    <font size="3">  Cancelled <span class="badge badge-success"> {{ $count = UNHLSEvent::where('approval_status_id', '=', '1')->where('approval_status', '=', 'Not Approved')->count()}}</font></span>
+ </span>
+        </a>
+    </li>
+    <li><a href="{{ URL::route('event.unattached')}}">
+      <span class="ion-chatbubbles">
+    <font size="3">  Unsubmitted Reports<span class="badge badge-warning"> {{ $count = UNHLSEvent::where('status_id', '=', '0')->count()}}</font></span>
+ </span>
+        </a>
+    </li>
+    <li><a href="{{ URL::route('event.pending')}}">
+      <span class="ion-chatbubbles">
+    <font size="3">Unsubmitted Findings<span class="badge badge-info"> {{ $count = UNHLSEvent::where('action_status_id', '=', '0')->count()}}</font></span>
+ </span>
+        </a>
+    </li>
+</ul>
+
+</div>
 
 @if (Session::has('message'))
 	<div class="alert alert-info">{{ trans(Session::get('message')) }}</div>
 @endif
+
 
 <div class="panel panel-primary">
 	<div class="panel-heading ">
@@ -44,7 +86,7 @@
 		<table class="table table-striped table-hover table-condensed search-table">
 			<thead>
 				<tr>
-					<th>SN</th>
+					<!-- <th>SN</th> -->
 					<th>Date</th>
 					<th>Activity Name</th>
 					<th>Type</th>
@@ -63,7 +105,7 @@
 					@endif
 				>
 					
-					<td>{{ $event->uid }}</td>
+					<!-- <td>{{ $event->uid }}</td> -->
 					<td>{{ date('d', strtotime($event->start_date)) }}-{{ date('d M Y', strtotime($event->end_date)) }}</td>
 					<td>{{ $event->name }}</td>
 					<!-- <td>{{ $event->user->name }}</td> -->
@@ -109,9 +151,9 @@
                             href="{{ URL::to("event/" . $event->id . "/addreport") }}" >
                             <span class="glyphicon glyphicon-edit"></span>
                             Attach Report</a>
-                            @endif
+                             @endif
 
-      					@if(Auth::user()->can('update_actions') && ($event->action_status_id == 0))
+      					@if(Auth::user()->can('update_findings') && ($event->action_status_id == 0))
                          <a class="btn btn-sm btn-info" 
                             href="{{ URL::to("event/" . $event->id . "/reportings") }}" >
                             <span class="glyphicon glyphicon-edit"></span>

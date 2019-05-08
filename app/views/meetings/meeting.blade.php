@@ -1,14 +1,14 @@
 @extends("layout")
 @section("content")
-<!--<script>
+
+<!-- <script>
 $('#location').on('change', function() {
 var el = $('#field-location');
 if (this.value === 'Field Activity') { el.show();} 
 else { el.hide();}
 });
+
 </script> -->
-
-
 
 	<div>
 		<ol class="breadcrumb">
@@ -40,6 +40,11 @@ else { el.hide();}
 	<div class="panel-body">				
 		
 		<div class="form-group">
+			{{ Form::label('uid', 'Unique ID', array('class' => 'col-sm-2')) }}
+			{{ Form::text('uid', 'Auto generated upon succesfull save!',
+						array('class' => 'form-control col-sm-4', 'readonly' =>'true')) }}
+		</div>
+		<div class="form-group">
 			{{ Form::hidden('user_id', Auth::user()->id) }}
 			{{ Form::label('category', 'Meeting Type', array('class' => 'col-sm-2')) }}
 			{{ Form::select('category', [
@@ -56,10 +61,32 @@ else { el.hide();}
 		</div>
 
 		<div class="form-group">
+            {{ Form::label('department', 'Department', array('class' => 'col-sm-2')) }}
+            {{ Form::select('department', [
+                    '0' =>'---Select Section---',
+                     'Finance & Accounts' => 'Finance & Accounts', 'Data' => 'Data','Sample Reception' => 'Sample Reception', 'Logistics/Stores' => 'Logistics/Stores', 'EID Lab' => 'EID Lab', 'Viral Load' => 'Viral Load', 'SickleCell' =>'SickleCell', 'Hep B' =>'Hep B', 'Microbiology' => 'Microbiology','Executive Director' => 'Executive Director', 'ICT' =>'ICT', 'QA' =>'QA', 'Results QC' =>'Results QC', 'Records' =>'Records', 'Research' =>'Research','Engineering' =>'Engineering', 'Bio Repository' =>'Bio Repository', 'Customer Care' =>'Customer Care', 'Management' =>'Management', 'All' =>'All'], 
+                    Input::old('department'), array('class' => 'form-control col-sm-4')) }}
+            </div>
+
+		<!-- <div class="form-group">
 			{{Form::label('thematicarea', 'Thematic Area', array('class' => 'col-sm-2'))}}
 			{{ Form::select('thematicarea', $thematicAreas, Input::get('thematicarea'),
 					['class' => 'form-control col-sm-4']) }}
 		</div>
+
+		<div class="form-group">
+			{{Form::label('department', 'Strategic plan', array('class' => 'col-sm-2'))}}
+			{{ Form::select('department', $departments, Input::old('department'),
+					['class' => 'form-control department']) }}
+
+			<div id="workplan" name="workplan" class="col-md-6 workplan-list">
+										</div>
+		</div> -->
+
+		<!-- <div class="form-group">
+			{{ Form::label('workplan', 'Workplan', array('class' => 'col-sm-1')) }}
+			{{ Form::select('workplan', $departmentworkplan, Input::old('workplan'), array('class' => 'form-control col-sm-4')) }}
+		</div> -->
 
 		<div class="form-group">
 		    {{ Form::label('start_time', 'Start Time', array('class' => 'col-sm-2')) }}
@@ -85,7 +112,7 @@ else { el.hide();}
 					'NTRL' => 'NTRL',
 					'Tent' => 'Tent'], 
 					Input::old('venue'), array('id' => 'location', 'class' => 'form-control col-sm-4')) }} -->
-			<input list="venue" name="venue" class="form-control col-sm-4" placeholder="Double click for options or write">
+			<input list="venue" name="venue" class="form-control col-sm-4" placeholder="Click for options or write">
 					<datalist id="venue">
 						<option value="Upper Board room">
 						<option value="EDs Board room">
@@ -107,97 +134,30 @@ else { el.hide();}
 		
 
 		<div class="form-group">
-			
-			{{ Form::label('targetAudience', 'Target Audience (MUST)', array('class' => 'required')) }}
-			
-			<div class="form-pane panel panel-default">
+			<label>Audience</label>
+				<div class="form-pane panel panel-default">
 			<div class="container-fluid">
-			<div class="form-group" list="targetAudience">
-		
-			<label>
-			<input type="checkbox" list="" name="targetAudience[]" id="audience" value="IPs">
-			IPs
+			<?php 
+							$cnt = 0;
+							$zebra = "";
+						?>
+			@foreach($audiencedata as $key=>$value)
+			{{ ($cnt%4==0)?"<div class='row $zebra'>":"" }}
+							<?php
+								$cnt++;
+								$zebra = (((int)$cnt/4)%2==1?"row-striped":"");
+							?>
+							<div class="col-md-3">
+				<label class="checkbox-inline">
+				<input type="checkbox" name="targetAudience[]" value="{{$value->name}}">
+				{{$value->name}}
 			</label>
-			<label>
-			<input type="checkbox"  name="targetAudience[]" id="optionsRadios2" value="Dev't Partners">
-			Dev't Partners
-			</label>
-			<label>
-			<input type="checkbox"  name="targetAudience[]" id="optionsRadios3" value="DHOs">
-			DHOs
-			</label>
-			<label>
-			<input type="checkbox"  name="targetAudience[]" id="optionsRadios4" value="RRH Directors">
-			RRH Directors
-			</label>
-			<label>
-			<input type="checkbox"  name="targetAudience[]" id="optionsRadios4" value="Hospital Directors">
-			Hospital Directors
-			</label>
-			<label>
-			<input type="checkbox"  name="targetAudience[]" id="optionsRadios4" value="UNHLS facility">
-			UNHLS facility
-			</label>
-			<label>
-			<input type="checkbox" name="targetAudience[]" id="optionsRadios5" value="IP Lab Advisors">
-			IP Lab Advisors
-			</label>
-			<label>
-			<input type="checkbox" name="targetAudience[]" id="optionsRadios6" value="Lab Incharges">
-			Lab Incharges
-			</label>
-			<label>
-			<input type="checkbox" list="" name="targetAudience[]" id="audience" value="Medical Superintendents">
-			Medical Superintendents
-			</label>
-			<label>
-			<input type="checkbox"  name="targetAudience[]" id="optionsRadios2" value="DLFPs">
-			DLFPs
-			</label>
-			<label>
-			<input type="checkbox"  name="targetAudience[]" id="optionsRadios3" value="Multi sectoral">
-			Multi sectoral
-			</label>
-			<label>
-			<input type="checkbox"  name="targetAudience[]" id="optionsRadios4" value="National stakeholders">
-			National stakeholders
-			</label>
-			<label>
-			<input type="checkbox" name="targetAudience[]" id="optionsRadios5" value="Regional Coordinators">
-			Regional Coordinators
-			</label>
-			<label>
-			<input type="checkbox" name="targetAudience[]" id="optionsRadios6" value="Hub Coordinators">
-			Hub Coordinators
-			</label>
-			<label>
-			<input type="checkbox" list="" name="targetAudience[]" id="audience" value="Top Management">
-			Top Management
-			</label>
-			<label>
-			<input type="checkbox"  name="targetAudience[]" id="optionsRadios2" value="Senior Management">
-			Senior Management
-			</label>
-			<label>
-			<input type="checkbox"  name="targetAudience[]" id="optionsRadios3" value="M$E Focal Persons">
-			M$E Focal Persons
-			</label>
-			<label>
-			<input type="checkbox"  name="targetAudience[]" id="optionsRadios4" value="General Staff">
-			General Staff
-			</label>
-			<label>
-			<input type="checkbox" name="targetAudience[]" id="optionsRadios5" value="Departmental">
-			Departmental
-			</label>
-			<label>
-			<input type="checkbox" name="targetAudience[]" id="optionsRadios5" value="Others">
-			Others
-			</label>
-		</div>
-		</div>
-	</div>
-		</div>	
+			</div>	
+			{{ ($cnt%4==0)?"</div>":"" }}
+						@endforeach
+						</div>
+					</div>
+				</div>
 		
 		<div class="form-group">	
 			{{ Form::label('participants_no', 'No of Participants', array('class' => 'col-sm-2')) }}
@@ -215,8 +175,8 @@ else { el.hide();}
 			<div class="row">
 			<div class="form-group">
 
-			{{ Form::label('agenda', 'Meeting Agenda', array('class' => 'col-sm-2')) }}
-			{{ Form::textarea('agenda[]', '', array('size' => '10x1','class' => 'form-control col-sm-4')) }}
+			{{ Form::label('agenda', '&nbsp; &nbsp; Meeting Agenda', array('class' => 'col-sm-2')) }}
+			{{ Form::textarea('agenda[]', ' ', array('size' => '10x1','class' => 'form-control col-sm-4','placeholder' => 'Auto numbered on save')) }}
 			</div>
 			{{ Form::button("<span class='glyphicon glyphicon-delete'></span> Remove", ['class' => 'remove-reason btn-normal']) }}
 					

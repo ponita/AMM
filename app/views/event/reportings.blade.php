@@ -143,6 +143,11 @@
 
 			<div>
 				<a href="#" id="add-action"><i>Add More action points</i></a></div>
+			
+			<div class="form-group row">
+			{{ Form::label('report_filename', 'Submit Participant List', array('class' => 'col-sm-2')) }}
+			{{ Form::file('report_filename', '', array('size' => '10x1','class' => 'form-control col-sm-10')) }}
+			</div>
 			<div class="form-group actions-row" style="text-align:centre;">
 				{{ Form::button('<span class="glyphicon glyphicon-save"></span> '.'SAVE', 
 				['class' => 'btn btn-primary', 'onclick' => 'submit()']) }}
