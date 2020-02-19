@@ -64,7 +64,7 @@
 			</div>
 			</div>
 
-			<div class="form-group">
+		<div class="form-group">
 			{{ Form::label('chairperson', 'Meeting chaired by', array('class' => 'col-sm-2')) }}
 			{{ Form::textarea('chairperson', Input::old('chairperson'), array('size' => '10x1','class' => 'form-control col-sm-10')) }}
 		</div>
@@ -72,6 +72,20 @@
 			{{ Form::label('plist', 'Paticipant list', array('class' => 'col-sm-2')) }}
 			{{ Form::file('plist', Input::old('plist'), array('size' => '10x1','class' => 'form-control col-sm-10')) }}
 		</div>
+
+		<div id="agenda-point">
+			<div class="row">
+				<div class="form-group">
+				{{ Form::label('agenda', '&nbsp; &nbsp; Meeting Agenda', array('class' => 'col-sm-2')) }}
+				{{ Form::textarea('agenda[]', ' ', array('size' => '10x1','class' => 'form-control col-sm-4','placeholder' => 'Auto numbered on save')) }}
+				</div>
+				{{ Form::button("<span class='glyphicon glyphicon-delete'></span> Remove", ['class' => 'remove-reason btn-normal']) }}
+			</div>
+		</div>
+
+		<div>
+		<a href="#" id="add-agenda"><i>Add More lists</i></a>
+		</div>	
 
 		<div id="action-point">
 			<div class="row">
@@ -92,10 +106,10 @@
 			{{ Form::text('date[]', Input::old('date'), array('class' => 'form-control standard-datepicker col-sm-4')) }}
 			</div>
 
-			<div class="form-group row">
+			<!-- <div class="form-group row">
 			{{ Form::label('location', 'Location', array('class' => 'col-sm-2')) }}
 			{{ Form::text('location[]', '', array('size' => '10x1','class' => 'form-control col-sm-10')) }}
-			</div>
+			</div> -->
 			{{ Form::button("<span class='glyphicon glyphicon-delete'></span> ".'Remove', ['class' => 'remove-reason btn-normal']) }}
 					
 			</div>

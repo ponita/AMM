@@ -38,7 +38,7 @@
           for ($i=0; $i < count($actualdata); $i++) { 
 		 	$user = (array)$actualdata[$i];
 
-		 	// echo "$i. ".$user['name']."<br>";
+		 	echo "$i. ".$user['STAFFNAME']."<br>";
 		 }
 		 ?>
 

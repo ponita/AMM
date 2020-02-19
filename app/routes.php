@@ -817,6 +817,16 @@ Route::group(array("before" => "auth"), function()
         "uses" => "EventController@updateapproval"
     ));
 
+    Route::any("/event/{id}/editPosponedApproval", array(
+        "as"   => "event.editPosponedApproval",
+        "uses" => "EventController@editPosponedApproval"
+    ));
+
+    Route::any("/event/{id}/UpdatePosponedApproval", array(
+        "as"   => "event.UpdatePosponedApproval",
+        "uses" => "EventController@UpdatePosponedApproval"
+    ));
+
     Route::any("/event/{id}/editobjectives", array(
         "as"   => "event.editobjectives",
         "uses" => "EventController@editobjectives"
@@ -931,6 +941,16 @@ Route::any("/event.store", array(
      Route::any("/event/Unapproved/{approval_status_id}", array(
         "as"   => "event.Unapproved",
         "uses" => "EventController@statusapproval"
+    ));
+
+    Route::any("/event/cancelled/{approval_status_id}", array(
+        "as"   => "event.cancelled",
+        "uses" => "EventController@cancelled"
+    ));
+
+    Route::any("/event/posponed/{approval_status_id}", array(
+        "as"   => "event.posponed",
+        "uses" => "EventController@posponed"
     ));
 
       Route::get("/event/pending/{approval_status_id}/{action_status_id}", array(
@@ -1060,20 +1080,38 @@ Route::any("/event.store", array(
         "as"   => "meeting.external",
         "uses" => "MeetingController@meetingtypes"
     ));
+      Route::any("/meeting/cancelled/{approval_status_id}", array(
+        "as"   => "meeting.cancelled",
+        "uses" => "MeetingController@cancelled"
+    ));
+      Route::any("/meeting/posponed/{approval_status_id}", array(
+        "as"   => "meeting.posponed",
+        "uses" => "MeetingController@posponed"
+    ));
 
     Route::any("/event/print/{print}", array(
         "as"   => "event.print",
         "uses" => "EventController@print"
     ));
 
-Route::any("/meetings/{id}/editapproval", array(
+    Route::any("/meetings/{id}/editposponed", array(
+        "as"   => "meetings.editposponed",
+        "uses" => "MeetingController@editposponed"
+    ));
+
+    Route::any("/meetings/{id}/editapproval", array(
         "as"   => "meetings.editapproval",
         "uses" => "MeetingController@editapproval"
     ));
 
-    Route::any("/meetings/{id}/updateapproval", array(
-        "as"   => "meetings.updateapproval",
-        "uses" => "MeetingController@updateapproval"
+    Route::any("/meetings/{id}/updateposponedmeeting", array(
+        "as"   => "meetings.updateposponedmeeting",
+        "uses" => "MeetingController@updateposponedmeeting"
+    ));
+
+    Route::any("/meetings/{id}/updateEditedApproval", array(
+        "as"   => "meetings.updateEditedApproval",
+        "uses" => "MeetingController@updateEditedApproval"
     ));
        Route::any("/letters.letter_index", array(
         "as"   => "letters.letter_index",
@@ -1216,6 +1254,15 @@ Route::any("/meetings/{id}/editapproval", array(
         // "uses" => "LeaveController@show"
         // ));
 
+        Route::any("/leave/{id}/clearance", array(
+        "as"   => "leave.clearance",
+        "uses" => "LeaveController@clearance"
+        )); 
+
+         Route::any("/leave/{id}/updateclearance", array(
+        "as"   => "leave.updateclearance",
+        "uses" => "LeaveController@updateclearance"
+        ));
         Route::any("/leave/{id}/supervisor", array(
         "as"   => "leave.supervisor",
         "uses" => "LeaveController@supervisor"
@@ -1243,6 +1290,14 @@ Route::any("/meetings/{id}/editapproval", array(
           Route::any("/leave/{id}/updatehead", array(
         "as"   => "leave.updatehead",
         "uses" => "LeaveController@updatehead"
+        ));
+        Route::any("/leave/{id}/confirmation", array(
+        "as"   => "leave.confirmation",
+        "uses" => "LeaveController@confirmation"
+        )); 
+          Route::any("/leave/{id}/delete", array(
+        "as"   => "leave.delete",
+        "uses" => "LeaveController@delete"
         ));   
            Route::any("/leave.create", array(
         "as"   => "leave.create",
@@ -1252,6 +1307,10 @@ Route::any("/meetings/{id}/editapproval", array(
         Route::any("/leave.report", array(
         "as"   => "leave.report",
         "uses" => "LeaveController@report"
+         ));
+         Route::any("/leave/{id}/staff_detail", array(
+        "as"   => "leave.detail",
+        "uses" => "LeaveController@viewStaffLeaveDetails"
          ));
         Route::any("/leave.transfer", array(
         "as"   => "leave.transfer",
@@ -1268,6 +1327,182 @@ Route::any("/meetings/{id}/editapproval", array(
             "as"   => "template.delete",
             "uses" => "TemplateController@delete"
         ));
+
+Route::resource('strategicplans', 'YearStrategicplanController');
+     
+     Route::any("/yearActivities.index", array(
+        "as"   => "yearActivities.index",
+        "uses" => "YearStrategicplanController@yearActivitiesIndex"
+        ));
+     Route::any("/yearActivitylocation.index", array(
+        "as"   => "yearActivitylocation.index",
+        "uses" => "YearStrategicplanController@yearActivitylocationIndex"
+        ));
+     Route::any("/yearObjectives.index", array(
+        "as"   => "yearObjectives.index",
+        "uses" => "YearStrategicplanController@yearObjectivesIndex"
+        ));
+     Route::any("/yearplan.index", array(
+        "as"   => "yearplan.index",
+        "uses" => "YearStrategicplanController@yearplanIndex"
+        ));
+     Route::any("/yearplan.filtered", array(
+        "as"   => "yearplan.filtered",
+        "uses" => "YearStrategicplanController@filteredyearplanIndex"
+        ));
+     Route::any("/yearstrategies.index", array(
+        "as"   => "yearstrategies.index",
+        "uses" => "YearStrategicplanController@yearstrategiesIndex"
+        ));
+     Route::any("/yearSubactivities.index", array(
+        "as"   => "yearSubactivities.index",
+        "uses" => "YearStrategicplanController@yearSubactivitiesIndex"
+        ));
+     Route::any("/yearSubobjectives.index", array(
+        "as"   => "yearSubobjectives.index",
+        "uses" => "YearStrategicplanController@yearSubobjectivesIndex"
+        ));
+     Route::any("/yearActivities.create", array(
+        "as"   => "yearActivities.create",
+        "uses" => "YearStrategicplanController@yearActivitiesCreate"
+        ));
+     Route::any("/yearActivitylocation.create", array(
+        "as"   => "yearActivitylocation.create",
+        "uses" => "YearStrategicplanController@yearActivitylocationCreate"
+        ));
+     Route::any("/yearObjectives.create", array(
+        "as"   => "yearObjectives.create",
+        "uses" => "YearStrategicplanController@yearObjectivesCreate"
+        ));
+     Route::any("/yearplan.create", array(
+        "as"   => "yearplan.create",
+        "uses" => "YearStrategicplanController@yearplanCreate"
+        ));
+     Route::any("/yearstrategies.create", array(
+        "as"   => "yearstrategies.create",
+        "uses" => "YearStrategicplanController@yearstrategiesCreate"
+        ));
+     Route::any("/yearSubactivities.create", array(
+        "as"   => "yearSubactivities.create",
+        "uses" => "YearStrategicplanController@yearSubactivitiesCreate"
+        ));
+     Route::any("/yearSubobjectives.create", array(
+        "as"   => "yearSubobjectives.create",
+        "uses" => "YearStrategicplanController@yearSubobjectivesCreate"
+        ));
+     Route::any("/yearActivities.store", array(
+        "as"   => "yearActivities.store",
+        "uses" => "YearStrategicplanController@yearActivitiesStore"
+        ));
+     Route::any("/yearActivitylocation.store", array(
+        "as"   => "yearActivitylocation.store",
+        "uses" => "YearStrategicplanController@yearActivitylocationStore"
+        ));
+     Route::any("/yearObjectives.store", array(
+        "as"   => "yearObjectives.store",
+        "uses" => "YearStrategicplanController@yearObjectivesStore"
+        ));
+     Route::any("/yearplan.store", array(
+        "as"   => "yearplan.store",
+        "uses" => "YearStrategicplanController@yearplanStore"
+        ));
+     Route::any("/yearstrategies.store", array(
+        "as"   => "yearstrategies.store",
+        "uses" => "YearStrategicplanController@yearstrategiesStore"
+        ));
+     Route::any("/yearSubactivities.store", array(
+        "as"   => "yearSubactivities.store",
+        "uses" => "YearStrategicplanController@yearSubactivitiesStore"
+        ));
+     Route::any("/yearSubobjectives.store", array(
+        "as"   => "yearSubobjectives.store",
+        "uses" => "YearStrategicplanController@yearSubobjectivesStore"
+        ));
+     Route::any("/yearActivities/{id}/show", array(
+        "as"   => "yearActivities.show",
+        "uses" => "YearStrategicplanController@yearActivitiesShow"
+        ));
+     Route::any("/yearActivitylocation/{id}/show", array(
+        "as"   => "yearActivitylocation.show",
+        "uses" => "YearStrategicplanController@yearActivitylocationShow"
+        ));
+     Route::any("/yearObjectives/{id}/show", array(
+        "as"   => "yearObjectives.show",
+        "uses" => "YearStrategicplanController@yearObjectivesShow"
+        ));
+     Route::any("/yearplan/{id}/show", array(
+        "as"   => "yearplan.show",
+        "uses" => "YearStrategicplanController@yearplanShow"
+        ));
+     Route::any("/yearstrategies/{id}/show", array(
+        "as"   => "yearstrategies.show",
+        "uses" => "YearStrategicplanController@yearstrategiesShow"
+        ));
+     Route::any("/yearSubactivities/{id}/show", array(
+        "as"   => "yearSubactivities.show",
+        "uses" => "YearStrategicplanController@yearSubactivitiesShow"
+        ));
+     Route::any("/yearSubobjectives/{id}/show", array(
+        "as"   => "yearSubobjectives.show",
+        "uses" => "YearStrategicplanController@yearSubobjectivesShow"
+        ));
+     Route::any("/yearActivities/{id}/edit", array(
+        "as"   => "yearActivities.edit",
+        "uses" => "YearStrategicplanController@yearActivitiesEdit"
+        ));
+     Route::any("/yearActivitylocation/{id}/edit", array(
+        "as"   => "yearActivitylocation.edit",
+        "uses" => "YearStrategicplanController@yearActivitylocationEdit"
+        ));
+     Route::any("/yearObjectives/{id}/edit", array(
+        "as"   => "yearObjectives.edit",
+        "uses" => "YearStrategicplanController@yearObjectivesEdit"
+        ));
+     Route::any("/yearplan/{id}/edit", array(
+        "as"   => "yearplan.edit",
+        "uses" => "YearStrategicplanController@yearplanEdit"
+        ));
+     Route::any("/yearstrategies/{id}/edit", array(
+        "as"   => "yearstrategies.edit",
+        "uses" => "YearStrategicplanController@yearstrategiesEdit"
+        ));
+     Route::any("/yearSubactivities/{id}/edit", array(
+        "as"   => "yearSubactivities.edit",
+        "uses" => "YearStrategicplanController@yearSubactivitiesEdit"
+        ));
+     Route::any("/yearSubobjectives/{id}/edit", array(
+        "as"   => "yearSubobjectives.edit",
+        "uses" => "YearStrategicplanController@yearSubobjectivesEdit"
+        ));
+     Route::any("/yearActivities/{id}/update", array(
+        "as"   => "yearActivities.update",
+        "uses" => "YearStrategicplanController@yearActivitiesUpdate"
+        ));
+     Route::any("/yearActivitylocation/{id}/update", array(
+        "as"   => "yearActivitylocation.update",
+        "uses" => "YearStrategicplanController@yearActivitylocationUpdate"
+        ));
+     Route::any("/yearObjectives/{id}/update", array(
+        "as"   => "yearObjectives.update",
+        "uses" => "YearStrategicplanController@yearObjectivesUpdate"
+        ));
+     Route::any("/yearplan/{id}/update", array(
+        "as"   => "yearplan.update",
+        "uses" => "YearStrategicplanController@yearplanUpdate"
+        ));
+     Route::any("/yearstrategies/{id}/update", array(
+        "as"   => "yearstrategies.update",
+        "uses" => "YearStrategicplanController@yearstrategiesUpdate"
+        ));
+     Route::any("/yearSubactivities/{id}/update", array(
+        "as"   => "yearSubactivities.update",
+        "uses" => "YearStrategicplanController@yearSubactivitiesUpdate"
+        ));
+     Route::any("/yearSubobjectives/{id}/update", array(
+        "as"   => "yearSubobjectives.update",
+        "uses" => "YearStrategicplanController@yearSubobjectivesUpdate"
+        ));
+
 // Route::get('test/', function(){
 //            $thematicareaId = 2;
 //            echo 'pic data';

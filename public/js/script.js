@@ -628,8 +628,11 @@ $(function(){
         }
     });
 
+$(".select2").select2({
+                multiple:true
+            });
 
-
+ 
 
 
 
@@ -649,8 +652,40 @@ $(function(){
     //     });
 
    
-       
 
+
+$(function() {  
+//Created By: Brij Mohan
+//Website: https://techbrij.com
+function groupTable($rows, startIndex, total){
+if (total === 0){
+return;
+}
+var i , currentIndex = startIndex, count=1, lst=[];
+var tds = $rows.find('td:eq('+ currentIndex +')');
+var ctrl = $(tds[0]);
+lst.push($rows[0]);
+for (i=1;i<=tds.length;i++){
+if (ctrl.text() ==  $(tds[i]).text()){
+count++;
+$(tds[i]).addClass('deleted');
+lst.push($rows[i]);
+}
+else{
+if (count>1){
+ctrl.attr('rowspan',count);
+groupTable($(lst),startIndex+1,total-1)
+}
+count=1;
+lst = [];
+ctrl=$(tds[i]);
+lst.push($rows[i]);
+}
+}
+}
+groupTable($('#myTable tr:has(td)'),0,3);
+$('#myTable .deleted').remove();
+});
     /**
      *Create List of workplans in the create page
      */
@@ -1087,6 +1122,199 @@ $(function(){
         $(this).parent().remove();
       }); 
     });
+
+    $(document).ready(function () {
+      var rejectReason = $('#agenda-point');
+      var reasonRow = rejectReason.children(":first");
+      var reasonRowTemp = reasonRow.clone();
+      reasonRow.find('button.remove-reason').remove();
+      
+      // nb can't use .length for inputCount as we are dynamically removing from middle of collection
+      var inputCount = 1; 
+
+      $('#add-agenda').click(function () {
+        var newRow = reasonRowTemp.clone();
+        inputCount++;
+        newRow.find('select.rejectionReason').attr('placeholder', 'Select '+inputCount);
+        rejectReason.append(newRow);
+
+        //make a call for calender
+        $( '.standard-datepicker').datetimepicker({ dateFormat: "yy-mm-dd hh:ii" });
+        
+      });  
+      
+      $('#agenda-point').on('click', 'button.remove-reason', function () {
+        $(this).parent().remove();
+      }); 
+    });
+
+    /**Addition of YEAR SUB ACTIVITIES
+     * - Allow for selection of multiple copies
+     */
+    $(document).ready(function () {
+      var rejectReason = $('#YSO-point');
+      var reasonRow = rejectReason.children(":first");
+      var reasonRowTemp = reasonRow.clone();
+      reasonRow.find('button.remove-reason').remove();
+      
+      // nb can't use .length for inputCount as we are dynamically removing from middle of collection
+      var inputCount = 1; 
+
+      $('#add-YSO').click(function () {
+        var newRow = reasonRowTemp.clone();
+        inputCount++;
+        newRow.find('select.rejectionReason').attr('placeholder', 'Select '+inputCount);
+        rejectReason.append(newRow);
+
+        //make a call for calender
+        $( '.standard-datepicker').datetimepicker({ dateFormat: "yy-mm-dd hh:ii" });
+        
+      });  
+      
+      $('#YSO-point').on('click', 'button.remove-reason', function () {
+        $(this).parent().remove();
+      }); 
+    });
+
+    /**Addition of copies
+     * - Allow for selection of multiple copies
+     */
+    $(document).ready(function () {
+      var rejectReason = $('#YS-point');
+      var reasonRow = rejectReason.children(":first");
+      var reasonRowTemp = reasonRow.clone();
+      reasonRow.find('button.remove-reason').remove();
+      
+      // nb can't use .length for inputCount as we are dynamically removing from middle of collection
+      var inputCount = 1; 
+
+      $('#add-YS').click(function () {
+        var newRow = reasonRowTemp.clone();
+        inputCount++;
+        newRow.find('select.rejectionReason').attr('placeholder', 'Select '+inputCount);
+        rejectReason.append(newRow);
+
+        //make a call for calender
+        $( '.standard-datepicker').datetimepicker({ dateFormat: "yy-mm-dd hh:ii" });
+        
+      });  
+      
+      $('#YS-point').on('click', 'button.remove-reason', function () {
+        $(this).parent().remove();
+      }); 
+    });
+
+    /**Addition of Year plan
+     * - Allow for selection of multiple year plans
+     */
+    $(document).ready(function () {
+      var rejectReason = $('#YP-point');
+      var reasonRow = rejectReason.children(":first");
+      var reasonRowTemp = reasonRow.clone();
+      reasonRow.find('button.remove-reason').remove();
+      
+      // nb can't use .length for inputCount as we are dynamically removing from middle of collection
+      var inputCount = 1; 
+
+      $('#add-YP').click(function () {
+        var newRow = reasonRowTemp.clone();
+        inputCount++;
+        newRow.find('select.rejectionReason').attr('placeholder', 'Select '+inputCount);
+        rejectReason.append(newRow);
+
+        //make a call for calender
+        $( '.standard-datepicker').datetimepicker({ dateFormat: "yy-mm-dd hh:ii" });
+        
+      });  
+      
+      $('#YP-point').on('click', 'button.remove-reason', function () {
+        $(this).parent().remove();
+      }); 
+    });
+
+    /**Addition of year objectives
+     * - Allow for selection of multiple copies
+     */
+    $(document).ready(function () {
+      var rejectReason = $('#YO-point');
+      var reasonRow = rejectReason.children(":first");
+      var reasonRowTemp = reasonRow.clone();
+      reasonRow.find('button.remove-reason').remove();
+      
+      // nb can't use .length for inputCount as we are dynamically removing from middle of collection
+      var inputCount = 1; 
+
+      $('#add-YO').click(function () {
+        var newRow = reasonRowTemp.clone();
+        inputCount++;
+        newRow.find('select.rejectionReason').attr('placeholder', 'Select '+inputCount);
+        rejectReason.append(newRow);
+
+        //make a call for calender
+        $( '.standard-datepicker').datetimepicker({ dateFormat: "yy-mm-dd hh:ii" });
+        
+      });  
+      
+      $('#YO-point').on('click', 'button.remove-reason', function () {
+        $(this).parent().remove();
+      }); 
+    });
+
+    /**Addition of year activity location
+     * - Allow for selection of multiple copies
+     */
+    $(document).ready(function () {
+      var rejectReason = $('#YAL-point');
+      var reasonRow = rejectReason.children(":first");
+      var reasonRowTemp = reasonRow.clone();
+      reasonRow.find('button.remove-reason').remove();
+      
+      // nb can't use .length for inputCount as we are dynamically removing from middle of collection
+      var inputCount = 1; 
+
+      $('#add-YAL').click(function () {
+        var newRow = reasonRowTemp.clone();
+        inputCount++;
+        newRow.find('select.rejectionReason').attr('placeholder', 'Select '+inputCount);
+        rejectReason.append(newRow);
+
+        //make a call for calender
+        $( '.standard-datepicker').datetimepicker({ dateFormat: "yy-mm-dd hh:ii" });
+        
+      });  
+      
+      $('#YAL-point').on('click', 'button.remove-reason', function () {
+        $(this).parent().remove();
+      }); 
+    });
+
+    /**Addition of year activities
+     * - Allow for selection of multiple activities
+     */
+    $(document).ready(function () {
+      var rejectReason = $('#YA-point');
+      var reasonRow = rejectReason.children(":first");
+      var reasonRowTemp = reasonRow.clone();
+      reasonRow.find('button.remove-reason').remove();
+      
+      // nb can't use .length for inputCount as we are dynamically removing from middle of collection
+      var inputCount = 1; 
+
+      $('#add-YA').click(function () {
+        var newRow = reasonRowTemp.clone();
+        inputCount++;
+        newRow.find('select.rejectionReason').attr('placeholder', 'Select '+inputCount);
+        rejectReason.append(newRow);
+
+        //make a call for calender
+        $( '.standard-datepicker').datetimepicker({ dateFormat: "yy-mm-dd hh:ii" });
+        
+      });  
+      
+      $('#YA-point').on('click', 'button.remove-reason', function () {
+        $(this).parent().remove();
+      }); 
+    });
 	/**
 	 * Automatic Results Interpretation
 	 * Updates the test  result via ajax call
@@ -1362,11 +1590,15 @@ $(function(){
 
 	function UIComponents(){
 		/* Datepicker */
-        $( '.standard-datepicker').datetimepicker({ dateFormat: "Y/m/d H:i:s" });
-        $( '.datepicker').datetimepicker({ dateFormat: "yy-mm-dd" });
+        $( '.standard-datepicker').datetimepicker({ dateFormat: "Y/m/d H:i:s", inline:true,
+        lang:'ru' });
+        $( '.datepicker').datepicker({ dateFormat: "yy-mm-dd" });
+        $( '.timepicker').datetimepicker({ datepicker:false,
+        format:'H:i' });
         
 	}
 
+        
 	function editUserProfile()
 	{
 		/*If Password-Change Validation*/

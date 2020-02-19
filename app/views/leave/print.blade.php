@@ -20,15 +20,8 @@
     </style>
     
     <body class="small">
-
+      <h3><strong>INFORMATION TO BE FILLED IN BY APPLICANT:</strong></h3>
       <table style="border-bottom: 0.5px solid #cecfd5;">
-        <tr>
-          <td></td>
-          <td></td>
-
-          <td></td>
-          <td></td>
-        </tr>
         <tr>
           <td>
             <div><b>Name</b></div>
@@ -46,184 +39,243 @@
           </td>
         </tr>
         <tr>
-          <td>
-            <div><b>From/To (Duration)</b></div>
-          </td>
-          <td colspan="3">
-            <div style="border:0.5px solid #000;" align="center">{{ date('d', strtotime($leave->date_from)) }}-{{ date('d M Y', strtotime($leave->date_to)) }}</div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <p><b>Number of days requested</b></p>
-          </td>
-          <td colspan="3">
-            <p style="border:0.5px solid #000;" align="center">{{$leave->days}}</p>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <div><b>Destination & Contact No</b></div>
-          </td>
-          <td colspan="3">
-            <div style="border:0.5px solid #000;" align="center">{{ $leave->destination }}/{{ $leave->nok_contact }}</div>
-          </td>
-        </tr>
-        <tr>
           <td><div><b>Date of request</b></div></td>
-          <td><div>{{$leave->approvedon}}</div></td>
+          <td><div>{{$leave->created_at}}</div></td>
 
           <td><div><b>Signature</b></div></td>
-          <td><div>{{$leave->approvedon}}</div></td>
+          <td><div>{{$leave->created_at}}</div></td>
         </tr>
       </table>
         
       
 
         <h3><strong>TYPE OF LEAVE REQUESTED</strong></h3>
-      <table  style="border-bottom: 0.5px solid #cecfd5;" >
+      <table  class="table table-condensed table-bordered" BORDER="0.5px" CELLPADDING="2" CELLSPACING="0" width="100%" >
         <tr>
-          <td>
+          <th><b>Type of leave</b></th>
+          <th><b>Leave balance</b></th>
+          <th><b>Dates requested</b></th>
+          <th><b>Total # of days requested</b></th>
+        </tr>
+        <tr>
+            <td>
             <div>Annual Leave</div>
             </td>
-          <td>
-          <div style="width:30%;height:30px;border:0.5px solid #000;"><b>{{$leave->start_date}}</b></div>
-          </td>
-        
-          <td>
-            <div>Bereavement Leave</div>
+            <td>
+            {{$leave->start_date}}
             </td>
-          <td>
-          <div style="width:0.50px;height:30px;border:0.5px solid #000;">{{$leave->start_date}}</div>
-          </td>
-        
-          <td>
-            <div>Study Leave</div>
-            </td>
-          <td>
-          <div style="width:30px;height:30px;border:0.5px solid #000;">{{$leave->start_date}}</div>
-        </td>
-        </tr>
-        <tr>
-          <td>
-            <div>Maternity Leave</div></td>
-          <td><div style="width:30px;height:30px;border:0.5px solid #000;">{{$leave->start_date}}</div></td>
-        
-          <td>
-            <div>Paternity leave</div></td>
-          <td><div style="width:30px;height:30px;border:0.5px solid #000;">{{$leave->start_date}}</div></td>
-        
-          <td>
-            <div>Domestic problems</div></td>
-          <td><div style="width:30px;height:30px;border:0.5px solid #000;">{{$leave->start_date}}</div></td>
-          </tr>
-          <tr>
-          <td>
-            <div>Balance C/F</div></td>
-          <td><div style="width:30px;height:30px;border:0.5px solid #000;">{{$leave->start_date}}</div></td>
-        </tr>  
-      </table>
-      
-
-        <h3><strong>IMMEDIATE SUPERVISOR APPROVAL</strong></h3>
-      <table  style="border-bottom: 0.5px solid #cecfd5;" >
-        <tr>
-          <td>
-            <b>Name:</b></td>
-          <td><div>{{$leave->approvedbys}}</div></td>
-        
-          <td><div><b>Approved</b></div></td>
-          <td>YES</td>
-          <td><div style="border:0.5px solid #000;">@if($leave->s_approval_status == 'Approved')
-           <span>Approved</span>
-           @else 
-            @endif</div></td>
-          <td>NO</td>
-          <td><div style="width:30px;height:30px;border:0.5px solid #000;">@if($leave->s_approval_status == 'Rejected')
-           <span>Rejected</span>
-           @else - 
-            @endif</div></td>
-        </tr>
-        <tr>
-          <td><div><b>Comments:</b></div></td>
-          <td colspan="5"><div>{{$leave->s_comment}}</div></td>
-        </tr>
-        
-        <tr>
-          <td><div><b>Date</b></div></td>
-          <td colspan="2"><div>{{$leave->approvedon}}</div></td>
-
-          <td><div><b>Signature</b></div></td>
-          <td colspan="3"><div>{{$leave->approvedon}}</div></td>
-        </tr>
-      </table>
-      
-      <h3><strong>SENIOR MANAGER APPROVAL</strong></h3>
-      <table  style="border-bottom: 0.5px solid #cecfd5;" >
-        <tr>
-          <td>
-            <b>Name:</b></td>
-          <td><div>{{$leave->approvedbym}}</div></td>
-        
-          <td><div><b>Approved</b></div></td>
-          <td>YES</td>
-          <td><div style="border:0.5px solid #000;">
-            @if($leave->m_approval_status == 'Approved')
-           <span>Approved</span>
-           @else 
+            <td>
+            @if($leave->leave_type == 'Annual')
+            {{ date('d', strtotime($leave->date_from)) }}-{{ date('d M Y', strtotime($leave->date_to)) }}
+            @else -
             @endif
-          </div></td>
-          <td>NO</td>
-          <td><div style="width:50%;height:50px;border:0.5px solid #000;">@if($leave->m_approval_status == 'Rejected')
-           <span>Rejected</span>
-           @else - 
-            @endif</div></td>
+            </td>
+            <td>
+            @if($leave->leave_type == 'Annual')
+            {{getActualNumberofDays($leave->date_from, $leave->date_to)}}
+            @else -
+            @endif
+            </td>
         </tr>
         <tr>
-          <td><div><b>Comments:</b></div></td>
-          <td colspan="5"><div>{{$leave->m_comment}}</div></td>
+            <td>
+            <div>Sick Leave</div>
+            </td>
+            <td>
+            {{$leave->start_date}}
+            </td>
+            <td>
+            @if($leave->leave_type == 'Sick')
+            {{ date('d', strtotime($leave->date_from)) }}-{{ date('d M Y', strtotime($leave->date_to)) }}
+            @else -
+            @endif
+            </td>
+            <td>
+            @if($leave->leave_type == 'Sick')
+            {{getActualNumberofDays($leave->date_from, $leave->date_to)}}
+            @else -
+            @endif
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <div>Administrative Leave (5)</div>
+            </td>
+            <td>
+            {{$leave->start_date}}
+            </td>
+            <td>
+            @if($leave->leave_type == 'Administrative')
+            {{ date('d', strtotime($leave->date_from)) }}-{{ date('d M Y', strtotime($leave->date_to)) }}
+            @else -
+            @endif
+            </td>
+            <td>
+            @if($leave->leave_type == 'Administrative')
+            {{getActualNumberofDays($leave->date_from, $leave->date_to)}}
+            @else -
+            @endif
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <div>Martenity Leave</div>
+            </td>
+            <td>
+            {{$leave->start_date}}
+            </td>
+            <td>
+            @if($leave->leave_type == 'Maternity')
+            {{ date('d', strtotime($leave->date_from)) }}-{{ date('d M Y', strtotime($leave->date_to)) }}
+            @else -
+            @endif
+            </td>
+            <td>
+            @if($leave->leave_type == 'Maternity')
+            {{getActualNumberofDays($leave->date_from, $leave->date_to)}}
+            @else -
+            @endif
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <div>Paternity Leave</div>
+            </td>
+            <td>
+            {{$leave->start_date}}
+            </td>
+            <td>
+            @if($leave->leave_type == 'Paternity')
+            {{ date('d', strtotime($leave->date_from)) }}-{{ date('d M Y', strtotime($leave->date_to)) }}
+            @else -
+            @endif
+            </td>
+            <td>
+            @if($leave->leave_type == 'Paternity')
+            {{getActualNumberofDays($leave->date_from, $leave->date_to)}}
+            @else -
+            @endif
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <div>Leave without pay</div>
+            </td>
+            <td>
+            {{$leave->start_date}}
+            </td>
+            <td>
+            @if($leave->leave_type == 'Leave without pay')
+            {{ date('d', strtotime($leave->date_from)) }}-{{ date('d M Y', strtotime($leave->date_to)) }}
+            @else -
+            @endif
+            </td>
+            <td>
+            @if($leave->leave_type == 'Leave without pay')
+            {{getActualNumberofDays($leave->date_from, $leave->date_to)}}
+            @else -
+            @endif
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <div>Makeup Holiday</div>
+            </td>
+            <td>
+            {{$leave->start_date}}
+            </td>
+            <td>
+            @if($leave->leave_type == 'Makeup Holiday')
+            {{ date('d', strtotime($leave->date_from)) }}-{{ date('d M Y', strtotime($leave->date_to)) }}
+            @else -
+            @endif
+            </td>
+            <td>
+            @if($leave->leave_type == 'Makeup Holiday')
+            {{getActualNumberofDays($leave->date_from, $leave->date_to)}}
+            @else -
+            @endif
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <div>Bereavement Leave (5)</div>
+            </td>
+            <td>
+            {{$leave->start_date}}
+            </td>
+            <td>
+            @if($leave->leave_type == 'Bereavement')
+            {{ date('d', strtotime($leave->date_from)) }}-{{ date('d M Y', strtotime($leave->date_to)) }}
+            @else -
+            @endif
+            </td>
+            <td>
+            @if($leave->leave_type == 'Bereavement')
+            {{getActualNumberofDays($leave->date_from, $leave->date_to)}}
+            @else -
+            @endif
+            </td>
+        </tr>
+      </table>
+     
+      
+
+        <h3><strong>IMMEDIATE SUPERVISOR APPROVAL:</strong></h3>
+      <table  style="border-bottom: 0.5px solid #cecfd5;" >
+        <tr>
+          <td colspan="4">Name:<span>&nbsp;&nbsp;{{$leave->approvedbys}}</span></td>
+        </tr>
+        <tr>
+          <td colspan="4"><div>Comments:<span>&nbsp;&nbsp;{{$leave->s_comment}}</span></div></td>
         </tr>
         
         <tr>
-          <td><div><b>Date</b></div></td>
-          <td colspan="2"><div>{{$leave->m_approvedon}}</div></td>
+          <td colspan="2"><div>Date:<span>&nbsp;&nbsp;{{$leave->s_approvedon}}</span></div></td>
+          <td colspan="2"><div>Signature:<span>&nbsp;&nbsp;{{$leave->s_approvedon}}</span></div></td>
+        </tr>
+      </table>
 
-          <td><div><b>Signature</b></div></td>
-          <td colspan="3"><div>{{$leave->m_approvedon}}</div></td>
+         <h3><strong>SENIOR MANAGER APPROVAL:</strong></h3>
+      <table  style="border-bottom: 0.5px solid #cecfd5;" >
+        <tr>
+          <td colspan="4">Name:<span>&nbsp;&nbsp;{{$leave->approvedbym}}</span></td>
+        </tr>
+        <tr>
+          <td colspan="4"><div>Comments:<span>&nbsp;&nbsp;{{$leave->m_comment}}</span></div></td>
+        
+        </tr>
+        
+        <tr>
+          <td colspan="2"><div>Date<span>&nbsp;&nbsp;{{$leave->m_approvedon}}</span></div></td>
+          <td colspan="2"><div>Signature<span>&nbsp;&nbsp;{{$leave->m_approvedon}}</span></div></td>
         </tr>
       </table>
       
-     <h3><strong>HEAD CPHL APPROVAL</strong></h3>
+      
       <table  style="border-bottom: 0.5px solid #cecfd5;" >
         <tr>
           <td colspan="2">
-            
+            <strong style="font-size: 12">DIRECTOR CPHL/UNHLS APPROVAL:</strong>
             </td>
           
         
-          <td><div><b>Approved</b></div></td>
-          <td>YES</td>
-          <td><div style="border:0.5px solid #000;">@if($leave->h_approval_status == 'Approved')
-           <span>Approved</span>
-           @else -
-            @endif</div></td>
-          <td>NO</td>
-          <td><div style="width:30px;height:30px;border:0.5px solid #000;">@if($leave->h_approval_status == 'Rejected')
-           <span>Rejected</span>
-           @else -
+          <td colspan="1"><div><b>Approved:</b></div></td>
+          <td colspan="1"><div style="border:0.5px solid #000;">@if($leave->h_approval_status == 'Approved')
+           <span>YES</span>
+           @else NO
             @endif</div></td>
         </tr>
         <tr>
-          <td><div><b>Comments:</b></div></td>
-          <td colspan="5"><div>{{$leave->h_comment}}</div></td>
+          <td colspan="4">Name:<span>&nbsp;&nbsp;{{$leave->approvedbyh}}</span></td>
+        </tr>
+        <tr>
+          <td><div>Comments:<span>&nbsp;&nbsp;{{$leave->h_comment}}</span></div></td>
         </tr>
         
         <tr>
-          <td><div><b>Date</b></div></td>
-          <td colspan="2"><div>{{$leave->h_approvedon}}</div></td>
-
-          <td><div><b>Signature</b></div></td>
-          <td colspan="3"><div>{{$leave->h_approvedon}}</div></td>
+          <td colspan="2"><div>Date<span>&nbsp;&nbsp;{{$leave->h_approvedon}}</span></div></td>
+          <td colspan="2"><div>Signature<span>&nbsp;&nbsp;{{$leave->h_approvedon}}</span></div></td>
         </tr>
       </table>
 

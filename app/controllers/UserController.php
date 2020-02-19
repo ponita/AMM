@@ -56,20 +56,18 @@ class UserController extends Controller {
         curl_setopt($handle, CURLOPT_URL, "http://localhost/CheckinAPI/?cmd=GetCheckinuser");
         curl_setopt($handle,CURLOPT_RETURNTRANSFER, true);
         curl_setopt($handle,CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-         $response = curl_exec($handle);
+         $staff_list = curl_exec($handle);
          curl_close($handle);
-         $actualdata = (array)json_decode($response);
-     
+         $actualdata = json_decode($staff_list);
+        // dd($staff_list);
         $events = UNHLSEvent::where('start_date','<=',$date2)->orderBy('start_date','DESC')->get();
         $upcoming = UNHLSEvent::where('start_date','>',$date2)->orderBy('start_date','DESC')->get();
         $appointment = Letter::orderBy('ref_no','DESC')->get();     
         $meetings = Meeting::where('end_time','<=',$date2)->orderBy('start_time','DESC')->get();
         $mupcoming = Meeting::where('start_time','>',$date2)->orderBy('start_time','DESC')->get();
-        $leave = LeaveForm::where('h_approval_status','=','Approved')->orderBy('date_from','DESC')->get();
+        $leave = LeaveForm::where('h_approval_status','=','Approved')->where('date_to','>=',$date2)->orderBy('date_from','DESC')->get();
         $template = Templte::orderBy('id')->get();
-
-
-        
+         
         return View::make("user.dashboard")
                                         ->with('upcoming', $upcoming)
                                         ->with('events', $events)
@@ -78,6 +76,7 @@ class UserController extends Controller {
                                         ->with('leave', $leave)
                                         ->with('template', $template)
                                         ->with('actualdata', $actualdata)
+                                        ->with('staff_list',$staff_list)
                                         ->with('meetings', $meetings);
                                         //return View::make("user.dashboard");
     }

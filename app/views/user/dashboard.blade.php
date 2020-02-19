@@ -73,22 +73,33 @@
   z-index: 1;
 }
 
-/*.section-title {
-text-align:center;
-margin-top: 1em;
-background-color: #e5e8e8;
-padding: .5em 0;
-border-radius: .3em;
-}
-.service {
-border-radius: .3em;
-background-color: white;
-border: 1px solid grey;
-box-sizing: border-box;
-text-align: center;
-padding: 3em 2em 1em 2em;
+.blink_text {
 
-}*/
+    animation:1s blinker linear infinite;
+    -webkit-animation:1s blinker linear infinite;
+    -moz-animation:1s blinker linear infinite;
+
+     color: purple;
+    }
+
+    @-moz-keyframes blinker {  
+     0% { opacity: 1.0; }
+     50% { opacity: 0.0; }
+     100% { opacity: 1.0; }
+     }
+
+    @-webkit-keyframes blinker {  
+     0% { opacity: 1.0; }
+     50% { opacity: 0.0; }
+     100% { opacity: 1.0; }
+     }
+
+    @keyframes blinker {  
+     0% { opacity: 1.0; }
+     50% { opacity: 0.0; }
+     100% { opacity: 1.0; }
+     }
+
 .service .glyphicon {
 font-size: 3em;
 color: #34495e;
@@ -109,7 +120,9 @@ color: #34495e;
 }*/
 </style>
 
-
+<?php
+  $current_date = new DateTime();
+?>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-105243767-2"></script>
@@ -135,8 +148,17 @@ color: #34495e;
 		<!-- <span class="glyphicon glyphicon-dashboard"></span>
 		
     <marquee direction="down" scrollamount='1'><h3> NATIONAL HEALTH LABORATORY SERVICES and DIAGNOSTICS</h3></marquee> -->
-		
-		<h2>HOME</h2>
+		<div class="row">
+		<h2 class="col-md-3">HOME</h2>
+    <h4 class="col-md-9"><a href="{{ URL::route('user.login') }}">
+                            <div >
+                                <span class="pull-right blink_text">Sign In</span>
+                                <!-- <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span> -->
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                      </h4>
+                    </div>
 	</div>
 	
 
@@ -152,7 +174,7 @@ color: #34495e;
                             <div class="row">
                                 
                                 <div class="col-xs-9 text-right">
-                                    <div>NHLDS SYSTEMS</div>
+                                    <div>NHLDS Dashboard Links</div>
                                 </div>
                             </div>
                         </div>
@@ -182,7 +204,7 @@ color: #34495e;
                             <div class="row">
                                 
                                 <div class="col-xs-9 text-right">
-                                    <div>Report templates</div>
+                                    <div>Reporting templates</div>
                                 </div>
                             </div>
                         </div>
@@ -215,7 +237,7 @@ color: #34495e;
                                 </div>
                                 <div class="col-xs-9 text-left">
                                     <div class="huge"></div>
-                                    <div>Leave forms</div>
+                                    <div>Leave form</div>
                                 </div>
                             </div>
                         </div>
@@ -366,7 +388,7 @@ color: #34495e;
 <div class="panel" style="background-color: #cce6ff">
     <div class="panel-heading">
         <span class="glyphicon glyphicon-dashboard"></span>
-        Recent
+        Ongoing and Recent
         
         
     </div>
@@ -387,9 +409,11 @@ color: #34495e;
                 
              @foreach($events as $key => $event)
               
-                <tr @if(Session::has('activeevent'))
+                <tr class="<?php if($event->start_date >= $current_date->format('Y-m-d')) echo 'blink_text';?>"
+                @if(Session::has('activeevent'))
                         {{(Session::get('activeevent') == $event->id)?"class='info'":""}}
                     @endif
+
                 >
                     <td>{{ $event->start_date }}</td>
                     <td>{{ date('d', strtotime($event->start_date)) }}-{{ date('d M', strtotime($event->end_date)) }}</td>
@@ -494,10 +518,41 @@ color: #34495e;
     </div>
 </div>
 
+<div class="panel" style="background-color: #D5F3EB">
+    <div class="panel-heading ">
+        <span class="glyphicon glyphicon-dashboard"></span>
+         <i>Off station List</i>
+        
+        
+    </div>
+    
+    <div class="card-body" style="background-color: #ffffff">
+      <div class="table-responsive">
+        <table class="table text-wrap">
+            <thead>
+                <tr>
+                    <th>Employee</th>
+                    <th>Duration</th>
+                    
+                </tr>
+            </thead>
+    
+            <tbody>
+              <tr>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+        </table>
+      <hr class="my-0">
+    </div>
+  </div>
+</div>
+
 <div class="panel" style="background-color: #cce6ff">
     <div class="panel-heading ">
         <span class="glyphicon glyphicon-dashboard"></span>
-         <i>Staff leave List</i>
+         <i>Staff on leave</i>
         
         
     </div>
@@ -536,11 +591,8 @@ color: #34495e;
 <div class="panel" style="background-color: #cce6ff">
     <div class="panel-heading ">
         <span class="glyphicon glyphicon-dashboard"></span>
-         <i>Staff Attendance</i>{{ count($actualdata); }}
-        
-        
+          <i>Staff Attendance</i>{{ count($actualdata); }}
     </div>
-    
     <div class="card-body" style="background-color: #ffffff">
       <div class="table-responsive">
         <table class="table table-striped table-hover table-condensed search-table">
@@ -552,22 +604,24 @@ color: #34495e;
                 </tr>
             </thead>
             <tbody>
-                
+                <tr>
+                  <td>
+                    <?php
             for ($i=0; $i < count($actualdata); $i++) { 
       $user = (array)$actualdata[$i];
 
-      print_r($user['name'].'<br>');
+      //print_r($user['name'].'<br>');
      }
     
      ?> 
+   </td></tr>
             </tbody>
         </table>
       <hr class="my-0">
       </div>
     
-      
+    </div>  
   </div>
-</div>
 </div>
 </div>
 

@@ -28,8 +28,8 @@
       {{ Form::label('approvalstatus', 'Approval Status', array('class' => 'col-sm-2')) }}
       {{ Form::select('approvalstatus', [
           'Approved' => 'Approved',
-          'Not Updated' => 'Not Updated',
-          'Not Approved' => 'Cancelled'], 
+          'posponed' => 'posponed',
+          'Cancelled' => 'Cancelled'], 
           Input::old('approvalstatus'), array('id' => 'approvalstatus', 'class' => 'form-control col-sm-4')) }}
 
      
@@ -88,9 +88,21 @@
         
         <div class="col-sm-2"><strong>District</strong></div>
         <div class="col-sm-4">
-          @if ($event->district)
-          {{ $event->district->name }}
-          @endif
+          <ul>
+            @foreach ($event->eventdistrict as $districts)
+          <li>{{ $districts->name }}</li>
+          @endforeach
+        </ul>
+        </div>
+      </div>
+      <div>
+        <div class="col-sm-2"><strong>Facilities</strong></div>
+        <div class="col-sm-4">
+          <ul>
+          @foreach ($event->eventhub as $hubs)
+          <li>{{ $hubs->hub }}</li>
+          @endforeach
+        </ul>
         </div>
       </div>
 

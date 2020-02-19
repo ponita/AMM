@@ -50,7 +50,7 @@ class EventController extends \BaseController {
 		$appointment = Letter::orderBy('ref_no','DESC')->get();		
 		$meetings = Meeting::where('end_time','<=',$date2)->orderBy('start_time','DESC')->get();
 		$mupcoming = Meeting::where('start_time','>',$date2)->orderBy('start_time','DESC')->get();
-		$leave = LeaveForm::where('h_approval_status','=','Approved')->orderBy('date_from','DESC')->get();
+		$leave = LeaveForm::where('h_approval_status','=','Approved')->where('date_to','>=',$date2)->orderBy('date_from','DESC')->get();
 		$template = Templte::orderBy('id')->get();
 
 
@@ -132,6 +132,52 @@ public function complete()
 
 		$events = UNHLSEvent::where('action_status_id',0)
 								->where('approval_status_id',1)
+							->orderBy('start_date','DESC')->get();
+
+		
+		return View::make('event.index')->with('events', $events)
+										->withInput($input);
+
+										
+	}
+
+	public function cancelled($type)
+	{
+		
+		$fromRedirect = Session::pull('fromRedirect');
+		if($fromRedirect){
+
+			$input = Session::get('TESTS_FILTER_INPUT');
+			
+		}else{
+
+			$input = Input::except('_token');
+		}
+
+		$events = UNHLSEvent::where('approval_status_id',1)->where('approval_status',$type)
+							->orderBy('start_date','DESC')->get();
+
+		
+		return View::make('event.index')->with('events', $events)
+										->withInput($input);
+
+										
+	}
+
+	public function posponed($type)
+	{
+		
+		$fromRedirect = Session::pull('fromRedirect');
+		if($fromRedirect){
+
+			$input = Session::get('TESTS_FILTER_INPUT');
+			
+		}else{
+
+			$input = Input::except('_token');
+		}
+
+		$events = UNHLSEvent::where('approval_status_id',1)->where('approval_status',$type)
 							->orderBy('start_date','DESC')->get();
 
 		
@@ -311,7 +357,7 @@ public function complete()
 		$event->location = Input::get('location');
 		$event->premise = Input::get('premise');
 		$event->co_organiser = Input::get('co_organiser');
-		$event->district_id = Input::get('district');
+		// $event->district_id = Input::get('district');
 		$event->country_id = Input::get('country');
 		$event->healthregion_id = Input::get('healthregion');
 		$event->funders_id = Input::get('funder');
@@ -334,24 +380,21 @@ public function complete()
 		$objective->save();
 		} 
 
-		
-		// $hubs = Input::get('hub');
-		// foreach($hubs as $h) {
-		// 	$hub = new EventHub;
-		// 	$hub->event_id = $event->id;
-		// 	$hub->hub= $h;
-		// 	$hub->save();
+		$hubs = Input::get('hub');
+		foreach($hubs as $h) {
+			$hub = new EventHub;
+			$hub->event_id = $event->id;
+			$hub->hub= $h;
+			$hub->save();
+		}
 
-		// $facilitys = Input::get('facility_id');
-		// 	foreach($facilitys as $ob) {
-		// 		$evefacility = new EventFacility;
-		// 		$evefacility->event_id = $event->id;
-		// 		$evefacility->facility_id= $ob;
-		// 		$evefacility->hub_id =  $h;
-		// 		$evefacility->save();
-		// 	}
-		// }
-		 
+		$districts = Input::get('district');
+			foreach($districts as $ob) {
+				$evedistrict = new EventDistrict;
+				$evedistrict->event_id = $event->id;
+				$evedistrict->name= $ob;
+				$evedistrict->save();
+		}
 		 	
 
 		$audiences = Input::get('audience');
@@ -392,7 +435,8 @@ public function complete()
 
 		return Redirect::to($url)->with('message', 'Successfully registered an activity with ID No '.$event->id)
 								->with('message', 'Successfully registered an activity with ID No '.$audience->event_id)
-								// ->with('message', 'Successfully registered an activity with ID No '.$hub->event_id)
+								->with('message', 'Successfully registered an activity with ID No '.$hub->event_id)
+								->with('message', 'Successfully registered an activity with ID No '.$evedistrict->event_id)
 								->with('message', 'Successfully registered objectives for for ID No '.$objective->event_id);
 	
 		
@@ -585,13 +629,53 @@ public function complete()
 	{
 		$event = UNHLSEvent::find($id);
 		
-		Mail::send('event.approved',
-					array('user_id'=>Input::get('user_id'),'name'=>Input::get('name')),
-					function($message){
-						$message->to('poniagusto10@gmail.com')->subject('Requisition approval notice');
-					});
+		// Mail::send('event.approved',
+		// 			array('user_id'=>Input::get('user_id'),'name'=>Input::get('name')),
+		// 			function($message){
+		// 				$message->to('poniagusto10@gmail.com')->subject('Requisition approval notice');
+		// 			});
 
 		return View::make('event.editapproval')->with('event', $event);
+	}
+
+	public function updateapproval($id)
+	{
+		$rules = array(
+		);
+		
+		$validator = Validator::make(Input::all(), $rules);
+
+		if ($validator->fails()) {
+
+			return Redirect::back()->withErrors($validator)->withInput(Input::all());
+		} 
+		// elseif ($event = UNHLSEvent::where('approval_status', '=', 'Not Approved')->find($id)) {
+		// 	$event->approval_status_id = 1;
+		// 	$event->action_status_id = 1;
+		// 	$event->status_id = 1;
+
+		// $event->save();
+		
+		// }
+		else {
+		// update
+		$event = UNHLSEvent::find($id);
+		$event->approvedby = Auth::user()->id;
+
+		$event->approval_status = Input::get('approvalstatus');
+		$event->approvedby = Input::get('approvedby');
+		$event->comment = Input::get('comment');
+		$event->approvedon = \Carbon\Carbon::now()->toDateTimeString();
+		
+		$event->approval_status_id = 1;
+
+		$event->save();
+		}
+		
+		return Redirect::to('event')->with('message', 'Successfully updated event information for ID No '.$event->id);
+									
+	
+		
 	}
  
 	
@@ -647,7 +731,14 @@ public function team()
 	// 	// return View::make('event.fullcalender');
 	// }
 
-	public function updateapproval($id)
+	public function editPosponedApproval($id)
+	{
+		$event = UNHLSEvent::find($id);
+		
+		return View::make('event.editPosponedApproval')->with('event', $event);
+	}
+
+	public function UpdatePosponedApproval($id)
 	{
 		$rules = array(
 		);
@@ -658,14 +749,7 @@ public function team()
 
 			return Redirect::back()->withErrors($validator)->withInput(Input::all());
 		} 
-		// elseif ($event = UNHLSEvent::where('approval_status', '=', 'Not Approved')->find($id)) {
-		// 	$event->approval_status_id = 1;
-		// 	$event->action_status_id = 1;
-		// 	$event->status_id = 1;
-
-		// $event->save();
 		
-		// }
 		else {
 		// update
 		$event = UNHLSEvent::find($id);
@@ -674,9 +758,11 @@ public function team()
 		$event->approval_status = Input::get('approvalstatus');
 		$event->approvedby = Input::get('approvedby');
 		$event->comment = Input::get('comment');
+		$event->start_date = Input::get('start_date');
+		$event->end_date = Input::get('end_date');
 		$event->approvedon = \Carbon\Carbon::now()->toDateTimeString();
 		
-		$event->approval_status_id = 1;
+		$event->approval_status_id = 2;
 
 		$event->save();
 		}

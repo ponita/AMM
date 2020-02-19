@@ -83,11 +83,60 @@
         <div class="col-sm-1"><strong>Reason for leave</strong></div>
         <div class="col-sm-7 col-sm-offset-1">{{ $leave->comment }}</div>
         
+        <div class="col-sm-1"><strong>Work delegated to</strong></div>
+        <div class="col-sm-7 col-sm-offset-1">{{ $leave->delegate }}</div>
       </div>
     </div>
   </div>
 
-          @if($leave->s_approval_status == 'Rejected')
+  <!--         @if($leave->hr_approval_status == 'Rejected')
+
+      <div class="panel panel" style="border-width: thick; border-color: red">
+        <div class="panel-heading">Administrative Clearance</div>
+    <div class="panel-body">
+      <div class="row view-striped">
+        <div class="col-sm-1"><strong>Confirmation</strong></div>
+        <div class="col-sm-2">{{ $leave->hr_approval_status }}</div>
+        
+        <div class="col-sm-1"><strong>Date</strong></div>
+        <div class="col-sm-2">{{ $leave->approvedon }}</div>
+
+        <div class="col-sm-2"><strong>By</strong></div>
+        <div class="col-sm-3">{{ $leave->approvedbyhr }}</div>
+      </div>
+
+      <div class="row view-striped">
+        <div class="col-sm-1"><strong>Comment</strong></div>
+        <div class="col-sm-7">{{ $leave->hr_comment }}</div>
+        
+      </div>
+    </div>
+  </div>
+          @elseif($leave->hr_approval_status == 'Approved')
+      <div class="panel panel" style="border-width: thick; border-color: green">
+        <div class="panel-heading">Administrative Clearance</div>
+      <div class="panel-body">
+      <div class="row view-striped">
+        <div class="col-sm-1"><strong>Confirmation</strong></div>
+        <div class="col-sm-2">{{ $leave->hr_approval_status }}</div>
+        
+        <div class="col-sm-1"><strong>Date</strong></div>
+        <div class="col-sm-2">{{ $leave->approvedon }}</div>
+
+        <div class="col-sm-2"><strong>By</strong></div>
+        <div class="col-sm-3">{{ $leave->approvedbyhr }}</div>
+      </div>
+
+      <div class="row view-striped">
+        <div class="col-sm-1"><strong>Comment</strong></div>
+        <div class="col-sm-7">{{ $leave->hr_comment }}</div>
+        
+      </div>
+    </div>
+  </div>
+  @endif -->
+
+   @if($leave->s_approval_status == 'Rejected')
 
       <div class="panel panel" style="border-width: thick; border-color: red">
         <div class="panel-heading">Supervisor</div>
@@ -97,7 +146,7 @@
         <div class="col-sm-2">{{ $leave->s_approval_status }}</div>
         
         <div class="col-sm-1"><strong>Date</strong></div>
-        <div class="col-sm-2">{{ $leave->approvedon }}</div>
+        <div class="col-sm-2">{{ $leave->s_approvedon }}</div>
 
         <div class="col-sm-2"><strong>By</strong></div>
         <div class="col-sm-3">{{ $leave->approvedbys }}</div>
@@ -119,7 +168,7 @@
         <div class="col-sm-2">{{ $leave->s_approval_status }}</div>
         
         <div class="col-sm-1"><strong>Date</strong></div>
-        <div class="col-sm-2">{{ $leave->approvedon }}</div>
+        <div class="col-sm-2">{{ $leave->s_approvedon }}</div>
 
         <div class="col-sm-2"><strong>By</strong></div>
         <div class="col-sm-3">{{ $leave->approvedbys }}</div>
@@ -187,7 +236,7 @@
     @if($leave->h_approval_status == 'Rejected')
 
       <div class="panel panel" style="border-width: thick; border-color: red">
-        <div class="panel-heading">Executive Director</div>
+        <div class="panel-heading">Director</div>
     <div class="panel-body">
       <div class="row view-striped">
         <div class="col-sm-1"><strong>Confirmation</strong></div>
@@ -212,7 +261,7 @@
   </div>
           @elseif($leave->h_approval_status == 'Approved')
       <div class="panel panel" style="border-width: thick; border-color: green">
-        <div class="panel-heading">Executive Director</div>
+        <div class="panel-heading">Director</div>
       <div class="panel-body">
       <div class="row view-striped">
         <div class="col-sm-1"><strong>Confirmation</strong></div>

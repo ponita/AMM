@@ -29,7 +29,7 @@ color: #34495e;
     box-sizing: border-box;>
 <h2 class="section-title"><strong>ATM</strong></h2>
 	
-	<div class="row">
+	<div class="row" align="center">
 		<div class="col-md-3">
 		<div class="service">
 			<a href="{{ URL::route('event.report')}}">
@@ -42,7 +42,7 @@ color: #34495e;
 		<div class="service">
 			<a href="{{ URL::route('event.index')}}">
 		<span style="color: limegreen" class="glyphicon glyphicon-list" aria-hidden="true"></span>
-		<h3><strong>Activities</strong></h3>
+		<h3><strong>Activities</strong><font size="3"><span class="badge badge-danger"> {{ $count = UNHLSEvent::where('status_id', '!=', '1')->orwhere('action_status_id', '!=', '1')->count()}}</font></h3>
 
 		</div >
 		</div >
@@ -52,7 +52,7 @@ color: #34495e;
 		<div class="service">
 			<a href="{{ URL::route('meetings.meetingindex')}}">
 		<span style="color: mediumblue" class="glyphicon glyphicon-pushpin" aria-hidden="true"></span>
-		<h3><strong>Meetings</strong></h3>
+		<h3><strong>Meetings</strong><font size="3"><span class="badge badge-danger"> {{ $count = Meeting::where('status_id', '!=', '2')->orwhere('action_status_id', '!=', '2')->count()}}</span></font></h3>
 
 		</div >
 		</div >
@@ -64,9 +64,18 @@ color: #34495e;
 
 		</div >
 		</div >
-		</div>
 
-<div class="row spacedtop">
+		<!-- <div class="col-md-3">
+		<div class="service">
+			<a href="{{ URL::route('yearplan.index')}}">
+		<span style="color: black" class="glyphicon glyphicon-th" aria-hidden="true"></span>
+		<h3><strong>Workplan</strong></h3>
+
+		</div >
+		</div > -->
+	</div>
+
+<div class="row spacedtop" align="center">
 		<div class="col-md-3">
 		<div class="service">
 			<a href="{{ URL::route('event.team')}}">

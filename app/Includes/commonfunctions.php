@@ -407,5 +407,40 @@ function createHTMLListFromArray($array) {
 		$patients =  DB::select($query);
 		return $patients;
 	}
+
+	function getActualNumberofDayswithinMonth($date_from, $date_to){
+			
+            //difference between two dates
+            $datetime1 = date_create($date_from);
+			$datetime2 = date_create($date_to);
+			$interval = $datetime1->diff($datetime2);
+			$noweekends = 0;
+			for($i=0; $i<=$interval->d; $i++){
+			    $datetime1->modify('+1 day');
+			    $weekday = $datetime1->format('w');
+
+			    if($weekday !== "0" && $weekday !== "6"){ // 0 for Sunday and 6 for Saturday
+			        $noweekends++;  
+			    }
+
+			}
+
+			return $noweekends; 
+
+	}
+
+	function getActualNumberofDays($date_from, $date_to){
+
+		$start = strtotime($date_from);
+		$end = strtotime($date_to);
+
+		$count = 0;
+
+		while(date('Y-m-d', $start) <= date('Y-m-d', $end)){
+		  $count += date('N', $start) < 6 ? 1 : 0;
+		  $start = strtotime("+1 day", $start);
+		}
+		echo $count;
+	}
 	
 ?>

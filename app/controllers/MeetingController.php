@@ -61,6 +61,66 @@ public function meetingtypes($type)
 													->withInput($input);
 	}
 
+	public function cancelled($type)
+	{
+		//
+		$fromRedirect = Session::pull('fromRedirect');
+
+		if($fromRedirect){
+
+			$input = Session::get('TESTS_FILTER_INPUT');
+			
+		}else{
+
+			$input = Input::except('_token');
+		}
+
+
+		$meetings = Meeting::where('approval_status_id',1)
+							->where('approval_status',$type)
+							->orderBy('start_time','ASC')->get();
+
+
+		$meetingsss = Meeting::where('approval_status_id',1)
+							->where('approval_status',$type)
+							->orderBy('start_time','ASC')->get();
+		// $meetingss = Meeting::find($id);		
+		
+		return View::make('meetings.meetingindex')->with('meetings', $meetings)
+													->with('meetingsss', $meetingsss)
+													->withInput($input);
+	}
+
+	public function posponed($type)
+	{
+		//
+		$fromRedirect = Session::pull('fromRedirect');
+
+		if($fromRedirect){
+
+			$input = Session::get('TESTS_FILTER_INPUT');
+			
+		}else{
+
+			$input = Input::except('_token');
+		}
+
+
+		$meetings = Meeting::where('approval_status_id',1)
+							->where('approval_status',$type)
+							->orderBy('start_time','ASC')->get();
+
+
+		$meetingsss = Meeting::where('approval_status_id',1)
+							->where('approval_status',$type)
+							->orderBy('start_time','ASC')->get();
+		// $meetingss = Meeting::find($id);		
+		
+		return View::make('meetings.meetingindex')->with('meetings', $meetings)
+													->with('meetingsss', $meetingsss)
+													->withInput($input);
+	}
+
 	public function statuses( $action)
 	{
 		//
@@ -240,13 +300,13 @@ public function report()
 		// 		$uidd = new UiddGenerator; 
 		// 	$uidd->save();
 
-		$agendas = Input::get('agenda');
-		foreach($agendas as $ag) {
-		$agenda = new MeetingAgenda;
-		$agenda->meeting_id = $meetings->id;
-		$agenda->agenda= $ag;
-		$agenda->save();
-		}
+		// $agendas = Input::get('agenda');
+		// foreach($agendas as $ag) {
+		// $agenda = new MeetingAgenda;
+		// $agenda->meeting_id = $meetings->id;
+		// $agenda->agenda= $ag;
+		// $agenda->save();
+		// }
 
 		$audiences = Input::get('targetAudience');
 		foreach ($audiences as $aud) {
@@ -296,7 +356,7 @@ public function report()
 
 
 		return Redirect::to('meetings')->with('message', 'Successfully registered an activity with ID No '.$meetings->id)
-								->with('message', 'Successfully registered an activity with ID No '.$agenda->meeting_id)
+								// ->with('message', 'Successfully registered an activity with ID No '.$agenda->meeting_id)
 								->with('message', 'Successfully registered an activity with ID No '.$targetAudience->meeting_id);
 			
 	
@@ -469,6 +529,45 @@ public function report()
 			}
 
 	
+	public function editposponed($id)
+	{
+		$meetings = Meeting::find($id);
+		
+		return View::make('meetings.editposponed')->with('meetings', $meetings);
+	}
+
+	public function updateposponedmeeting($id)
+	{
+		$rules = array(
+		);
+		
+		$validator = Validator::make(Input::all(), $rules);
+
+		if ($validator->fails()) {
+
+			return Redirect::back()->withErrors($validator)->withInput(Input::all());
+		} else {
+		// update
+		$meetings = Meeting::find($id);
+
+		$meetings->approval_status = Input::get('approvalstatus');
+		$meetings->approvedby = Input::get('approvedby');
+		$meetings->comment = Input::get('comment');
+		$meetings->start_time = Input::get('start_time');
+		$meetings->end_time = Input::get('end_time');
+		$meetings->user->name = Input::get('name');
+		$meetings->approvedon = \Carbon\Carbon::now()->toDateTimeString();
+		
+		$meetings->approval_status_id = 2;
+		$meetings->save();
+
+ 
+   
+		return Redirect::to('meetings')->with('message', 'Successfully updated meetings information for ID No '.$meetings->id);
+	
+		}
+	}
+
 	public function editapproval($id)
 	{
 		$meetings = Meeting::find($id);
@@ -476,7 +575,7 @@ public function report()
 		return View::make('meetings.editapproval')->with('meetings', $meetings);
 	}
 
-	public function updateapproval($id)
+	public function updateEditedApproval($id)
 	{
 		$rules = array(
 		);
@@ -712,8 +811,16 @@ private function csv_download($fro, $to){
 			$maction->action = $ac;
 			$maction->name = $names[$k];
 			$maction->date = $dates[$k];
-			$maction->location =$locations[$k];
+			// $maction->location =$locations[$k];
 			$maction->save();			# code...
+		}
+
+		$agendas = Input::get('agenda');
+		foreach($agendas as $ag) {
+		$agenda = new MeetingAgenda;
+		$agenda->meeting_id = $meetings->id;
+		$agenda->agenda= $ag;
+		$agenda->save();
 		}
 
 
@@ -729,7 +836,8 @@ private function csv_download($fro, $to){
 		$meetings->save();
 
 
-		return Redirect::to('meetings')->with('message', 'Successfully updated recommendations for for ID No '.$maction->meeting_id);
+		return Redirect::to('meetings')->with('message', 'Successfully updated recommendations for for ID No '.$maction->meeting_id)
+			->with('message', 'Successfully registered an activity with ID No '.$agenda->meeting_id);
 									
 	}
 

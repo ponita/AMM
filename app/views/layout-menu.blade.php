@@ -13,6 +13,9 @@
         <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/dataTables.bootstrap.css') }}" />
         <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/layout.css') }}" />
         <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/bootstrap-datetimepicker.min.css') }}" />
+        <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/bootstrap-clockpicker.min.css') }}" />
+        <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/select2.min.css') }}" />
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
 
         <script type="text/javascript" src="{{ URL::asset('js/jquery.min.js') }} "></script>
         <script type="text/javascript" src="{{ URL::asset('js/jquery-ui-min.js') }}"></script>
@@ -34,7 +37,10 @@
         <script src="{{ URL::asset('js/jquery.easypiechart.min.js') }}"></script>
         <script src="{{ URL::asset('js/dashboard.js') }}"></script>
         <script src="{{ URL::asset('js/bootstrap-datetimepicker.min.js') }}"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+        <script type="text/javascript" src="{{ URL::asset('js/bootstrap-clockpicker.min.js')}}"></script>
         <script type="text/javascript" src="{{asset('js/tinymce/tinymce.min.js')}}"></script>
+        <script type="text/javascript" src="{{asset('js/select2.min.js')}}"></script>
         <!-- jQuery barcode script -->
         <script type="text/javascript" src="{{ asset('js/jquery-barcode-2.0.2.js') }} "></script>
         <title>{{ Config::get('kblis.name') }} </title>

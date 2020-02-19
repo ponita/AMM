@@ -21,7 +21,7 @@
 				</div>
 			@endif 
 			
-{{ Form::model($meetings, array('files'=>true,'route' => array('meetings.updateapproval', $meetings->id), 'method' => 'PUT',
+{{ Form::model($meetings, array('files'=>true,'route' => array('meetings.updateEditedApproval', $meetings->id), 'method' => 'PUT',
 				'id' => 'form-edit-meetings')) }}
 <div class="form-group">
       {{ Form::hidden('approvedby', Auth::user()->name) }}
@@ -29,7 +29,7 @@
       {{ Form::select('approvalstatus', [
           'Approved' => 'Approved',
           'postponed' => 'postponed',
-          'Not Approved' => 'Not Approved'], 
+          'Cancelled' => 'Cancelled'], 
           Input::old('approvalstatus'), array('id' => 'approvalstatus', 'class' => 'form-control col-sm-4')) }}
 
      

@@ -73,22 +73,32 @@
   z-index: 1;
 }
 
-/*.section-title {
-text-align:center;
-margin-top: 1em;
-background-color: #e5e8e8;
-padding: .5em 0;
-border-radius: .3em;
-}
-.service {
-border-radius: .3em;
-background-color: white;
-border: 1px solid grey;
-box-sizing: border-box;
-text-align: center;
-padding: 3em 2em 1em 2em;
+.blink_text {
 
-}*/
+    animation:1s blinker linear infinite;
+    -webkit-animation:1s blinker linear infinite;
+    -moz-animation:1s blinker linear infinite;
+
+     color: red;
+    }
+
+    @-moz-keyframes blinker {  
+     0% { opacity: 1.0; }
+     50% { opacity: 0.0; }
+     100% { opacity: 1.0; }
+     }
+
+    @-webkit-keyframes blinker {  
+     0% { opacity: 1.0; }
+     50% { opacity: 0.0; }
+     100% { opacity: 1.0; }
+     }
+
+    @keyframes blinker {  
+     0% { opacity: 1.0; }
+     50% { opacity: 0.0; }
+     100% { opacity: 1.0; }
+     }
 .service .glyphicon {
 font-size: 3em;
 color: #34495e;
@@ -152,7 +162,7 @@ color: #34495e;
                             <div class="row">
                                 
                                 <div class="col-xs-9 text-right">
-                                    <div>NHLDS SYSTEMS</div>
+                                    <div>NHLDS Dashboard links</div>
                                 </div>
                             </div>
                         </div>
@@ -176,31 +186,29 @@ color: #34495e;
                 </div>
                 
                 
-                 <div class="col-lg-3 col-md-6">
+                <div class="col-lg-3 col-md-6">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <div class="row">
-                                
                                 <div class="col-xs-9 text-right">
-                                    <div>Report templates</div>
+                                    <div>Reporting templates</div>
                                 </div>
                             </div>
                         </div>
                         <a href="#">
                             <div class="panel-footer">
-                               
-                                @foreach($template as $template)
-        <ul @if(Session::has('activetemplate'))
-                            {{(Session::get('activetemplate') == $template->id)?"class='info'":""}}
-                        @endif
-                        >
+                                     @foreach($template as $template)
+                                      <ul @if(Session::has('activetemplate'))
+                                          {{(Session::get('activetemplate') == $template->id)?"class='info'":""}}
+                                      @endif
+                                      >
 
-                    <li>
-                    <a href="{{ URL::to( 'attachment1/' . $template->doc) }}"
-                      target="_blank">{{ $template->doc }}</a>
-                    </li>
-                                </ul>
-                                @endforeach
+                                        <li>
+                                          <a href="{{ URL::to( 'attachment1/' . $template->doc) }}"
+                                            target="_blank">{{ $template->doc }}</a>
+                                        </li>
+                                      </ul>
+                                      @endforeach
                             </div>
                         </a>
                     </div>
@@ -215,7 +223,7 @@ color: #34495e;
                                 </div>
                                 <div class="col-xs-9 text-left">
                                     <div class="huge"></div>
-                                    <div>Leave forms</div>
+                                    <div>Leave form</div>
                                 </div>
                             </div>
                         </div>
@@ -233,128 +241,119 @@ color: #34495e;
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <div class="row">
-                                
                                 <div class="col-xs-9 text-right">
                                     <div align="center">Sections</div>
                                 </div>
                             </div>
                         </div>
                         <a href="#">
-                            <div class="panel-footer">
-                            <div class="row service">
-    <div class="col-md-3">
-    <div class="flip-card">
-        <div class="flip-card-inner">
-          <div class="flip-card-front">
-          <span style="color: fuchsia" class="glyphicon glyphicon-stats" aria-hidden="true"></span>
-          </div>
-          <div class="flip-card-back">
-          <a href="{{ URL::route('meetings.report')}}">Reports</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3">
-    <div class="flip-card">
-        <div class="flip-card-inner">
-          <div class="flip-card-front">
-          <span style="color: limegreen" class="glyphicon glyphicon-list" aria-hidden="true"></span>
-          </div>
-          <div class="flip-card-back">
-          <a href="{{ URL::route('event.index')}}">Activities</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3">
-    <div class="flip-card">
-        <div class="flip-card-inner">
-          <div class="flip-card-front">
-          <span style="color: mediumblue" class="glyphicon glyphicon-pushpin" aria-hidden="true"></span>
-          </div>
-          <div class="flip-card-back">
-          <a href="{{ URL::route('meetings.meetingindex')}}"><strong>Meetings</strong></a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3">
-    <div class="flip-card">
-        <div class="flip-card-inner">
-          <div class="flip-card-front">
-          <span style="color: darkred" class="glyphicon glyphicon-filter" aria-hidden="true"></span>
-          </div>
-          <div class="flip-card-back">
-          <a href="{{ URL::route('event.calender')}}"><strong>Dashboard</strong></a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-    </div>
-    <div class="row spacedtop service">
-    <div class="col-md-3">
-    <div class="flip-card">
-        <div class="flip-card-inner">
-          <div class="flip-card-front">
-          <span style="color: greenyellow" class="glyphicon glyphicon-user" aria-hidden="true"></span>
-          </div>
-          <div class="flip-card-back">
-          <a href="{{ URL::route('event.team')}}"><strong>Team</strong></a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3">
-    <div class="flip-card">
-        <div class="flip-card-inner">
-          <div class="flip-card-front">
-          <span style="color: indigo" class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
-          </div>
-          <div class="flip-card-back">
-          <a href="{{ URL::route('invitation.invitation_index')}}"><strong>Invitations</strong></a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3">
-    <div class="flip-card">
-        <div class="flip-card-inner">
-          <div class="flip-card-front">
-          <span style="color: red" class="glyphicon glyphicon-file" aria-hidden="true"></span>
-          </div>
-          <div class="flip-card-back">
-          <a href="{{ URL::route('letters.letter_index')}}"><strong>Memo</strong></a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3">
-    <div class="flip-card">
-        <div class="flip-card-inner">
-          <div class="flip-card-front">
-    <span style="color: orange" class="glyphicon glyphicon-cog" aria-hidden="true" background-color="red"></span>
-          </div>
-          <div class="flip-card-back">
-          <a href="{{ URL::route('user.index')}}"><strong>Access Control</strong></a>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-
-                                
+                        <div class="panel-footer">
+                        <div class="row service">
+                          <div class="col-md-3">
+                            <div class="flip-card">
+                              <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                <span style="color: fuchsia" class="glyphicon glyphicon-stats" aria-hidden="true"></span>
+                                </div>
+                                <div class="flip-card-back">
+                                <a href="{{ URL::route('meetings.report')}}">Reports</a>
+                                </div>
+                              </div>
                             </div>
+                          </div>
+                          <div class="col-md-3">
+                            <div class="flip-card">
+                              <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                <span style="color: limegreen" class="glyphicon glyphicon-list" aria-hidden="true"></span>
+                                </div>
+                                <div class="flip-card-back">
+                                <a href="{{ URL::route('event.index')}}">Activities</a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+                            <div class="flip-card">
+                              <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                <span style="color: mediumblue" class="glyphicon glyphicon-pushpin" aria-hidden="true"></span>
+                                </div>
+                                <div class="flip-card-back">
+                                <a href="{{ URL::route('meetings.meetingindex')}}"><strong>Meetings</strong></a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+                            <div class="flip-card">
+                              <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                <span style="color: darkred" class="glyphicon glyphicon-filter" aria-hidden="true"></span>
+                                </div>
+                                <div class="flip-card-back">
+                                <a href="{{ URL::route('event.calender')}}"><strong>Dashboard</strong></a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row spacedtop service">
+                          <div class="col-md-3">
+                          <div class="flip-card">
+                              <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                <span style="color: greenyellow" class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                                </div>
+                                <div class="flip-card-back">
+                                <a href="{{ URL::route('event.team')}}"><strong>Team</strong></a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+                          <div class="flip-card">
+                              <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                <span style="color: indigo" class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+                                </div>
+                                <div class="flip-card-back">
+                                <a href="{{ URL::route('invitation.invitation_index')}}"><strong>Invitations</strong></a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+                          <div class="flip-card">
+                              <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                <span style="color: red" class="glyphicon glyphicon-file" aria-hidden="true"></span>
+                                </div>
+                                <div class="flip-card-back">
+                                <a href="{{ URL::route('letters.letter_index')}}"><strong>Memo</strong></a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+                          <div class="flip-card">
+                              <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                          <span style="color: orange" class="glyphicon glyphicon-cog" aria-hidden="true" background-color="red"></span>
+                                </div>
+                                <div class="flip-card-back">
+                                <a href="{{ URL::route('user.index')}}"><strong>Access Control</strong></a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                         </a>
                     </div>
                 </div>
             </div>
-            <!-- /.row -->
             
                 </div>
-                <!-- /.col-lg-4 -->
-            
 
   </div>
 </div>
@@ -366,7 +365,7 @@ color: #34495e;
 <div class="panel" style="background-color: #cce6ff">
     <div class="panel-heading">
         <span class="glyphicon glyphicon-dashboard"></span>
-        Recent
+        Ongoing and Recent
         
         
     </div>
@@ -497,7 +496,7 @@ color: #34495e;
 <div class="panel" style="background-color: #cce6ff">
     <div class="panel-heading ">
         <span class="glyphicon glyphicon-dashboard"></span>
-         <i>Staff leave List</i>
+         <i>Staff on leave</i>
         
         
     </div>

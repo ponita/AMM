@@ -17,7 +17,6 @@
 			Updating Activity Information - Report
 		</div>
 		<div class="panel-body">
-		<!-- if there are creation errors, they will show here -->
 			
 			@if($errors->all())
 				<div class="alert alert-danger">
@@ -25,28 +24,25 @@
 				</div>
 			@endif
 			
-{{ Form::model($event, array('files'=>true,'route' => array('event.updatereport', $event->id), 'method' => 'PUT',
+			{{ Form::model($event, array('files'=>true,'route' => array('event.updatereport', $event->id), 'method' => 'PUT',
 				'id' => 'form-edit-eventreport')) }}
 
 			<div class="panel panel-info">
-			<div class="panel-body">
-                
-				<div class="row view-striped">
-					<div class=""><strong>{{ $event->name }}:</strong> From {{ $event->start_date }} to {{ $event->end_date }}</div>
+				<div class="panel-body">
+					<div class="row view-striped">
+						<div class=""><strong>{{ $event->name }}:</strong> From {{ $event->start_date }} to {{ $event->end_date }}
+						</div>
+					</div>
+					<div class="row view-striped">
+						<strong>Report</strong><br>
+					</div>
 				</div>
-
-				<div class="row view-striped">
-					<strong>Report</strong><br>
-					
-				</div>
-
-			</div>
 			</div>
 
 			<div class="form-group row">
-			{{ Form::hidden('event_id', $event->id) }}
-			{{ Form::label('reports', 'Submit Report', array('class' => 'col-sm-2')) }}
-			{{ Form::file('reports', '', array('size' => '10x1','class' => 'form-control col-sm-10')) }}
+				{{ Form::hidden('event_id', $event->id) }}
+				{{ Form::label('reports', 'Submit Report', array('class' => 'col-sm-2')) }}
+				{{ Form::file('reports', '', array('size' => '10x1','class' => 'form-control col-sm-10')) }}
 			</div>
 
 			<div class="form-group actions-row" style="text-align:centre;">

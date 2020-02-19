@@ -45,11 +45,11 @@
                         <input type="radio" name="leave_type" id="2" value="Sick">Sick
                     </label>
                 </div>
-                <div class="radio">
+                <!-- <div class="radio">
                     <label>
                         <input type="radio" name="leave_type" id="3" value="Study">Study
                     </label>
-                </div>
+                </div> -->
                  <div class="radio">
                     <label>
                         <input type="radio" name="leave_type" id="4" value="Maternity">Maternity
@@ -62,12 +62,22 @@
                 </div>
                  <div class="radio">
                     <label>
-                        <input type="radio" name="leave_type" id="6" value="Compassionate">Compassionate
+                        <input type="radio" name="leave_type" id="6" value="Bereavement">Bereavement Leave 
                     </label>
                 </div>
                 <div class="radio">
                     <label>
-                        <input type="radio" name="leave_type" id="7" value="Domestic problems">Domestic problems
+                        <input type="radio" name="leave_type" id="7" value="Administrative">Administrative Leave
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="leave_type" id="8" value="Leave without pay">Leave without pay
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="leave_type" id="9" value="Make up Holiday">Make up Holiday
                     </label>
                 </div>
             </div>
@@ -76,38 +86,37 @@
             {{ Form::label('department', 'Section', array('class' => 'col-sm-2')) }}
             {{ Form::select('department', [
                     '0' =>'---Select Section---',
-                     'Finance & Accounts' => 'Finance & Accounts', 'Data' => 'Data','Sample Reception' => 'Sample Reception', 'Logistics/Stores' => 'Logistics/Stores', 'EID Lab' => 'EID Lab', 'Viral Load' => 'Viral Load', 'SickleCell' =>'SickleCell', 'Hep B' =>'Hep B', 'Microbiology' => 'Microbiology','Executive Director' => 'Executive Director', 'ICT' =>'ICT', 'QA' =>'QA', 'Results QC' =>'Results QC', 'Records' =>'Records', 'Research' =>'Research','Engineering' =>'Engineering', 'Bio Repository' =>'Bio Repository', 'Customer Care' =>'Customer Care', 'Management' =>'Management', 'All' =>'All'], 
+                     'Finance & Accounts' => 'Finance & Accounts', 'Data' => 'Data','Sample Reception' => 'Sample Reception', 'Logistics/Stores' => 'Logistics/Stores', 'EID Lab' => 'EID Lab', 'Viral Load' => 'Viral Load', 'SickleCell' =>'SickleCell', 'Hep B' =>'Hep B', 'Microbiology' => 'Microbiology', 'M&E' =>'M&E', 'Pathology/Cancer' =>'Pathology/Cancer', 'Executive Director' => 'Executive Director', 'ICT' =>'ICT', 'QA' =>'QA', 'Results QC' =>'Results QC', 'Records' =>'Records', 'Research' =>'Research','Engineering' =>'Engineering', 'Bio Repository' =>'Bio Repository', 'Customer Care' =>'Customer Care', 'Management' =>'Management', 'All' =>'All'], 
                     Input::old('department'), array('class' => 'form-control col-sm-4')) }}
             </div>
             
             <div class="form-group">
                  <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                {{ Form::label('name', 'Your Name', array('class' => 'col-sm-2' )) }}
-            {{ Form::text('name', Input::old('name'), array('class' => 'form-control col-sm-8')) }}
+                 <input type="hidden" name="name" value="{{ Auth::user()->name }}">
             </div>
             <div class="form-group">
                 {{ Form::label('position', 'Your position', array('class' => 'col-sm-2' )) }}
-            {{ Form::text('position', Input::old('position'), array('class' => 'form-control col-sm-8')) }}
+            {{ Form::text('position', Auth::user()->designation, Input::old('position'), array('class' => 'form-control col-sm-8')) }}
             </div>
             <div class="form-group">
                 {{ Form::label('email', 'Email', array('class' => 'col-sm-2' )) }}
-            {{ Form::text('email', Input::old('email'), array('class' => 'form-control col-sm-8')) }}
+            {{ Form::text('email', Auth::user()->email, Input::old('email'), array('class' => 'form-control col-sm-8')) }}
             </div>
             <div class="form-group">
                 {{ Form::label('emp_contact', 'Employee Contact', array('class' => 'col-sm-2' )) }}
             {{ Form::text('emp_contact', Input::old('emp_contact'), array('class' => 'form-control col-sm-8')) }}
             </div>
             <div class="form-group">
-                {{ Form::label('days', 'Number of Days', array('class' => 'col-sm-2' )) }}
-            {{ Form::text('days', Input::old('days'), array('class' => 'form-control col-sm-8')) }}
-            </div>
-            <div class="form-group">
                  {{ Form::label('date_from', 'From', array('class' => 'col-sm-2 required')) }}
-                {{ Form::text('date_from', Input::old('date_from'), array('class' => 'form-control standard-datepicker col-sm-8')) }}
+                {{ Form::text('date_from', Input::old('date_from'), array('class' => 'form-control datepicker col-sm-8', 'id'=>'date_from')) }}
             </div>
             <div class="form-group">
                 {{ Form::label('date_to', 'To', array('class' => 'col-sm-2 required')) }}
-            {{ Form::text('date_to', Input::old('date_to'), array('class' => 'form-control standard-datepicker col-sm-8')) }}
+            {{ Form::text('date_to', Input::old('date_to'), array('class' => 'form-control datepicker col-sm-8', 'id'=>'date_to')) }}
+            </div>
+            <div class="form-group">
+                {{ Form::label('days', 'Number of Days', array('class' => 'col-sm-2' )) }}
+            {{ Form::text('days', Input::old('days'), array('class' => 'form-control col-sm-8 read-only' ,'id' =>'NumberofDays')) }}
             </div>
             <div class="form-group">
                 {{ Form::label('destination', 'Destination', array('class' => 'col-sm-2' )) }}
@@ -121,7 +130,11 @@
                 {{ Form::label('nok_contact', 'Next of Kin Tel', array('class' => 'col-sm-2' )) }}
             {{ Form::text('nok_contact', Input::old('nok_contact'), array('class' => 'form-control col-sm-8')) }}
             </div> 
-           <div class="form-group">
+            <div class="form-group">
+                {{ Form::label('delegate', 'Work delegated to', array('class' => 'col-sm-2' )) }}
+            {{ Form::text('delegate', Input::old('delegate'), array('class' => 'form-control col-sm-8')) }}
+            </div>
+            <div class="form-group">
                 {{ Form::label('supermail', 'Supervisor email', array('class' => 'col-sm-2' )) }}
             {{ Form::text('supermail', Input::old('supermail'), array('class' => 'form-control col-sm-8')) }}
             </div>
@@ -130,95 +143,36 @@
                 {{ Form::label('comment', 'Reason', array('class' => 'col-sm-2' )) }}
             {{ Form::textarea('comment', Input::old('comment'), array('class' => 'form-control col-sm-8')) }}
             </div>
+            
 
             <button type="submit" class="btn btn-default">Submit Button</button>
     
-  <!--  Modal
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-    
-       Modal content
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Choose the type</h4>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-sm-4">
-                <label  class="radio-inline">            
-                    {{ Form::radio('leave_type', 'Annual', (Input::old('leave_type') == 'Annual'), array('id'=>'annual', 'class'=>'radio')) }}     
-                    Annual
-                </label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-4">              
-                <label  class="radio-inline">            
-                    {{ Form::radio('leave_type', 'Sick', (Input::old('leave_type') == 'Sick'), array('id'=>'sick', 'class'=>'radio')) }}     
-                    Sick
-                </label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-4">              
-                <label  class="radio-inline">            
-                    {{ Form::radio('leave_type', 'Study', (Input::old('leave_type') == 'Study'), array('id'=>'study', 'class'=>'radio')) }}     
-                    Study
-                </label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-4">
-                <label  class="radio-inline">            
-                    {{ Form::radio('leave_type', 'Maternity', (Input::old('leave_type') == 'maternity'), array('id'=>'maternity', 'class'=>'radio')) }}     
-                    Maternity
-                </label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-4">              
-                <label  class="radio-inline">            
-                    {{ Form::radio('leave_type', 'Paternity', (Input::old('leave_type') == 'Paternity'), array('id'=>'paternity', 'class'=>'radio')) }}     
-                    Paternity
-                </label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-4">              
-                <label  class="radio-inline">            
-                    {{ Form::radio('leave_type', 'Compassionate', (Input::old('leave_type') == 'Compassionate'), array('id'=>'compassionate', 'class'=>'radio')) }}     
-                    Compassionate
-                </label>
-            </div>
-        </div>
+    <script language="javascript">
 
+        $("#date_to").change(function(){
+            var date_from = $('#date_from').val();
+            var date_to = $('#date_to').val();
 
-        <div id="A_options" class="form-group hidden">
-<hr>
-                <div class="row">
-                    <div class="col-sm-4">
-                         <label class="control-label">From</label>  
-                    </div>
-                
+            var numberofdays = addNumbers(date_from, date_to);
+            $('#NumberofDays').val(numberofdays);          
+        });
+        
+        
+         function addNumbers(date1,date2)
+        {
+                            
+             var date1 = new Date(date1); 
+             var date2 = new Date(date2);
+             var n = 0;
 
-                    <div class="col-sm-8">
-                            {{ Form::text('number', '1', (Input::old('number') == '1'), array('id'=>'from_warehouse', 'class'=>'form-control col-sm-4')) }}     
-                            Facility
-                    </div>
-                </div>
-        </div>
+            while(date1<=date2){
+            if( date1.getDay() >0 && date1.getDay() <6) n++;
+            date1.setDate(date1.getDate()+1) ;
+            }
+            return n;
 
-      
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">submit</button>
-        </div>
-      </div>
-      
-    </div>
-  </div>
-</div> -->
+        }
+    </script>
 </form>
 </div>
 </div>

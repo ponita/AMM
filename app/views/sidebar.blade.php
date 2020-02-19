@@ -8,7 +8,7 @@
 				</li>
 
 			@if(Entrust::can('view_reports'))
-				<li class="nav_trigger">
+				<li class="treeview">
 					<a href="#">
 					<span class="glyphicon glyphicon-signal"></span>
 						<span class="nav_title">REPORTS</span>
@@ -74,7 +74,7 @@
 					<a href="{{ URL::route('event.team')}}"><span class="glyphicon glyphicon-user"></span> <span class="nav_title">TEAM</span></a>
 				</li>
 
-				<li class="nav_trigger">
+				<li class="treeview">
 					<a href="#">
 					<span class="glyphicon glyphicon-link"></span>
 					
@@ -120,7 +120,7 @@
 				</li>
 
 
-			<li class="nav_trigger">
+			<li class="treeview">
 					<a href="#">
 					<!--	<span class="ion-info"></span> -->
 					<span class="glyphicon glyphicon-book"></span>
@@ -170,7 +170,7 @@
 				</li>				
 
 			
-			<li class="nav_trigger">
+			<li class="treeview">
 					<a href="#">
 					<span class="glyphicon glyphicon-send"></span>
 						
@@ -211,7 +211,7 @@
 					</div>
 				</li>
 
-				<li class="nav_trigger">
+				<li class="treeview">
 					<a href="#">
 					<span class="glyphicon glyphicon-send"></span>
 						
@@ -242,7 +242,7 @@
 
 			
 			@if(Entrust::can('manage_configurations'))
-		<li class="nav_trigger">
+		<li class="treeview">
 					<a href="#">
 					<span class="glyphicon glyphicon-paperclip"></span>
 						
@@ -297,7 +297,7 @@
 				@endif
 
 			@if(Entrust::can('manage_users'))
-				<li class="nav_trigger">
+				<li class="treeview">
 					<a href="#">
 						<span class="ion-key"></span>
 						<span class="nav_title">ACCESS CONTROL</span>
@@ -337,32 +337,53 @@
 				</li>
 				@endif
 				
-				<li class="nav_trigger">
+				<li class="treeview">
 					<a href="#">
 					<span class="glyphicon glyphicon-globe"></span>
 						
-						<span class="nav_title">OTHER SYSTEMS</span>
+						<span class="nav_title">OTHERS</span>
 					</a>
 					<div class="sub_panel" style="left: -220px;">
 						<div class="side_inner ps-ready ps-container" style="height: 620px;">
 							<h4 class="panel_heading panel_heading_first">Other systems</h4>
 							<ul>
+				@if(Entrust::can('manage_work_plan'))
+								
 								<li>
 									<div>
-										<a href="http://www.cphluganda.org/" target="blank">
-											<span class="glyphicon glyphicon-tag"></span> EID</a>
+										<a href="{{ URL::route('yearSubactivities.index')}}" target="blank">
+											<span class="glyphicon glyphicon-tag"></span>Grant/Sub Grant Sub activities</a>
 									</div>
 								</li>
 								<li>
 									<div>
-										<a href="http://www.cphluganda.org/" target="blank">
-											<span class="glyphicon glyphicon-tag"></span> Viral Load</a>
+										<a href="{{ URL::route('yearActivities.index')}}" target="blank">
+											<span class="glyphicon glyphicon-tag"></span>Grant/Sub Grant Activities</a>
 									</div>
 								</li>
 								<li>
 									<div>
-										<a href="http://www.cphl.go.ug/" target="blank">
-											<span class="glyphicon glyphicon-tag"></span>CPHL Website</a>
+										<a href="{{ URL::route('yearSubobjectives.index')}}" target="blank">
+											<span class="glyphicon glyphicon-tag"></span>UNHLS Strategic Indicator</a>
+									</div>
+								</li>
+								<li>
+									<div>
+										<a href="{{ URL::route('yearstrategies.index')}}" target="blank">
+											<span class="glyphicon glyphicon-tag"></span>Strategies</a>
+									</div>
+								</li>
+								<li>
+									<div>
+										<a href="{{ URL::route('yearObjectives.index')}}" target="blank">
+											<span class="glyphicon glyphicon-tag"></span>Objective</a>
+									</div>
+								</li>
+								@endif
+								<li>
+									<div>
+										<a href="{{ URL::route('yearplan.index')}}" target="blank">
+											<span class="glyphicon glyphicon-tag"></span>UNHLS IP Supported work plan</a>
 									</div>
 								</li>
 							</ul>
@@ -370,6 +391,7 @@
 						<div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px; width: 215px; display: none;"><div class="ps-scrollbar-x" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; right: 3px; height: 620px; display: none;"><div class="ps-scrollbar-y" style="top: 0px; height: 0px;"></div></div></div>
 					</div>
 				</li>
+				
 
 			</ul>
 		</nav>

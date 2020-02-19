@@ -8,6 +8,11 @@ class LeaveForm extends Eloquent
 	{
 		return $this->belongsTo('User', 'user_id', 'id');
 	}
+	public function leave_days()
+	{
+		return $this->hasMany('Leave_Days','id');
+	}
 
 	public $timestamps = false;
 }
+

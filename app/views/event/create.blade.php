@@ -1,17 +1,35 @@
 @extends("layout")
 @section("content")
 
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="{{ asset('css/select2.min.css') }}">
+<script src="{{ asset('js/bootstrapValidator.min.js') }}"></script> 
+<script src="{{ asset('js/select2.min.js') }}"></script> 
 <script>
-$(document).ready(function(){
-    $(".btn1").click(function(){
-        $("1").hide();
-    });
-    // $(".btn2").click(function(){
-    //     $("p").show();
-    // });
-});
-</script>  -->
+	$(document).ready(function() {
+		$('.select2').select2();
+		$('#routingscheduleform').bootstrapValidator({
+       
+        fields: {
+			monday: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Please select at least one facility'
+                        }
+                    }
+                },
+                
+			email: {          
+			validators: {
+					regexp: {
+					  regexp: '^[^@\\s]+@([^@\\s]+\\.)+[^@\\s]+$',
+					  message: 'The value is not a valid email address'
+					}
+				}
+			}
+		}//endo of validation rules
+    });// close form validation function
+	});
+</script> 
 <script>
 $('#location').on('change', function() {
 var el = $('#field-location');
@@ -20,7 +38,9 @@ else { el.hide();}
 });
 
 </script>
-
+<script>
+	$('#my-select').multiSelect()
+</script>
 	<div>
 		<ol class="breadcrumb">
 		  <li><a href="{{{URL::route('user.home')}}}">{{ trans('messages.home') }}</a></li>
@@ -50,7 +70,7 @@ else { el.hide();}
 	<div class="panel-heading"><strong>Activity Information</strong></div>
 	<div class="panel-body">	
 	
-<div class="form-pane panel panel-default">
+<div>
 		<div class="form-group">
 			{{ Form::hidden('user_id', Auth::user()->id) }}
 			{{ Form::label('type', 'Type', array('class' => 'col-sm-2')) }}
@@ -62,63 +82,39 @@ else { el.hide();}
 					'Sensitization' => 'Sensitization',
 					'Outreach' => 'Outreach',
 					'Support Supervision' => 'Support Supervision'], 
-					Input::old('type'), array('id' => 'type', 'class' => 'form-control col-sm-4')) }}
-
-			{{ Form::label('uid', 'Unique ID', array('class' => 'col-sm-2 col-sm-offset-1')) }}
+					Input::old('type'), array('id' => 'type', 'class' => 'form-control', 'style'=>'width: 80%;')) }}
+		</div>
+		<div class="form-group">
+			{{ Form::label('uid', 'Unique ID', array('class' => 'col-sm-2')) }}
 			{{ Form::text('uid', 'Auto generated upon succesfull save!',
-						array('class' => 'form-control col-sm-4', 'readonly' =>'true')) }}
+						array('class' => 'form-control col-sm-4', 'readonly' =>'true', 'style'=>'width: 80%;')) }}
 			
 		</div>
 	</div>
 
-<div class="form-pane panel panel-default">
+<div>
 	<div class="form-group">
 			{{ Form::label('name', 'Activity Name', array('class' => 'col-sm-2 required')) }}
-			{{ Form::text('name', Input::old('name'), array('size' => '10x1','class' => 'form-control col-sm-10')) }}			
+			{{ Form::text('name', Input::old('name'), array('size' => '10x1','class' => 'form-control', 'style'=>'width: 80%;')) }}			
 
-
-            {{ Form::label('department', 'Department', array('class' => 'col-sm-2 col-sm-offset-1')) }}
+	</div>
+	<div class="form-group">
+            {{ Form::label('department', 'Department', array('class' => 'col-sm-2')) }}
             {{ Form::select('department', [
                     '0' =>'---Select Section---',
-                     'Finance & Accounts' => 'Finance & Accounts', 'Data' => 'Data','Sample Reception' => 'Sample Reception', 'Logistics/Stores' => 'Logistics/Stores', 'EID Lab' => 'EID Lab', 'Viral Load' => 'Viral Load', 'SickleCell' =>'SickleCell', 'Hep B' =>'Hep B', 'Microbiology' => 'Microbiology','Executive Director' => 'Executive Director', 'ICT' =>'ICT', 'QA' =>'QA', 'Results QC' =>'Results QC', 'Records' =>'Records', 'Research' =>'Research','Engineering' =>'Engineering', 'Bio Repository' =>'Bio Repository', 'Customer Care' =>'Customer Care', 'Management' =>'Management', 'All' =>'All'], 
-                    Input::old('department'), array('class' => 'form-control')) }}
-                    
-			<!-- {{Form::label('thematicarea', 'Thematic Area', array('class' => 'col-sm-2 col-sm-offset-1'))}}
-			{{ Form::select('thematicarea', $thematicAreas, Input::old('thematicarea'),
-					['class' => 'form-control', 'id' => 'thematicarea']) }} -->
-					
-		</div>
+                     'Finance & Accounts' => 'Finance & Accounts', 'Data' => 'Data','Sample Reception' => 'Sample Reception', 'Logistics/Stores' => 'Logistics/Stores', 'EID Lab' => 'EID Lab', 'Viral Load' => 'Viral Load', 'SickleCell' =>'SickleCell', 'Hep B' =>'Hep B', 'Microbiology' => 'Microbiology','Executive Director' => 'Executive Director', 'ICT' =>'ICT', 'QA' =>'QA', 'M&E' =>'M&E', 'Pathology/Cancer' =>'Pathology/Cancer', 'Outbreak & Surveillance' =>'Outbreak & Surveillance', 'Results QC' =>'Results QC', 'Records' =>'Records', 'Research' =>'Research','Engineering' =>'Engineering', 'Bio Repository' =>'Bio Repository', 'Customer Care' =>'Customer Care', 'Management' =>'Management', 'All' =>'All'], 
+                    Input::old('department'), array('class' => 'form-control', 'style'=>'width: 80%;')) }}
 	</div>
-		<!-- <div class="col-md-6 strategy-list">
-										</div> -->
-		
-	<!-- 	<div class="form-pane panel panel-default">
-			<div class="form-group" >
-			{{Form::label('department', 'Strategic plan', array('class' => 'col-sm-2'))}}
-			{{ Form::select('department', $departments, Input::old('department'),
-					['class' => 'form-control department', 'id' => 'department']) }}
-
-
-		
-		<div id="workplan" name="workplan" class="col-md-6 workplan-list">
-										</div>
 </div>
-</div> -->
-
-<div class="form-pane panel panel-default">
+		
+	<div>
 		<div class="form-group">
-			{{ Form::label('start_date', 'Start Date', array('class' => 'col-sm-2 required')) }}
-			{{ Form::text('start_date', Input::old('start_date'), array('class' => 'form-control standard-datepicker col-sm-4')) }}
-
-			{{ Form::label('end_date', 'End Date', array('class' => 'col-sm-1 col-sm-offset-1')) }}
-			{{ Form::text('end_date', Input::old('end_date'), array('class' => 'form-control standard-datepicker col-sm-4')) }}
-
+			{{ Form::label('start_date', 'Period', array('class' => 'col-sm-2 required')) }}
+			{{ Form::text('start_date', Input::old('start_date'), array('class' => 'form-control datepicker', 'style'=>'width: 35%;', 'placeholder'=>'Start Date')) }}
+			{{ Form::text('end_date', Input::old('end_date'), array('class' => 'form-control col-sm-offset-1 datepicker', 'style'=>'width: 35%;', 'placeholder'=>'End date')) }}
 		</div>
 	</div>
-		
-	
-
-<div class="form-pane panel panel-default">
+<div>
 		<div class="form-group">
 			{{ Form::label('location', 'Location', array('class' => 'col-sm-2')) }}
 			{{ Form::select('location', [
@@ -126,73 +122,56 @@ else { el.hide();}
 					'Butabika Headquaters' => 'Butabika Headquaters',
 					'Field Activity InCountry' => 'Field Activity InCountry',
 					'Field Activity Foreign' => 'Field Activity Foreign'], 
-					Input::old('location'), array('id' => 'location', 'class' => 'form-control col-sm-4')) }}
-			
-			{{ Form::label('premise', 'Venue', array('class' => 'col-sm-1 col-sm-offset-1')) }}
-			{{ Form::textarea('premise', Input::old('premise'), array('size' => '10x1','class' => 'form-control col-sm-4')) }}
+					Input::old('location'), array('id' => 'location', 'class' => 'form-control', 'style'=>'width: 80%;')) }}
+		</div>
+		<div class="form-group">	
+			{{ Form::label('premise', 'Venue', array('class' => 'col-sm-1')) }}
+			{{ Form::textarea('premise', Input::old('premise'), array('size' => '10x1','class' => 'form-control', 'style'=>'width: 80%;')) }}
 		</div>
 	</div>
 
+<div>
+		<div class="form-group">
+			{{ Form::label('district', 'District', array('class' => 'col-sm-2')) }}
+			{{ Form::select('district[]', $districts, null, ['class' => 'form-control col-sm-4 select2 select2-hidden-accessible', 'multiple'=>"",'style'=>'width: 80%;', 'tabindex'=>'"-1"', 'aria-hidden'=>'"true"', 'data-placeholder'=>'Select Districts']) }}
+		</div>
+		<div class="form-group">
+			{{ Form::label('hub', 'Hub/Facility', array('class' => 'col-sm-2')) }}
+			{{ Form::select('hub[]', $hubs, null, ['class' => 'form-control col-sm-4 select2 select2-hidden-accessible', 'multiple'=>"",'style'=>'width: 80%;', 'tabindex'=>'"-1"', 'aria-hidden'=>'"true"', 'data-placeholder'=>'Select facilities to be visited']) }}
+		</div>
+
+</div>
 		
-
-<!-- <div class="form-pane panel panel-default">
-		<div id="lesson-point">
-			<div class="row">
-			<div class="form-group">
-				{{ Form::label('hub', '&nbsp; &nbsp; &nbsp; &nbsp; Hub', array('class' => 'col-sm-2')) }}
-			{{ Form::select('hub[]', $hubs, Input::old('hub'), array('class' => 'form-control col-sm-4')) }}
-
-			
-			</div>
-			{{ Form::button("<span class='glyphicon glyphicon-delete'></span> ".'Remove', ['class' => 'remove-reason btn-normal']) }}
-					
-			</div>
-		</div>
-		<div>
-				<a href="#" id="add-lesson"><i>Select more hubs</i></a></div>
-	</div> -->
-
-<div class="form-pane panel panel-default">
-		<div class="form-group" style="" id="field-location">
-			
-			{{Form::label('healthregion', 'Health Region', array('class' => 'col-sm-2')) }}
-			{{ Form::select('healthregion', $healthregion, Input::old('healthregion'),
-					['class' => 'form-control col-sm-4']) }}
-
-			{{ Form::label('district', 'District', array('class' => 'col-sm-2 col-sm-offset-1')) }}
-			{{ Form::select('district', $districts, Input::old('district'), array('class' => 'form-control col-sm-4')) }}
-			</div>
-
-		</div>
-
-<div class="form-pane panel panel-default">
+<div>
 			<div class="form-group">
 			{{ Form::label('country', 'Country', array('class' => 'col-sm-2')) }}
-			{{ Form::select('country', $country, Input::old('country'), array('class' => 'form-control col-sm-4')) }}
-			
-			{{Form::label('funder', 'Funding Source', array('class' => 'col-sm-2 col-sm-offset-1')) }}
+			{{ Form::select('country', $country, Input::old('country'), array('class' => 'form-control', 'style'=>'width: 80%;')) }}
+			</div>
+			<div class="form-group">
+			{{Form::label('funder', 'Funding Source', array('class' => 'col-sm-2')) }}
 			{{ Form::select('funder', $funders, Input::old('funder'),
-					['class' => 'form-control col-sm-4']) }}
+					['class' => 'form-control', 'style'=>'width: 80%;']) }}
 			</div>
 		</div>
 
-<div class="form-pane panel panel-default">
+<div>
 		<div class="form-group">
 			
 			{{Form::label('organiser', 'Organiser', array('class' => 'col-sm-2')) }}
 			{{ Form::select('organiser', $organisers, Input::old('organiser'),
-					['class' => 'form-control col-sm-4']) }}
-
-			{{Form::label('co_organiser', 'Co/Organiser', array('class' => 'col-sm-2 col-sm-offset-1')) }}
-			{{ Form::text('co_organiser', Input::old('co_organiser'), array('class' => 'form-control col-sm-4')) }}	
+					['class' => 'form-control', 'style'=>'width: 80%;']) }}
+		</div>
+		<div class="form-group">
+			{{Form::label('co_organiser', 'Co/Organiser', array('class' => 'col-sm-2')) }}
+			{{ Form::text('co_organiser', Input::old('co_organiser'), array('class' => 'form-control', 'style'=>'width: 80%;')) }}	
 		</div>
 	</div>
 
 
-<div class="form-pane panel panel-default">
+<div>
 		<div class="form-group">
 			<label>Audience</label>
-				<div class="form-pane panel panel-default">
+				<div class="form-pane panel panel-default" style='width: 95%;'>
 			<div class="container-fluid">
 			<?php 
 							$cnt = 0;
@@ -218,33 +197,33 @@ else { el.hide();}
 
 			</div>
 		
-<div class="form-pane panel panel-default">
+<div>
 			<div class="form-group">
 			{{ Form::label('participants_no', 'No of Participants', array('class' => 'col-sm-2' )) }}
-			{{ Form::input('number','participants_no', Input::old('participants_no'), array('class' => 'form-control col-sm-4')) }}	
+			{{ Form::input('number','participants_no', Input::old('participants_no'), array('class' => 'form-control', 'style'=>'width: 80%;')) }}	
 		
 			</div>
 		</div>
 			
 			
 
-<div class="form-pane panel panel-default">
+		<div>
 			<div id="action-point">
 			<div class="row">
 			<div class="form-group">
 
 			{{ Form::label('objective', '&nbsp; &nbsp; &nbsp; Add Objective', array('class' => 'col-sm-2')) }}
-			{{ Form::textarea('objective[]', '', array('size' => '10x1','class' => 'form-control col-sm-4')) }}
+			{{ Form::textarea('objective[]', '', array('size' => '10x1','class' => 'form-control', 'style'=>'width: 80%;')) }}
 			</div>
 			{{ Form::button("<span class='glyphicon glyphicon-delete'></span> ".'Remove', ['class' => 'remove-reason btn-normal']) }}
 					
 			</div>
-		</div>
+			</div>
 
-				<div>
+			<div>
 				<a href="#" id="add-action"><i>Add More Objectives</i></a></div>
 
-			</div>
+		</div>
 
 
 		

@@ -55,6 +55,14 @@
                 <span class="form-control-static col-sm-6 col-sm-offset-1">{{ $leave->emp_contact }}</span>
             </div>
             <div class="form-group">
+                <strong><span class="col-sm-4">From-To:</span></strong>
+                <span class="form-control-static col-sm-6 col-sm-offset-1">{{ date('d', strtotime($leave->date_from)) }}-{{ date('d M Y', strtotime($leave->date_to)) }}</span>
+            </div>
+            <div class="form-group">
+                <strong><span class="col-sm-4">Days:</span></strong>
+                <span class="form-control-static col-sm-6 col-sm-offset-1">{{getActualNumberofDays($leave->date_from, $leave->date_to)}}</span>
+            </div>
+            <div class="form-group">
                 <strong><span class="col-sm-4">Next of Kin:</span></strong>
                 <span class="form-control-static col-sm-6 col-sm-offset-1">{{ $leave->nok_name }}</span>
             </div>
@@ -69,6 +77,10 @@
             <div class="form-group">
                 <strong><span class="col-sm-4">Reason</span></strong>
                 <span class="form-control-static col-sm-6 col-sm-offset-1">{{ $leave->comment }}</span>
+            </div>
+            <div class="form-group">
+                <strong><span class="col-sm-4">Work delegated to:</span></strong>
+                <span class="form-control-static col-sm-6 col-sm-offset-1">{{ $leave->delegate }}</span>
             </div>
                                 <div class="clearfix"></div>
                             </div>
@@ -98,7 +110,31 @@
                                 <div class="clearfix"></div>
                             </div>
                     </div>
+               <!--  <div class="panel panel-warning">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-9 text-right">
+                                    <div>Supervisor info</div>
+                                </div>
+                            </div>
+                        </div>
+                            <div class="panel-footer">
+             <div class="form-group">
+                <strong><span class="col-sm-4">Name</span></strong><span class="form-control-static col-sm-10">{{ $leave->approvedbys }}</span>
+            </div>
+             <div class="form-group">
+                <strong><span class="col-sm-4">Status</span></strong><span class="form-control-static col-sm-10">{{ $leave->s_approval_status }}</span>
+            </div>
+            <div class="form-group">
+                <strong><span class="col-sm-4">Comment</span></strong>
+                <span class="form-control-static col-sm-10">{{ $leave->s_comment }}</span>
+            </div>
+            
+                                <div class="clearfix"></div>
+                            </div>
+                    </div> -->
                 </div>
+            </div>
       
       {{ Form::model($leave, array('files'=>true,'route' => array('leave.updatemanager', $leave->id), 'method' => 'PUT',
                 'id' => 'form-edit-leave')) }}
@@ -113,7 +149,18 @@
                         <input type="radio" name="m_approval_status" id="m_approval_status2" value="Rejected">No
                     </label>
             </div>
-
+        <div class="form-group">
+            {{ Form::label('dir_mail', 'Director', array('class' => 'col-sm-2')) }}
+            {{ Form::select('dir_mail', [
+                    '0' =>'---Select Director---',
+                     'sewyisaac@yahoo.co.uk' => 'Isaac Ssewanyana', 
+                     'wilson.nyegenye@gmail.com' => 'Wilson Nyegenye',
+                     'akagirita@gmail.com' => 'Atek Kagirita',
+                     'ckiyaga@gmail.com' => 'Charles Kiyaga',
+                     'pakagwa@gmail.com' =>'Patrick Ogwok',
+                     'gmujuzi@gmail.com' =>'Godfrey P. Mujuzi'], 
+                    Input::old('dir_mail'), array('class' => 'form-control col-sm-4')) }}
+            </div>
         <div class="form-group">
             {{ Form::hidden('approvedbym', Auth::user()->name) }}
             {{ Form::label('m_comment', 'Comment', array('class' => 'col-sm-2')) }}
@@ -121,7 +168,7 @@
 
         </div>
     
-    </div>
+    
 </div>
                 
 <div class="form-group actions-row" style="text-align:right;">

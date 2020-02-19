@@ -9,31 +9,34 @@ class LeaveController extends \BaseController {
 	 */
 	public function index()
 	{
-				$leave = LeaveForm::orderBy('id','DESC')->get();		
+		$leave = LeaveForm::orderBy('id', 'DESC')->get();
 		
 		return View::make('leave.index')->with('leave', $leave);
+	}
+
+	public function viewStaffLeaveDetails($id){
+
+		$user = User::find($id);
+		$leave = LeaveForm::where('user_id','=',$id)->orderBy('id','DESC')->get();
+	
+		
+		// Load the view and pass the patients
+		return View::make('leave.staff_detail')->with('user', $user)
+		->with('leave', $leave);
+
 	}
 
 	public function transfer()
 	{
 		$handle = curl_init();
 		
-		curl_setopt($handle, CURLOPT_URL, "http://localhost/CheckinAPI/?cmd=GetCheckinuser");
+		curl_setopt($handle, CURLOPT_URL, "http://localhost/LeaveinAPI/?cmd=GetCheckinuser");
 
-		// $json = curl_init('http://localhost/CheckinAPI/?cmd=GetCheckinuser');
 		curl_setopt($handle,CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($handle,CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-		 $response = curl_exec($handle);
-		 curl_close($handle);
-		 $actualdata = (array)json_decode($response);
-		// print_r($actualdata[3]);
-
-		// \Log::info('....1....');
-		// 		\Log::info($response);
-
-		// \Log::info(".....2.....");
-		//  $now = new DateTime();
-		// $collectionDate = $now->format('Y-m-d H:i');
+        curl_setopt($handle,CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+         $staff_list = curl_exec($handle);
+         curl_close($handle);
+         $actualdata = json_decode($staff_list);
 		
 		return View::make('leave.transfer')->with('actualdata', $actualdata);
 	}
@@ -62,7 +65,7 @@ class LeaveController extends \BaseController {
 		$rules = array(
 		//	'patient_number' => 'required|unique:patients,patient_number',
 			'user_id' => 'required',
-			'name' => 'required',
+		 	'name' => 'required',
 			'date_from' => 'required',
 			'date_to' => 'required',
 			'leave_type' => 'required',
@@ -77,7 +80,7 @@ class LeaveController extends \BaseController {
 
 			return Redirect::route('leave.create')
                 ->withErrors($validator)
-                ->withInput(Input::except('days'));
+                ->withInput(Input::except('supermail'));
 		}
 		else {
 
@@ -94,13 +97,14 @@ class LeaveController extends \BaseController {
 		$leave->nok_contact = Input::get('nok_contact');
 		$leave->nok_name = Input::get('nok_name');
 		$leave->days = Input::get('days');
+		$leave->delegate = Input::get('delegate');
 		$leave->supermail = Input::get('supermail');
 		$leave->comment = Input::get('comment');
 		$leave->date_from = Input::get('date_from');
 		$leave->date_to = Input::get('date_to');
 		$leave->approval_status_id = 0;
 		
-
+		// dd($leave);
 		$leave->save();
 
 				$semail = $leave->supermail = Input::get('supermail');
@@ -115,7 +119,7 @@ class LeaveController extends \BaseController {
 
 
 
-		return Redirect::to('event.calender')->with('message', 'Successfully registered an activity with ID No '.$leave->id);
+		return Redirect::to('event.calender')->with('message', 'Successfully registered leave with ID No '.$leave->id);
 		}
 	}
 
@@ -202,12 +206,54 @@ class LeaveController extends \BaseController {
 		
 	}
 
-	public function supervisor($id)
+	public function clearance($id)
+	{
+	
+	$leave = LeaveForm::find($id);
+	$leave_days = LeaveDays::orderBy('id','DESC')->get();
+
+	return View::make('leave.clearance')->with('leave', $leave)
+	->with('leave_days', $leave_days);
+		
+	}
+
+	public function updateclearance($id)
 	{
 	
 	$leave = LeaveForm::find($id);
 
-	return View::make('leave.supervisor')->with('leave', $leave);
+		$leave->approvedbyhr = Input::get('approvedbyhr');
+		$leave->hr_approval_status = Input::get('hr_approval_status');
+		$leave->hr_comment = Input::get('hr_comment');
+		$leave->supermail = Input::get('supermail');
+		$leave->approvedon = \Carbon\Carbon::now()->toDateTimeString();
+		$leave->approval_status_id = 1;
+		
+
+		$leave->save();
+
+			Mail::send('leave.super_approval',
+					array('approvedbyhr'=>Input::get('approvedbyhr')),
+					function($message){
+						$message->to($_POST['supermail'])->subject('System Alerts');
+					});
+    	
+			$url = Session::get('SOURCE_URL');
+
+
+
+		return Redirect::to('leave')->with('message', 'Successfully updated leave form with ID No '.$leave->id);
+		
+	}
+
+	public function supervisor($id)
+	{
+	
+	$leave = LeaveForm::find($id);
+	$leave_days = LeaveDays::where('leave_id','=' ,$leave)->orderBy('id','DESC')->get();
+
+	return View::make('leave.supervisor')->with('leave', $leave)
+	->with('leave_days', $leave_days);
 		
 	}
 
@@ -220,7 +266,7 @@ class LeaveController extends \BaseController {
 		$leave->s_approval_status = Input::get('s_approval_status');
 		$leave->s_comment = Input::get('s_comment');
 		$leave->mangmail = Input::get('mangmail');
-		$leave->approvedon = \Carbon\Carbon::now()->toDateTimeString();
+		$leave->s_approvedon = \Carbon\Carbon::now()->toDateTimeString();
 		$leave->approval_status_id = 2;
 		
 
@@ -230,7 +276,7 @@ class LeaveController extends \BaseController {
 					array('approvedbys'=>Input::get('approvedbys')),
 					function($message){
 						$message->to($_POST['mangmail'])->subject('System Alerts');
-					});
+					}); 
     	
 			$url = Session::get('SOURCE_URL');
 
@@ -244,19 +290,22 @@ class LeaveController extends \BaseController {
 	{
 	
 	$leave = LeaveForm::find($id);
+	$leave_days = LeaveDays::where('leave_id','=' ,$leave)->orderBy('id','DESC')->get();
 
-	return View::make('leave.manager')->with('leave', $leave);
+	return View::make('leave.manager')->with('leave', $leave)
+	->with('leave_days', $leave_days);
 		
 	}
 
 	public function updatemanager($id)
 	{
 	
-	$leave = LeaveForm::find($id);
+		$leave = LeaveForm::find($id);
 
 		$leave->approvedbym = Input::get('approvedbym');
 		$leave->m_approval_status = Input::get('m_approval_status');
 		$leave->m_comment = Input::get('m_comment');
+		$leave->dir_mail = Input::get('dir_mail');
 		$leave->m_approvedon = \Carbon\Carbon::now()->toDateTimeString();
 		$leave->approval_status_id = 3;
 		
@@ -268,7 +317,7 @@ class LeaveController extends \BaseController {
 		Mail::send('leave.h_approval',
 					array('approvedbym'=>Input::get('approvedbym')),
 					function($message){
-						$message->to('poniagusto@gmail.com')->subject('System Alerts');
+						$message->to($_POST['dir_mail'])->subject('System Alerts');
 					});
 
 			$url = Session::get('SOURCE_URL');
@@ -283,8 +332,10 @@ class LeaveController extends \BaseController {
 	{
 	
 	$leave = LeaveForm::find($id);
+	$leave_days = LeaveDays::where('leave_id','=' ,$leave)->orderBy('id','DESC')->get();
 
-	return View::make('leave.head')->with('leave',$leave);
+	return View::make('leave.head')->with('leave',$leave)
+	->with('leave_days',$leave_days);
 		
 	}
 
@@ -311,7 +362,7 @@ class LeaveController extends \BaseController {
 					array('approvedbyh'=>Input::get('approvedbyh'),'name'=>Input::get('name'),'section'=>Input::get('section')),
 					function($message){
 						$message->to($_POST['email'])->subject('System Alerts');
-						$message->cc('poniagusto10@gmail.com')->subject('System Alerts');
+						$message->cc('poniagusto@gmail.com')->subject('System Alerts');
 					});
 
 			$url = Session::get('SOURCE_URL');
@@ -324,10 +375,27 @@ class LeaveController extends \BaseController {
 
 	public function report()
 	{
-		//
-		$leave = LeaveForm::orderBy('id','DESC')->get();
+		
+		$leave = LeaveForm::all();
+		$query = "select f.name as staff, f.user_id, f.emp_contact as contact, department, COUNT(f.id), SUM(f.days) as days FROM leave_form as f
+			LEFT JOIN users u ON(u.name = f.name)
+			GROUP BY f.user_id";
+			$rows = DB::select($query);
 
-		return View::make('leave.report')->with('leave', $leave);
+
+		return View::make('leave.report')->with('leave', $leave)
+									->with('rows', $rows);
+	}
+
+	public function confirmation($id)
+	{
+		//
+		$leave = LeaveForm::find($id);
+		$leave_days = LeaveDays::where('leave_id','=' ,$leave)->orderBy('id','DESC')->get();
+		// $leave_days->delete();
+
+		return View::make('leave.confirmation')->with('leave', $leave)
+		->with('leave_days', $leave_days);
 	}
 	/**
 	 * Update the specified resource in storage.
@@ -341,7 +409,7 @@ class LeaveController extends \BaseController {
 
 		$leave->user_id = Input::get('user_id');
 		$leave->s_comment = Input::get('s_comment');
-		$leave->approval_status_id = 1;
+		//$leave->approval_status_id = 1;
 		
 
 		$leave->save();
@@ -355,6 +423,19 @@ class LeaveController extends \BaseController {
 	}
 
 
+
+	public function delete($id)
+    {
+        //Soft delete the user
+        $list = LeaveDays::find($id);
+
+        $list->delete();
+
+        // redirect
+        $url = Session::get('SOURCE_URL');
+
+        return Redirect::to($url)->with('message', trans('messages.success-deleting-user'));
+    }
 	/**
 	 * Remove the specified resource from storage.
 	 *

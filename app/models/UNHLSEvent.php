@@ -50,6 +50,11 @@ class UNHLSEvent extends Eloquent
 
 	
 
+	public function eventdistrict()
+    {
+        return $this->hasMany('EventDistrict','event_id','id');
+	}
+
 	public function objective()
     {
         return $this->hasMany('UNHLSEventObjective','event_id','id');

@@ -75,14 +75,7 @@
 					<td>{{ $event->id }}</td>
 					<td>{{ date('d', strtotime($event->start_date)) }}-{{ date('d M Y', strtotime($event->end_date)) }}</td>
 					<td>{{ $event->name }}</td>
-					<!-- <td> @if($event->thematicArea_id)
-          {{ $event->thematicarea->name }}
-        @endif</td>
-					<td> @if($event->department_id)
-          {{ $event->department->name }}
-         @endif</td> 
-					<td>@if($event->workplan_id) {{ $event->workplan->workplan }}
-					@endif</td> -->
+					
 					<td> <ol>
           @foreach ($event->action as $action)
           <li>{{$action->action}}</li>
@@ -212,15 +205,7 @@
 					<td style="color: green">{{ $meetings->id }}</td>
 					<td>{{ date('d', strtotime($meetings->start_time)) }}-{{ date('d M Y', strtotime($meetings->end_time)) }}</td>
 					<td>{{ $meetings->name }}</td>
-					<!-- <td>@if($meetings->thematicArea_id)
-						{{ $meetings->thematicarea->name }}
-					@endif</td>
-					<td> @if($meetings->department_id)
-          {{ $meetings->department->name }}
-        @endif</td>
-					<td>@if($meetings->workplan_id)
-          {{ $meetings->workplan->workplan }}
-        @endif</td> -->
+					
 					<td> <ol>
           @foreach ($meetings->maction as $maction)
           <li>{{$maction->action}}</li>

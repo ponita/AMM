@@ -9,6 +9,8 @@ else { el.hide();}
 });
 
 </script> -->
+<link rel="stylesheet" href="css/bootstrap-year-calender.css">
+<script src="js/bootstrap-year-calender.js"></script>
 
 	<div>
 		<ol class="breadcrumb">
@@ -17,11 +19,11 @@ else { el.hide();}
 		  <li class="active">New Meeting</li>
 		</ol>
 	</div>
-	<div class="panel panel-primary">
-		<div class="panel-heading ">
+<div class="panel panel-primary">
+	<div class="panel-heading ">
 			<span class="glyphicon glyphicon-user"></span>
 			New Meeting 
-		</div>
+	</div>
 		<div class="panel-body">
 		<!-- if there are creation errors, they will show here -->
 			
@@ -42,7 +44,7 @@ else { el.hide();}
 		<div class="form-group">
 			{{ Form::label('uid', 'Unique ID', array('class' => 'col-sm-2')) }}
 			{{ Form::text('uid', 'Auto generated upon succesfull save!',
-						array('class' => 'form-control col-sm-4', 'readonly' =>'true')) }}
+						array('class' => 'form-control col-sm-4', 'readonly' =>'true', 'style'=>'width: 80%;')) }}
 		</div>
 		<div class="form-group">
 			{{ Form::hidden('user_id', Auth::user()->id) }}
@@ -51,68 +53,34 @@ else { el.hide();}
 					'0' => '----Select category----',
 					'Internal' => 'Internal',
 					'External' => 'External'], 
-					Input::old('category'), array('id' => 'category', 'class' => 'form-control col-sm-4')) }}
+					Input::old('category'), array('id' => 'category', 'class' => 'form-control', 'style'=>'width: 80%;')) }}
 			
 		</div> 
 
 		<div class="form-group">
 			{{ Form::label('name', 'Meeting', array('class' => 'col-sm-2')) }}
-			{{ Form::textarea('name', Input::old('name'), array('size' => '10x1','class' => 'form-control col-sm-10')) }}
+			{{ Form::textarea('name', Input::old('name'), array('size' => '10x1','class' => 'form-control', 'style'=>'width: 80%;')) }}
 		</div>
 
 		<div class="form-group">
             {{ Form::label('department', 'Department', array('class' => 'col-sm-2')) }}
             {{ Form::select('department', [
                     '0' =>'---Select Section---',
-                     'Finance & Accounts' => 'Finance & Accounts', 'Data' => 'Data','Sample Reception' => 'Sample Reception', 'Logistics/Stores' => 'Logistics/Stores', 'EID Lab' => 'EID Lab', 'Viral Load' => 'Viral Load', 'SickleCell' =>'SickleCell', 'Hep B' =>'Hep B', 'Microbiology' => 'Microbiology','Executive Director' => 'Executive Director', 'ICT' =>'ICT', 'QA' =>'QA', 'Results QC' =>'Results QC', 'Records' =>'Records', 'Research' =>'Research','Engineering' =>'Engineering', 'Bio Repository' =>'Bio Repository', 'Customer Care' =>'Customer Care', 'Management' =>'Management', 'All' =>'All'], 
-                    Input::old('department'), array('class' => 'form-control col-sm-4')) }}
-            </div>
+                     'Finance & Accounts' => 'Finance & Accounts', 'Data' => 'Data','Sample Reception' => 'Sample Reception', 'Logistics/Stores' => 'Logistics/Stores', 'EID Lab' => 'EID Lab', 'Viral Load' => 'Viral Load', 'SickleCell' =>'SickleCell', 'Hep B' =>'Hep B', 'Microbiology' => 'Microbiology', 'M&E' =>'M&E', 'Pathology/Cancer' =>'Pathology/Cancer','Executive Director' => 'Executive Director', 'ICT' =>'ICT', 'QA' =>'QA', 'Results QC' =>'Results QC', 'Records' =>'Records', 'Research' =>'Research','Engineering' =>'Engineering', 'Bio Repository' =>'Bio Repository', 'Customer Care' =>'Customer Care', 'Management' =>'Management','Community Outreach' =>'Community Outreach', 'All' =>'All'], 
+                    Input::old('department'), array('class' => 'form-control', 'style'=>'width: 80%;')) }}
+        </div>
 
-		<!-- <div class="form-group">
-			{{Form::label('thematicarea', 'Thematic Area', array('class' => 'col-sm-2'))}}
-			{{ Form::select('thematicarea', $thematicAreas, Input::get('thematicarea'),
-					['class' => 'form-control col-sm-4']) }}
+		<div class="form-group">
+		    {{ Form::label('start_time', 'Date', array('class' => 'col-sm-2')) }}
+			{{ Form::text('start_time', Input::old('start_time'), array('class' => 'form-control standard-datepicker', 'style'=>'width: 35%;', 'placeholder'=>'Start date')) }}
+        
+			{{ Form::text('end_time', Input::old('end_time'), array('class' => 'form-control col-sm-offset-1 standard-datepicker', 'style'=>'width: 35%;', 'placeholder'=>'End date')) }}	
 		</div>
-
-		<div class="form-group">
-			{{Form::label('department', 'Strategic plan', array('class' => 'col-sm-2'))}}
-			{{ Form::select('department', $departments, Input::old('department'),
-					['class' => 'form-control department']) }}
-
-			<div id="workplan" name="workplan" class="col-md-6 workplan-list">
-										</div>
-		</div> -->
-
-		<!-- <div class="form-group">
-			{{ Form::label('workplan', 'Workplan', array('class' => 'col-sm-1')) }}
-			{{ Form::select('workplan', $departmentworkplan, Input::old('workplan'), array('class' => 'form-control col-sm-4')) }}
-		</div> -->
-
-		<div class="form-group">
-		    {{ Form::label('start_time', 'Start Time', array('class' => 'col-sm-2')) }}
-			{{ Form::text('start_time', Input::old('start_time'), array('class' => 'form-control standard-datepicker col-sm-4')) }}
-         </div>
-			
-
-			
-			<div class="form-group">
-			{{ Form::label('end_time', 'End Time', array('class' => 'col-sm-2')) }}
-			{{ Form::text('end_time', Input::old('end_time'), array('class' => 'form-control standard-datepicker col-sm-4')) }}	
-
-			</div>
         
 
 		<div class="form-group">
 			{{ Form::label('venue', 'Venue', array('class' => 'col-sm-2')) }}
-			<!-- {{ Form::select('venue', [
-					'Upper Board room' => 'Upper Board room',
-					'EDs Board room' => 'EDs Board room',
-					'Lower Board room' => 'Lower Board room',
-					'Quadrangle' => 'Quadrangle',
-					'NTRL' => 'NTRL',
-					'Tent' => 'Tent'], 
-					Input::old('venue'), array('id' => 'location', 'class' => 'form-control col-sm-4')) }} -->
-			<input list="venue" name="venue" class="form-control col-sm-4" placeholder="Click for options or write">
+			<input list="venue" name="venue" class="form-control col-sm-4" placeholder="Click for options or write" style='width: 80%;'>
 					<datalist id="venue">
 						<option value="Upper Board room">
 						<option value="EDs Board room">
@@ -126,81 +94,80 @@ else { el.hide();}
 		
 
 		<div class="form-group">
-			
 			{{Form::label('organiser', 'Organiser', array('class' => 'col-sm-2')) }}
 			{{ Form::select('organiser', $organisers, Input::get('organiser'),
-					['class' => 'form-control']) }}		
+					['class' => 'form-control', 'style'=>'width: 80%;']) }}		
 		</div>
 		
 
 		<div class="form-group">
 			<label>Audience</label>
-				<div class="form-pane panel panel-default">
-			<div class="container-fluid">
-			<?php 
-							$cnt = 0;
-							$zebra = "";
-						?>
-			@foreach($audiencedata as $key=>$value)
-			{{ ($cnt%4==0)?"<div class='row $zebra'>":"" }}
-							<?php
-								$cnt++;
-								$zebra = (((int)$cnt/4)%2==1?"row-striped":"");
-							?>
-							<div class="col-md-3">
-				<label class="checkbox-inline">
-				<input type="checkbox" name="targetAudience[]" value="{{$value->name}}">
-				{{$value->name}}
-			</label>
-			</div>	
-			{{ ($cnt%4==0)?"</div>":"" }}
-						@endforeach
-						</div>
-					</div>
+			<div class="form-pane panel panel-default" style='width: 95%;'>
+				<div class="container-fluid">
+					<?php 
+						$cnt = 0;
+						$zebra = "";
+					?>
+					@foreach($audiencedata as $key=>$value)
+					{{ ($cnt%4==0)?"<div class='row $zebra'>":"" }}
+									<?php
+										$cnt++;
+										$zebra = (((int)$cnt/4)%2==1?"row-striped":"");
+									?>
+					<div class="col-md-3">
+					<label class="checkbox-inline">
+						<input type="checkbox" name="targetAudience[]" value="{{$value->name}}">
+						{{$value->name}}
+					</label>
+					</div>	
+					{{ ($cnt%4==0)?"</div>":"" }}
+								@endforeach
 				</div>
+			</div>
+		</div>
 		
 		<div class="form-group">	
 			{{ Form::label('participants_no', 'No of Participants', array('class' => 'col-sm-2')) }}
-			{{ Form::input('number','participants_no', Input::old('participants_no'), array('class' => 'form-control col-sm-4')) }}	
+			{{ Form::input('number','participants_no', Input::old('participants_no'), array('class' => 'form-control', 'style'=>'width: 80%;')) }}	
 		</div>
 		
 		<div class="form-group">
 			{{ Form::label('objective', 'Main Objective', array('class' => 'col-sm-2')) }}
-			{{ Form::textarea('objective', Input::old('objective'), array('size' => '10x1','class' => 'form-control col-sm-10')) }}
-
-
+			{{ Form::textarea('objective', Input::old('objective'), array('size' => '10x1','class' => 'form-control', 'style'=>'width: 80%;')) }}
 		</div>
 
-		<div id="action-point">
+		<!-- <div id="action-point">
 			<div class="row">
-			<div class="form-group">
-
-			{{ Form::label('agenda', '&nbsp; &nbsp; Meeting Agenda', array('class' => 'col-sm-2')) }}
-			{{ Form::textarea('agenda[]', ' ', array('size' => '10x1','class' => 'form-control col-sm-4','placeholder' => 'Auto numbered on save')) }}
-			</div>
-			{{ Form::button("<span class='glyphicon glyphicon-delete'></span> Remove", ['class' => 'remove-reason btn-normal']) }}
-					
+				<div class="form-group">
+				{{ Form::label('agenda', '&nbsp; &nbsp; Meeting Agenda', array('class' => 'col-sm-2')) }}
+				{{ Form::textarea('agenda[]', ' ', array('size' => '10x1','class' => 'form-control col-sm-4','placeholder' => 'Auto numbered on save')) }}
+				</div>
+				{{ Form::button("<span class='glyphicon glyphicon-delete'></span> Remove", ['class' => 'remove-reason btn-normal']) }}
 			</div>
 		</div>
 
-				<div>
-				<a href="#" id="add-action"><i>Add More lists</i></a></div>	
-
-		
-			
-
+		<div>
+		<a href="#" id="add-action"><i>Add More lists</i></a>
+		</div>	 -->
 	
 	</div>
-</div>
-				
-<div class="form-group actions-row" style="text-align:right;">
-		{{ Form::button('<span class="glyphicon glyphicon-save"></span> '.'SAVE', 
-		['class' => 'btn btn-primary', 'onclick' => 'submit()']) }}
-</div>
-								
-				
-{{ Form::close() }}
+	</div>
 
-</div>
+				
+	<div class="form-group actions-row" style="text-align:right;">
+			{{ Form::button('<span class="glyphicon glyphicon-save"></span> '.'SAVE', 
+			['class' => 'btn btn-primary', 'onclick' => 'submit()']) }}
+	</div>
+	<div data-provide="calendar"></div>
+
+	<script type="text/javascript">
+	$('.clockpicker').clockpicker();
+
+	$('.calendar').calendar()
+	</script>								
+					
+	{{ Form::close() }}
+
+	</div>
 </div>
 @stop	

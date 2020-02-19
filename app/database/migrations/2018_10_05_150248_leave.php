@@ -47,6 +47,19 @@ class Leave extends Migration {
 			$table->softDeletes();
             $table->timestamps();
 		});	
+
+		Schema::create('leave_days', function($table)
+		{
+			$table->increments('id');
+		   	$table->dateTime('days')->nullable();
+		    $table->integer('leave_id');
+			$table->timestamp('created_at');
+			$table->timestamp('updated_at');
+			$table->timestamp('deleted_at');
+		    
+			$table->softDeletes();
+            $table->timestamps();
+		});	
 	}
 
 	/**
@@ -57,6 +70,7 @@ class Leave extends Migration {
 	public function down()
 	{
 		Schema::drop('leave_form');
+		Schema::drop('leave_days');
 	}
 
 }

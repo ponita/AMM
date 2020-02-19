@@ -20,43 +20,36 @@
 	</div>
 	
 	<div class="panel-body">
-		<table class="table table-striped table-hover table-condensed search-table">
+		<table class="row-border hover table table-bordered table-condensed table-striped" style="width:100%">
 			<thead>
 				<tr>
-					<th>ID</th>
-					<th>Department</th>
-					<th>Name</th>
+					<th>Staff</th>
 					<th>Contact</th>
-					<th>Leave type</th>
-					<th>Duration</th>
-					<th>Supervisor</th>
-					<th>Manager</th>
-					<th>Status</th>
+					<th>Department</th>
+					<th>Leave Total</th>
+					<th>Leave Days Due</th>
+					<th>Leave Details</th>
 
 				</tr>
 			</thead>
 			<tbody>
 				
-			@foreach($leave as $key => $event)
+			@foreach($rows as $key => $event)
 				<tr @if(Session::has('activeevent'))
 						{{(Session::get('activeevent') == $event->id)?"class='info'":""}}
 					@endif
 				>
 					
-					<td>{{ $event->id }}</td>
+					<td>{{ $event->staff }}</td>
+					<td>{{ $event->contact }}</td>
 					<td>{{ $event->department }}</td>
-					<td>{{ $event->name }}</td>
-					<td>{{ $event->emp_contact }}</td>
-					<td>{{ $event->leave_type }}</td>
-					<td>{{ date('d', strtotime($event->date_from)) }}-{{ date('d M Y', strtotime($event->date_to)) }}</td>
-					<td>{{ $event->approvedbys }}</td>
-					<td>{{ $event->approvedbym }}</td>
-					<td>@if($event->m_approval_status == 'Rejected')
-						<span style="color: red">{{ $event->m_approval_status }}</span>
-						@elseif($event->m_approval_status == 'Approved')
-						{{ $event->m_approval_status }}
-						@endif
-					</td>
+					<td>{{ $event->days }}</td>
+					<td>{{ 21 - ($event->days) }}</td>
+					<td><a class="btn btn-sm btn-info" href="{{ URL::to('leave/' . $event->user_id . "/staff_detail") }}" >
+							<span class="glyphicon glyphicon-eye-open"></span>
+							Leave Details
+						</a></td>
+					
 					
     				
 					

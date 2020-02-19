@@ -16,7 +16,7 @@ return array(
 
 	'username' => 'poniagusto10@gmail.com',
 
-	'password' => 'ponita@1',
+	'password' => 'rzrvuropbndkvmuj',
 
 	'sendmail' => '/usr/sbin/sendmail -bs',
 

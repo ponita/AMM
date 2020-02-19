@@ -55,6 +55,10 @@
                 <span class="form-control-static col-sm-6 col-sm-offset-1">{{ $leave->emp_contact }}</span>
             </div>
             <div class="form-group">
+                <strong><span class="col-sm-4">From-To:</span></strong>
+                <span class="form-control-static col-sm-6 col-sm-offset-1">{{ date('d', strtotime($leave->date_from)) }}-{{ date('d M Y', strtotime($leave->date_to)) }}</span>
+            </div>
+            <div class="form-group">
                 <strong><span class="col-sm-4">Next of Kin:</span></strong>
                 <span class="form-control-static col-sm-6 col-sm-offset-1">{{ $leave->nok_name }}</span>
             </div>
@@ -70,12 +74,17 @@
                 <strong><span class="col-sm-4">Reason</span></strong>
                 <span class="form-control-static col-sm-6 col-sm-offset-1">{{ $leave->comment }}</span>
             </div>
+            <div class="form-group">
+                <strong><span class="col-sm-4">Work delegated to:</span></strong>
+                <span class="form-control-static col-sm-6 col-sm-offset-1">{{ $leave->delegate }}</span>
+            </div>
                                 <div class="clearfix"></div>
                             </div>
                     </div>
             </div>
                 <div class="col-md-4 col-md-offset-2">
                    <div class="row">
+                
                     <div class="panel panel-success">
                         <div class="panel-heading">
                             <div class="row">

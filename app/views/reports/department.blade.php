@@ -24,7 +24,7 @@
 				</div>
 				<div class="col-sm-2">
 				    {{ Form::text('datefrom', isset($input['datefrom'])?$input['datefrom']:date('Y-m-d'), 
-			                array('class' => 'form-control standard-datepicker')) }}
+			                array('class' => 'form-control datepicker')) }}
 		        </div>
 			</div>
 		</div>
@@ -35,7 +35,7 @@
 				</div>
 				<div class="col-sm-2">
 				    {{ Form::text('dateto', isset($input['dateto'])?$input['dateto']:date('Y-m-d'), 
-			                array('class' => 'form-control standard-datepicker')) }}
+			                array('class' => 'form-control datepicker')) }}
 		        </div>
 			</div>
 		</div>

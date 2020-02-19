@@ -129,21 +129,27 @@
 
       <div class="row view-striped">
         <div class="col-sm-2"><strong>Health Region</strong></div>
-        <div class="col-sm-4" style="">
+        <div class="col-sm-2" style="">
           @if($event->healthregion_id)
           {{ $event->healthregion->name }}
         @endif
         </div>
-        <div class="col-sm-4">
-          @if($event->district_id)
-          <b>District: </b>{{ $event->district->name}}
-         @endif 
-          @if($event->country_id)
-          <b>Country: </b>{{ $event->country->name}}
-         @endif
+        <div class="col-sm-2"><strong>District</strong></div>
+        <div class="col-sm-2">
+          <ul>
+            @foreach ($event->eventdistrict as $districts)
+          <li>{{ $districts->name }}</li>
+          @endforeach
+        </ul>
         </div>
-       
-
+        <div class="col-sm-2"><strong>Facilities</strong></div>
+        <div class="col-sm-2">
+          <ul>
+          @foreach ($event->eventhub as $hubs)
+          <li>{{ $hubs->hub }}</li>
+          @endforeach
+        </ul>
+        </div>
       </div>
 
       <div class="row view-striped">

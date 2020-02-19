@@ -50,6 +50,14 @@
                 <span class="form-control-static col-sm-6">{{ $leave->leave_type }}</span>
             </div>
             <div class="form-group">
+                <strong><span class="col-sm-2">From-To:</span></strong>
+                <span class="form-control-static col-sm-6">{{ date('d', strtotime($leave->date_from)) }}-{{ date('d M Y', strtotime($leave->date_to)) }}</span>
+            </div>
+            <div class="form-group">
+                <strong><span class="col-sm-2">Days:</span></strong>
+                <span class="form-control-static col-sm-6">{{getActualNumberofDays($leave->date_from, $leave->date_to)}}</span>
+            </div>
+            <div class="form-group">
                 <strong><span class="col-sm-2">contact:</span></strong>
                 <span class="form-control-static col-sm-6">{{ $leave->emp_contact }}</span>
             </div>
@@ -68,6 +76,10 @@
             <div class="form-group">
                 <strong><span class="col-sm-2">Reason:</span></strong>
                 <span class="form-control-static col-sm-6">{{ $leave->comment }}</span>
+            </div>
+            <div class="form-group">
+                <strong><span class="col-sm-2">Work delegated to:</span></strong>
+                <span class="form-control-static col-sm-6">{{ $leave->delegate }}</span>
             </div>
         </div>
     </div>

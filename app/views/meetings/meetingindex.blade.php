@@ -1,4 +1,4 @@
-<!--@extends("layout")-->
+@extends("layout")
 @section("content")
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -47,15 +47,15 @@ function myFunction() {
               </ul>
     </li>
 
-    <li><a href="#">
+    <li><a href="{{ URL::route('meeting.posponed', ['type' => 'postponed'])}}">
       <span class="ion-chatbubbles">
-    <font size="3">  Posponed <span class="badge badge-info"> {{ $count = Meeting::where('approval_status_id', '=', '1')->where('approval_status', '=', 'posponed')->count()}}</span></font>
+    <font size="3">  Posponed <span class="badge badge-info"> {{ $count = Meeting::where('approval_status_id', '=', '1')->where('approval_status', '=', 'postponed')->count()}}</span></font>
  </span>
         </a>
  
-    <li><a href="#">
+    <li><a href="{{ URL::route('meeting.posponed', ['type' => 'cancelled'])}}">
       <span class="ion-chatbubbles">
-    <font size="3">  Cancelled <span class="badge badge-success"> {{ $count = Meeting::where('approval_status_id', '=', '1')->where('approval_status', '=', 'Not Approved')->count()}}</font></span>
+    <font size="3">  Cancelled <span class="badge badge-success"> {{ $count = Meeting::where('approval_status_id', '=', '2')->where('approval_status', '=', 'cancelled')->count()}}</font></span>
  </span>
         </a>
     </li>
@@ -103,7 +103,6 @@ function myFunction() {
 		<table class="table table-striped table-hover table-condensed">
 			<thead>
 				<tr>
-					<!-- <th>SN</th>			 -->
 					<th>Date</th>			
 					<th>Time</th>			
 					<th>Name</th>
@@ -115,13 +114,12 @@ function myFunction() {
 				</tr>
 			</thead>
 			<tbody>
-			@foreach($meetingsss as $key => $values)
+			  @foreach($meetingsss as $key => $values)
 				<tr  @if(Session::has('activemeetings'))
 						{{(Session::get('activemeetings') == $values->id)?"class='info'":""}}
-					@endif
+				      @endif
 				>
 					
-					<!-- <td>{{ $values->serial_no }}</td> -->
 					<td>{{ date('d', strtotime($values->start_time)) }}-{{ date('d M Y', strtotime($values->end_time)) }}</td>
 					<td>{{ date('h:m:i', strtotime($values->start_time)) }}</td>
 					<td>{{ $values->name }}</td>
@@ -131,67 +129,76 @@ function myFunction() {
 					<td align="center">{{ $values->participants_no }}</td>
 					<td>{{ $values->venue}}</td> 
 					
-           			<td>
-					@if ($values->approval_status)
+          <td>
+					      @if ($values->approval_status)
            			<a href='#' title='{{ $values->approvedby }} at {{ $values->approvedon }}'>{{ $values->approval_status }}</a>
            			@else Pending
            			@endif
-           		</td>
-					<!-- <td>
-					@if ($values->report_filename)
-          			<a href="{{ URL::to( 'attachments/' . $values->report_filename) }}"
-            			target="_blank">Download</a>
-          			@else Pending
-          			@endif	
-					</td>
-					 -->
-<!-- <td>{{ $values->type }}</td> -->
+          </td>
 					
 
-
-           			
-
 					<td>
-       					@if(Auth::user()->can('view_meeting'))
-						<a class="btn btn-sm btn-success"
-                                href="{{ URL::route('meetings.show', $values->id) }}"
-                                id="view-details-{{$values->id}}-link" 
-                                title="{{trans('messages.view-details-title')}}">
-                                <span class="glyphicon glyphicon-eye-open"></span>
-                                View
-                            </a>
-                            @endif
+                    <a class="btn btn-sm btn-success"
+                    href="{{ URL::route('meetings.show', $values->id) }}"
+                    id="view-details-{{$values->id}}-link" 
+                    title="{{trans('messages.view-details-title')}}">
+                    <span class="glyphicon glyphicon-eye-open"></span>
+                    View
+                    </a>
 
-    					@if(Auth::user()->can('edit_meeting') && ($values->status_id == 1))
-                       
-                        <a class="btn btn-sm btn-info" 
-                            href="{{ URL::to("meetings/" . $values->id . "/m_edit") }}" >
-                            <span class="glyphicon glyphicon-edit"></span>
-                            Edit</a>
-                            @endif
 
-      					@if(Auth::user()->can('approve_meeting') && ($values->approval_status_id == 0))
-                   		<a class="btn btn-sm btn-warning" 
+                        @if ($values->approval_status_id == 0)
+
+      					            @if(Auth::user()->can('approve_meeting') && ($values->approval_status_id == 0))
+                   		      <a class="btn btn-sm btn-warning" 
                             href="{{ URL::to("meetings/" . $values->id . "/editapproval") }}" >
                             <span class="glyphicon glyphicon-edit"></span>
                             Approve</a>
                             @endif
 
-      					@if(Auth::user()->can('add_minutes') && ($values->status_id == 1))
+                        @elseif ($values->approval_status == 'Approved')
+                            @if(Auth::user()->can('view_meeting'))
+                            <a class="btn btn-sm btn-success"
+                            href="{{ URL::route('meetings.show', $values->id) }}"
+                            id="view-details-{{$values->id}}-link" 
+                            title="{{trans('messages.view-details-title')}}">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                            View
+                            </a>
+                            @endif
 
+                            @if(Auth::user()->can('add_minutes') && ($values->status_id == 1))
                             <a class="btn btn-sm btn-info" 
                             href="{{ URL::to("meetings/" . $values->id . "/addminutes") }}" >
-                             <span class="glyphicon glyphicon-edit"></span>
+                            <span class="glyphicon glyphicon-edit"></span>
                             Attach Mins</a>
                             @endif
 
-      					@if(Auth::user()->can('add_meeting_ap') && ($values->action_status_id == 1))
-                         <a class="btn btn-sm btn-info" 
+                            @if(Auth::user()->can('add_meeting_ap') && ($values->action_status_id == 1))
+                            <a class="btn btn-sm btn-info" 
                             href="{{ URL::to("meetings/" . $values->id . "/actionpoints") }}" >
                             <span class="glyphicon glyphicon-edit"></span>
                             Action points</a>
                             @endif
-                    </td>
+                        @elseif ($values->approval_status == 'postponed')
+                            @if(Auth::user()->can('approve_meeting') && ($values->approval_status_id == 1))
+                            <a class="btn btn-sm btn-warning" 
+                            href="{{ URL::to("meetings/" . $values->id . "/editposponed") }}" >
+                            <span class="glyphicon glyphicon-edit"></span>
+                            Approve</a>
+                            @endif
+                        @else
+                            @if(Auth::user()->can('view_meeting'))
+                            <a class="btn btn-sm btn-success"
+                            href="{{ URL::route('meetings.show', $values->id) }}"
+                            id="view-details-{{$values->id}}-link" 
+                            title="{{trans('messages.view-details-title')}}">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                            View
+                            </a>
+                            @endif
+                        @endif
+          </td>
                     
 				</tr>
 			@endforeach
@@ -267,8 +274,18 @@ function myFunction() {
            			
 
 					<td>
-       					@if(Auth::user()->can('view_meeting'))
-						<a class="btn btn-sm btn-success"
+            @if ($value->approval_status_id == 0)
+
+                @if(Auth::user()->can('approve_meeting') && ($value->approval_status_id == 0))
+                      <a class="btn btn-sm btn-warning" 
+                            href="{{ URL::to("meetings/" . $value->id . "/editapproval") }}" >
+                            <span class="glyphicon glyphicon-edit"></span>
+                            Approve</a>
+                            @endif
+
+                @elseif ($value->approval_status == 'Approved')
+                @if(Auth::user()->can('view_meeting'))
+                            <a class="btn btn-sm btn-success"
                                 href="{{ URL::route('meetings.show', $value->id) }}"
                                 id="view-details-{{$value->id}}-link" 
                                 title="{{trans('messages.view-details-title')}}">
@@ -277,22 +294,7 @@ function myFunction() {
                             </a>
                             @endif
 
-    					@if(Auth::user()->can('edit_meeting') && ($value->status_id == 1))
-                       
-                        <a class="btn btn-sm btn-info" 
-                            href="{{ URL::to("meetings/" . $value->id . "/m_edit") }}" >
-                            <span class="glyphicon glyphicon-edit"></span>
-                            Edit</a>
-                            @endif
-
-      					@if(Auth::user()->can('approve_meeting') && ($value->approval_status_id == 0))
-                   		<a class="btn btn-sm btn-warning" 
-                            href="{{ URL::to("meetings/" . $value->id . "/editapproval") }}" >
-                            <span class="glyphicon glyphicon-edit"></span>
-                            Approve</a>
-                            @endif
-
-      					@if(Auth::user()->can('add_minutes') && ($value->status_id == 1))
+                @if(Auth::user()->can('add_minutes') && ($value->status_id == 1))
 
                             <a class="btn btn-sm btn-info" 
                             href="{{ URL::to("meetings/" . $value->id . "/addminutes") }}" >
@@ -300,12 +302,30 @@ function myFunction() {
                             Attach Mins</a>
                             @endif
 
-      					@if(Auth::user()->can('add_meeting_ap') && ($value->action_status_id == 1))
+                @if(Auth::user()->can('add_meeting_ap') && ($value->action_status_id == 1))
                          <a class="btn btn-sm btn-info" 
                             href="{{ URL::to("meetings/" . $value->id . "/actionpoints") }}" >
                             <span class="glyphicon glyphicon-edit"></span>
                             Action points</a>
                             @endif
+                @elseif ($value->approval_status == 'postponed')
+                         @if(Auth::user()->can('approve_meeting') && ($value->approval_status_id == 1))
+                      <a class="btn btn-sm btn-warning" 
+                            href="{{ URL::to("meetings/" . $value->id . "/editposponed") }}" >
+                            <span class="glyphicon glyphicon-edit"></span>
+                            Approve</a>
+                            @endif
+                @else
+                          @if(Auth::user()->can('view_meeting'))
+                            <a class="btn btn-sm btn-success"
+                                href="{{ URL::route('meetings.show', $value->id) }}"
+                                id="view-details-{{$value->id}}-link" 
+                                title="{{trans('messages.view-details-title')}}">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                View
+                            </a>
+                          @endif
+                @endif
                     </td>
                     
 				</tr>
